@@ -1,0 +1,24 @@
+﻿          1 file(s) copied.
+          1 file(s) copied.
+  GameController.cpp
+  main.cpp
+  Mesh.cpp
+  Shader.cpp
+C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Mesh.cpp(32,18): error C2027: use of undefined type 'Shader'
+      C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Mesh.h(5,7):
+      see declaration of 'Shader'
+  
+C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Mesh.cpp(35,31): error C2027: use of undefined type 'Shader'
+      C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Mesh.h(5,7):
+      see declaration of 'Shader'
+  
+C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Mesh.cpp(36,27): error C2027: use of undefined type 'Shader'
+      C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Mesh.h(5,7):
+      see declaration of 'Shader'
+  
+C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Mesh.cpp(45,32): error C2027: use of undefined type 'Shader'
+      C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Mesh.h(5,7):
+      see declaration of 'Shader'
+  
+  WindowController.cpp
+  Generating Code...
