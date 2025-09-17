@@ -1,8 +1,0 @@
-#version 120 // OpenGL version 2.1 (minimum requirement)
-
-in vec3 vertices; // Value sent from application to this attribute
-
-void main()
-{
-    gl_Position = vec4(vertices, 1.0); // Pass-through shader, pass positions to next shader
-}

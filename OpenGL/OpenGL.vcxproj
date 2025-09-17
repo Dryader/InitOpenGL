@@ -141,16 +141,20 @@ copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Resolution.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ToolWindow.cpp" />
     <ClCompile Include="WindowController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Resolution.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StandardIncludes.h" />
@@ -160,11 +164,8 @@ copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
     <ClInclude Include="WindowController.h" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Shaders\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="SimpleFragmentShader.fragmentshader.txt" />
-    <Text Include="SimpleVertexShader.vertexshader.txt" />
+    <Text Include="Shaders\SimpleFragmentShader.fragmentshader.txt" />
+    <Text Include="Shaders\SimpleVertexShader.vertexshader.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

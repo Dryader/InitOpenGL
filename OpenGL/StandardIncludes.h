@@ -17,8 +17,11 @@ if (!(_cond)) { OutputDebugStringA(_msg); std::abort(); glfwTerminate(); }
 #include <GL/glew.h>    // Include GLEW
 #include <GLFW/glfw3.h> // Include GLFW
 #include <glm/glm.hpp>  // Include GLM
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/ext.hpp> // Include GLM extensions
 
 #include "Singleton.h"
+#include "Resolution.h"
 
 using namespace std;
 
