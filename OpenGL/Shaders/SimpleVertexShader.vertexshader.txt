@@ -1,8 +1,10 @@
 #version 330
 
 in vec3 vertices;
-in vec4 colors: // input color from application
+in vec4 colors; // input color from application
 uniform mat4 WVP;
+
+out vec4 retColor; // output color to fragment shader
 
 void main()
 {
