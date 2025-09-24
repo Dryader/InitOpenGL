@@ -1,9 +1,11 @@
-#version 120 // OpenGL version 2.1 (minimum requirement)
+#version 330
 
 in vec3 vertices;
+in vec4 colors: // input color from application
 uniform mat4 WVP;
 
 void main()
 {
     gl_Position = WVP * vec4(vertices, 1.0); 
+    retColor = colors;
 }

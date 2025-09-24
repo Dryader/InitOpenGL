@@ -1,10 +1,8 @@
 ﻿          1 file(s) copied.
           1 file(s) copied.
   GameController.cpp
-  ToolWindow.cpp
-  Generating Code...
-  GameController.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-WindowController.obj : warning LNK4248: unresolved typeref token (01000025) for 'GLFWwindow'; image may not run
+  Camera.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+WindowController.obj : warning LNK4248: unresolved typeref token (01000026) for 'GLFWwindow'; image may not run
 GameController.obj : warning LNK4248: unresolved typeref token (01000020) for 'GLFWwindow'; image may not run
-WindowController.obj : warning LNK4248: unresolved typeref token (01000026) for 'GLFWmonitor'; image may not run
+WindowController.obj : warning LNK4248: unresolved typeref token (01000023) for 'GLFWmonitor'; image may not run
   OpenGL.vcxproj -> C:\Users\Yuval\source\repos\InitOpenGL\Debug\OpenGL.exe

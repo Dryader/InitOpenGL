@@ -1,7 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include "..\OpenGL\StandardIncludes.h"
+#include "StandardIncludes.h"
 
 class Shader
 {
@@ -13,11 +13,13 @@ public:
     // Accessors
     GLuint GetProgramID() { return m_programID; }
     GLuint GetAttrVertices() { return m_attrVertices; }
+    GLuint GetAttrWVP() {return m_attrWVP;}
+    GLuint GetAttrColors() { return m_attrColors; }
+    
 
     // Methods
     void LoadShaders(const char* _vertexFilePath, const char* _fragmentFilePath);
     void Cleanup();
-    GLuint GetAttrWVP() {return m_attrWVP;}
 
 private:
     // Methods
@@ -31,7 +33,8 @@ private:
     GLuint m_attrVertices; // Handle for the attribute vertex buffer
     GLint m_result = GL_FALSE;
     int m_infoLogLength;
-    GLuint m_attrWVP; 
+    GLuint m_attrWVP;
+    GLuint m_attrColors;
 };
 
 #endif //SHADER_H
