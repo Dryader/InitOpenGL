@@ -1,6 +1,10 @@
 ﻿          1 file(s) copied.
           1 file(s) copied.
+  Camera.cpp
   GameController.cpp
+  Mesh.cpp
+  main.cpp
+  Generating Code...
   Camera.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
 WindowController.obj : warning LNK4248: unresolved typeref token (01000026) for 'GLFWwindow'; image may not run
 GameController.obj : warning LNK4248: unresolved typeref token (01000020) for 'GLFWwindow'; image may not run

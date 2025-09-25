@@ -8,6 +8,8 @@ Mesh::Mesh()
     m_vertexBuffer = 0;
     m_indexBuffer = 0;
     m_world = glm::mat4(1.0f);
+    // Place the mesh at the required world position; subsequent incremental rotations preserve this translation.
+    m_world = glm::translate(m_world, glm::vec3(100.0f, 100.0f, 0.0f));
 }
 
 Mesh::~Mesh()
@@ -92,7 +94,6 @@ void Mesh::Render(glm::mat4 _wvp)
 
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
-    // glDrawArrays(GL_LINES, 0, m_vertexData.size() / 7); // Draw the triangle
     glDrawElements(GL_TRIANGLES, m_indexData.size(), GL_UNSIGNED_BYTE, (void*)0);
     glDisableVertexAttribArray(m_shader->GetAttrColors());
     glDisableVertexAttribArray(m_shader->GetAttrVertices());
