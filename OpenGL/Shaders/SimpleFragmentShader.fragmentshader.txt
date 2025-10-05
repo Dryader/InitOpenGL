@@ -1,9 +1,13 @@
 #version 330
 
-in vec4 retColor; // MUST use same name as out variable used by vertex shader
+in vec3 retColor; // MUST use same name as out variable used by vertex shader
+in vec2 retTexCoord; // MUST use same name as out variable used by vertex shader
+
 out vec4 FragColor; 
+
+uniform sampler2D sampler1; 
 
 void main()
 {
-    FragColor = retColor;
+    FragColor = texture(sampler1, retTexCoord);
 }

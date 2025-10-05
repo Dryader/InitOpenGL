@@ -15,6 +15,8 @@ public:
     GLuint GetAttrVertices() { return m_attrVertices; }
     GLuint GetAttrWVP() {return m_attrWVP;}
     GLuint GetAttrColors() { return m_attrColors; }
+    GLuint GetAttrTexCoords() { return m_attrTexCoords; }
+    GLuint GetSampler1() { return m_sampler1; }
     
 
     // Methods
@@ -35,6 +37,8 @@ private:
     int m_infoLogLength;
     GLuint m_attrWVP;
     GLuint m_attrColors;
+    GLuint m_attrTexCoords;
+    GLuint m_sampler1;
 };
 
 #endif //SHADER_H

@@ -16,7 +16,7 @@ Camera::Camera(Resolution _screenResolution)
     // Camera at (200,200,200) looking at origin so the mesh at (100,100,0)
     // appears offset (top-right) instead of centered.
     m_view = glm::lookAt(
-        glm::vec3(200.0f, 200.0f, 200.0f), // eye
+        glm::vec3(100, 100.0f, 100.0f), // eye
         glm::vec3(0.0f, 0.0f, 0.0f),       // target (origin)
         glm::vec3(0.0f, 1.0f, 0.0f));      // up
 }

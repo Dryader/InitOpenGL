@@ -1,13 +1,17 @@
 #version 330
 
 in vec3 vertices;
-in vec4 colors; // input color from application
+in vec3 colors; // input color from application
+in vec2 texCoords; // input texture coordinate from application
+
 uniform mat4 WVP;
 
-out vec4 retColor; // output color to fragment shader
+out vec3 retColor; // output color to fragment shader
+out vec2 retTexCoord; // output texture coordinate to fragment shader
 
 void main()
 {
     gl_Position = WVP * vec4(vertices, 1.0); 
     retColor = colors;
+    retTexCoord = texCoords;
 }
