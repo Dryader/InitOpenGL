@@ -20,4 +20,4 @@ private:
     glm::mat4 m_view;
 };
 
-#endif CAMERA_H
+#endif // CAMERA_H

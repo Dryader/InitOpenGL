@@ -17,6 +17,9 @@ public:
     GLuint GetAttrColors() { return m_attrColors; }
     GLuint GetAttrTexCoords() { return m_attrTexCoords; }
     GLuint GetSampler1() { return m_sampler1; }
+    GLuint GetSampler2() { return m_sampler2; }
+    GLuint GetUniformMode() { return m_uniformMode; }
+    GLuint GetUniformBlendFactor() { return m_uniformBlendFactor; }
     
 
     // Methods
@@ -39,6 +42,9 @@ private:
     GLuint m_attrColors;
     GLuint m_attrTexCoords;
     GLuint m_sampler1;
+    GLuint m_sampler2;
+    GLuint m_uniformMode;
+    GLuint m_uniformBlendFactor;
 };
 
 #endif //SHADER_H

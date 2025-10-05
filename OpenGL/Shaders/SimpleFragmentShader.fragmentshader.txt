@@ -6,8 +6,26 @@ in vec2 retTexCoord; // MUST use same name as out variable used by vertex shader
 out vec4 FragColor; 
 
 uniform sampler2D sampler1; 
+uniform sampler2D sampler2;
+uniform int mode;           // 0 = single texture * color, 1 = two textures, 2 = two textures * color
+uniform float blendFactor;  // mix amount for two textures
 
 void main()
 {
-    FragColor = texture(sampler1, retTexCoord);
+    vec4 t1 = texture(sampler1, retTexCoord);
+    vec4 t2 = texture(sampler2, retTexCoord);
+    vec4 color = vec4(retColor, 1.0f);
+
+    if(mode == 0)
+    {
+        FragColor = t1 * color; // single texture + vertex color
+    }
+    else if(mode == 1)
+    {
+        FragColor = mix(t1, t2, blendFactor); // two textures only
+    }
+    else
+    {
+        FragColor = mix(t1, t2, blendFactor) * color; // two textures + vertex color
+    }
 }

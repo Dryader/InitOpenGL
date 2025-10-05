@@ -20,6 +20,7 @@ public:
 private:
 	Shader* m_shader;
     Texture m_texture;
+    Texture m_texture2;
     GLuint m_vertexBuffer;
     GLuint m_indexBuffer;
     std::vector<GLfloat> m_vertexData;

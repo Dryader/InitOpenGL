@@ -7,6 +7,7 @@ Mesh::Mesh()
     m_vertexBuffer = 0;
     m_indexBuffer = 0;
     m_texture = { };
+    m_texture2 = { };
     m_position = { 0, 0, 0 };
     m_rotation = { 0, 0, 0 };
     
@@ -21,6 +22,8 @@ void Mesh::Create(Shader* _shader)
     m_shader = _shader;
     m_texture = Texture();
     m_texture.LoadTexture("Assets/Textures/Wood.jpg");
+    m_texture2 = Texture();
+    m_texture2.LoadTexture("Assets/Textures/Emoji.jpg");
 
     m_vertexData = {
         /*     Position     */   /*  RGBA Color  */   /* Texture Coords */
@@ -51,6 +54,7 @@ void Mesh::Cleanup()
     glDeleteBuffers(1, &m_indexBuffer);
     glDeleteBuffers(1, &m_vertexBuffer);
     m_texture.Cleanup();
+    m_texture2.Cleanup();
 }
 
 void Mesh::Render(glm::mat4 _wvp)
@@ -85,14 +89,23 @@ void Mesh::Render(glm::mat4 _wvp)
                           (void*)(6 * sizeof(float)));  // array buffer offset
 
     // 4th attribute : WVP
-    m_rotation.y += 0.005f;
+    m_rotation.y += 0.0001f;
     glm::mat4 transform = glm::rotate(_wvp, m_rotation.y, glm::vec3(0, 1, 0));
     glUniformMatrix4fv(m_shader->GetAttrWVP(), 1, GL_FALSE, &transform[0][0]);
 
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);      // Bind the vertex buffer
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer); // Bind the index buffer
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_texture.GetTexture());
-    glDrawElements(GL_TRIANGLES, m_indexData.size(), GL_UNSIGNED_BYTE, (void*)0);
+    glUniform1i(m_shader->GetSampler1(), 0);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, m_texture2.GetTexture());
+    glUniform1i(m_shader->GetSampler2(), 1);
+
+
+    // glBindTexture(GL_TEXTURE_2D, m_texture.GetTexture());
+    // glDrawElements(GL_TRIANGLES, m_indexData.size(), GL_UNSIGNED_BYTE, (void*)0);
+    glDrawElements(GL_TRIANGLES, (GLsizei)m_indexData.size(), GL_UNSIGNED_BYTE, (void*)0);
     glDisableVertexAttribArray(m_shader->GetAttrColors());
     glDisableVertexAttribArray(m_shader->GetAttrVertices());
     glDisableVertexAttribArray(m_shader->GetAttrTexCoords());

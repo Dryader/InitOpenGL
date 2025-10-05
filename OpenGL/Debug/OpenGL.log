@@ -3,8 +3,693 @@
   Camera.cpp
   GameController.cpp
   Mesh.cpp
+  Shader.cpp
+  Texture.cpp
+C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Texture.cpp(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   main.cpp
   Generating Code...
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(702,1): warning C4793: '`anonymous namespace'::stbi__cpuid3': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(702,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2541,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2541,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2542,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2542,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2543,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2543,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2544,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2544,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2545,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2545,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2546,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2546,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2547,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2547,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2548,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2548,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2551,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2551,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2552,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2552,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2555,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2555,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2556,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2556,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2557,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2557,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2558,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2558,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2559,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2559,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2560,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2560,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2561,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2561,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2562,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2562,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2565,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2569,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2569,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2569,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2569,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2570,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2570,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2570,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2570,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2571,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2571,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2571,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2571,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2572,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2572,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2572,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2572,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2575,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2575,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2575,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2575,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2576,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2576,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2576,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2576,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2577,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2577,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2577,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2577,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2578,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2578,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2578,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2578,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2581,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2581,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2581,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2581,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2582,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2582,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2582,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2582,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2583,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2583,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2583,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2583,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2584,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2584,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2584,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2584,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2588,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2592,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2592,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2593,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2593,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2594,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2594,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2595,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2595,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2598,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2598,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2598,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2598,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2599,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2599,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2599,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2599,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2602,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2602,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2602,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2602,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2603,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2603,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2603,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2603,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2606,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2606,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2606,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2606,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2607,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2607,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2607,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2607,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2610,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2610,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2611,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2611,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2611,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2611,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2612,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2612,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2613,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2613,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2613,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2613,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2614,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2614,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2615,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2615,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2615,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2615,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2616,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2616,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2617,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2617,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2617,1): warning C4793: '`anonymous namespace'::stbi__idct_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(2617,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3595,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3595,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3596,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3596,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3597,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3597,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3598,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3598,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3599,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3599,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3600,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3600,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3601,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3601,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3605,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3605,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3606,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3606,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3607,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3607,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3608,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3608,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3609,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3609,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3612,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3612,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3613,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3613,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3613,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3613,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3614,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3614,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3614,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3614,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3617,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3617,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3618,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3618,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3619,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3619,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3620,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3620,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3621,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3621,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3622,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3622,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3623,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3623,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3624,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3624,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3625,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3625,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3628,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3628,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3629,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3629,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3630,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3630,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3633,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3633,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3634,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3634,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3637,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3637,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3638,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3638,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3639,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3639,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3640,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3640,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3643,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3643,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3644,1): warning C4793: '`anonymous namespace'::stbi__YCbCr_to_RGB_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3644,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3447,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3447,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3448,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3448,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3449,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3449,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3450,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3450,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3451,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3451,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3452,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3452,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3453,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3453,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3454,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3454,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3461,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3461,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3462,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3462,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3463,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3463,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3464,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3464,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3470,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3470,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3471,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3471,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3472,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3472,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3473,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3473,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3474,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3474,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3475,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3475,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3476,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3476,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3479,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3479,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3480,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3480,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3481,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3481,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3482,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3482,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3485,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3485,1): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3486,1): warning C4793: '`anonymous namespace'::stbi__resample_row_hv_2_simd': function compiled as native:
+C:\Users\Yuval\source\repos\InitOpenGL\External\stb\stb_image.h(3486,1): warning C4793: 	Found an intrinsic not supported in managed code
   Camera.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
 WindowController.obj : warning LNK4248: unresolved typeref token (01000026) for 'GLFWwindow'; image may not run
 GameController.obj : warning LNK4248: unresolved typeref token (01000020) for 'GLFWwindow'; image may not run

@@ -22,22 +22,43 @@ void GameController::Initialize()
 
 void GameController::RunGame()
 {
-
-    //Create and compile our GLSL program from the shaders
     m_shader = Shader();
     m_shader.LoadShaders("Shaders/SimpleVertexShader.vertexshader.txt", "Shaders/SimpleFragmentShader.fragmentshader.txt");
     m_mesh = Mesh();
     m_mesh.Create(&m_shader);
-	
+
+    GLFWwindow* window = WindowController::GetInstance().GetWindow();
+
+    glUseProgram(m_shader.GetProgramID());
+    // Samplers set in Mesh::Render, but we initialize mode/blendFactor here
+    int mode = 0;             // 0 = single texture * color
+    float blendFactor = 0.3f; // initial mix for modes 1 / 2
+    glUniform1i(m_shader.GetUniformMode(), mode);
+    glUniform1f(m_shader.GetUniformBlendFactor(), blendFactor);
+
     do
     {
+        // Input handling for mode switching
+        if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) mode = 0;               // single texture * color
+        else if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) mode = 1;          // two textures
+        else if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) mode = 2;          // two textures * color
+
+        // Adjust blend factor (only meaningful for modes 1 & 2) with Up/Down
+        if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)   blendFactor += 0.01f;
+        if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) blendFactor -= 0.01f;
+        if (blendFactor > 1.0f) blendFactor = 1.0f;
+        if (blendFactor < 0.0f) blendFactor = 0.0f;
+
+        glUseProgram(m_shader.GetProgramID());
+        glUniform1i(m_shader.GetUniformMode(), mode);
+        glUniform1f(m_shader.GetUniformBlendFactor(), blendFactor);
+
         glClear(GL_COLOR_BUFFER_BIT); // Clear the screen
         m_mesh.Render(m_camera.GetProjection()* m_camera.GetView());
-        glfwSwapBuffers(WindowController::GetInstance().GetWindow()); // Swap the front and back buffers
+        glfwSwapBuffers(window); // Swap the front and back buffers
         glfwPollEvents();
     }
-    while (glfwGetKey(WindowController::GetInstance().GetWindow(), GLFW_KEY_ESCAPE) != GLFW_PRESS );
-    // Check if the ESC key was pressed
+    while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS );
 
     m_mesh.Cleanup();
     m_shader.Cleanup();
