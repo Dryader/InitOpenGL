@@ -10,6 +10,10 @@ Mesh::Mesh()
     m_indexBuffer = 0;
     m_position = {0, 0, 0};
     m_rotation = {0, 0, 0};
+    m_scale = {1, 1, 1};
+    m_world = glm::mat4();
+    m_lightPosition = {0, 0, 0};
+    m_lightColor = {1, 1, 1};
 }
 
 Mesh::~Mesh()
@@ -79,10 +83,45 @@ void Mesh::Create(Shader* _shader)
     glBufferData(GL_ARRAY_BUFFER, m_vertexData.size() * sizeof(float), m_vertexData.data(), GL_STATIC_DRAW);
 }
 
-void Mesh::Render(glm::mat4 _wvp)
+void Mesh::CalculateTransform()
+{
+    m_world = glm::translate(glm::mat4(1.0f), m_position);
+    m_world = glm::rotate(m_world, m_rotation.y, glm::vec3(0, 1, 0));
+    m_world = glm::scale(m_world, m_scale);
+}
+
+void Mesh::SetShaderVariables(glm::mat4 _pv)
+{
+    m_shader->SetMat4("World", m_world);
+    m_shader->SetVec3("AmbientLight", {0.1f, 0.1f, 0.1f});
+    m_shader->SetVec3("DiffuseColor", {1.0f, 1.0f, 1.0f});
+    m_shader->SetVec3("CameraPosition", m_cameraPosition);
+    m_shader->SetVec3("SpecularColor", {3.0f, 0.0f, 0.0f});
+    m_shader->SetFloat("SpecularStrength", 4);
+    m_shader->SetVec3("LightPosition", m_lightPosition);
+    m_shader->SetVec3("LightColor", m_lightColor);
+    m_shader->SetMat4("WVP", _pv * m_world);
+}
+
+void Mesh::Render(glm::mat4 _pv)
 {
     glUseProgram(m_shader->GetProgramID()); // Use our shader
 
+    m_rotation.y += 0.00005f;
+
+    CalculateTransform();
+    SetShaderVariables(_pv);
+    BindAttributes();
+
+    glDrawArrays(GL_TRIANGLES, 0, m_vertexData.size() / 8);
+    glDisableVertexAttribArray(m_shader->GetAttrNormals());
+    glDisableVertexAttribArray(m_shader->GetAttrVertices());
+    glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
+}
+
+
+void Mesh::BindAttributes()
+{
     // 1st attribute buffer : vertices
     glEnableVertexAttribArray(m_shader->GetAttrVertices());
     glVertexAttribPointer(m_shader->GetAttrVertices(), // The attribute we want to configure
@@ -110,12 +149,6 @@ void Mesh::Render(glm::mat4 _wvp)
                           8 * sizeof(float), // stride (7 floats per vertex definition)
                           (void*)(6 * sizeof(float))); // array buffer offset
 
-    // 4th attribute : WVP
-    m_rotation.y += 0.005f;
-    glm::mat4 translate = glm::translate(_wvp, m_position);
-    glm::mat4 transform = glm::rotate(translate, m_rotation.y, glm::vec3(0, 1, 0));
-    glUniformMatrix4fv(m_shader->GetAttrWVP(), 1, GL_FALSE, &transform[0][0]);
-
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer); // Bind the vertex buffer
 
     glActiveTexture(GL_TEXTURE0);
@@ -124,9 +157,4 @@ void Mesh::Render(glm::mat4 _wvp)
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_texture2.GetTexture());
     glUniform1i(m_shader->GetSampler2(), 1);
-
-    glDrawArrays(GL_TRIANGLES, 0, m_vertexData.size() / 8);
-    glDisableVertexAttribArray(m_shader->GetAttrNormals());
-    glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
-    glDisableVertexAttribArray(m_shader->GetAttrVertices());
 }
