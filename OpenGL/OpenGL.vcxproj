@@ -191,6 +191,8 @@ copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Textures\Emoji.jpg" />
+    <Content Include="Assets\Textures\MetalFrame.jpg" />
+    <Content Include="Assets\Textures\MetalFrameWood.jpg" />
     <Content Include="Assets\Textures\Wood.jpg" />
     <Content Include="Shaders\Color.fragmentshader.txt" />
     <Content Include="Shaders\Color.vertexshader.txt" />

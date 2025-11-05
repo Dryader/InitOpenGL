@@ -1,6 +1,8 @@
 ﻿#include "Mesh.h"
 #include "Shader.h"
 
+vector<Mesh> Mesh::Lights;
+
 Mesh::Mesh()
 {
     m_shader = nullptr;
@@ -12,18 +14,22 @@ Mesh::Mesh()
     m_rotation = {0, 0, 0};
     m_scale = {1, 1, 1};
     m_world = glm::mat4();
-    m_lightPosition = {0, 0, 0};
-    m_lightColor = {1, 1, 1};
 }
 
 Mesh::~Mesh()
 {
 }
 
+string Mesh::Concat(string _s1, int _index, string _s2)
+{
+    string index = to_string(_index);
+    return (_s1 + index + _s2);
+}
+
+
 void Mesh::Cleanup()
 {
     glDeleteBuffers(1, &m_indexBuffer);
-    glDeleteBuffers(1, &m_vertexBuffer);
     m_texture.Cleanup();
     m_texture2.Cleanup();
 }
@@ -33,13 +39,12 @@ void Mesh::Create(Shader* _shader)
     m_shader = _shader;
 
     m_texture = Texture();
-    m_texture.LoadTexture("Assets/Textures/Wood.jpg");
+    m_texture.LoadTexture("Assets/Textures/MetalFrameWood.jpg");
     m_texture2 = Texture();
-    m_texture2.LoadTexture("Assets/Textures/Emoji.jpg");
+    m_texture2.LoadTexture("Assets/Textures/MetalFrame.jpg");
 
     m_vertexData = {
-        /* Position */ /* Normals */ /* Texture Coords
-        */
+        /* Position */ /* Normals */ /* Texture Coords */
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
         0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
         0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
@@ -93,27 +98,45 @@ void Mesh::CalculateTransform()
 void Mesh::SetShaderVariables(glm::mat4 _pv)
 {
     m_shader->SetMat4("World", m_world);
-    m_shader->SetVec3("AmbientLight", {0.1f, 0.1f, 0.1f});
-    m_shader->SetVec3("DiffuseColor", {1.0f, 1.0f, 1.0f});
-    m_shader->SetVec3("CameraPosition", m_cameraPosition);
-    m_shader->SetVec3("SpecularColor", {3.0f, 0.0f, 0.0f});
-    m_shader->SetFloat("SpecularStrength", 4);
-    m_shader->SetVec3("LightPosition", m_lightPosition);
-    m_shader->SetVec3("LightColor", m_lightColor);
     m_shader->SetMat4("WVP", _pv * m_world);
+    m_shader->SetVec3("CameraPosition", m_cameraPosition);
+
+    // Configure light
+    for (unsigned int i = 0; i < Lights.size(); i++)
+    {
+        m_shader->SetFloat(Concat("light[", i, "].constant").c_str(), 1.0f);
+        m_shader->SetFloat(Concat("light[", i, "].linear").c_str(), 0.09f);
+        m_shader->SetFloat(Concat("light[", i, "].quadratic").c_str(), 0.032f);
+
+        m_shader->SetVec3(Concat("light[", i, "].ambientColor").c_str(), {0.1f, 0.1f, 0.1f});
+        m_shader->SetVec3(Concat("light[", i, "].diffuseColor").c_str(), Lights[i].GetColor());
+        m_shader->SetVec3(Concat("light[", i, "].specularColor").c_str(), {3.0f, 3.0f, 3.0f});
+
+        m_shader->SetVec3(Concat("light[", i, "].position").c_str(), Lights[i].GetPosition());
+        m_shader->SetVec3(Concat("light[", i, "].direction").c_str(),
+                          glm::normalize(glm::vec3({0.0f + i * 0.1f, 0, 0.0f + i * 0.1f}) - Lights[i].GetPosition()));
+        m_shader->SetFloat(Concat("light[", i, "].coneAngle").c_str(), glm::radians(5.0f));
+        m_shader->SetFloat(Concat("light[", i, "].falloff").c_str(), 200);
+    }
+
+    // Configure material
+    m_shader->SetFloat("material.specularStrength", 8);
+    m_shader->SetTextureSampler("material.diffuseTexture", GL_TEXTURE0, 0, m_texture.GetTexture());
+    m_shader->SetTextureSampler("material.specularTexture", GL_TEXTURE1, 1, m_texture2.GetTexture());
 }
+
 
 void Mesh::Render(glm::mat4 _pv)
 {
     glUseProgram(m_shader->GetProgramID()); // Use our shader
 
-    m_rotation.y += 0.00005f;
+    m_rotation.y += 0.001f;
 
     CalculateTransform();
     SetShaderVariables(_pv);
     BindAttributes();
 
-    glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_vertexData.size() / 8));
+    glDrawArrays(GL_TRIANGLES, 0, m_vertexData.size());
     glDisableVertexAttribArray(m_shader->GetAttrNormals());
     glDisableVertexAttribArray(m_shader->GetAttrVertices());
     glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
@@ -122,9 +145,6 @@ void Mesh::Render(glm::mat4 _pv)
 
 void Mesh::BindAttributes()
 {
-    // Bind the vertex buffer before specifying attribute pointers
-    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-
     // 1st attribute buffer : vertices
     glEnableVertexAttribArray(m_shader->GetAttrVertices());
     glVertexAttribPointer(m_shader->GetAttrVertices(), // The attribute we want to configure
@@ -152,10 +172,5 @@ void Mesh::BindAttributes()
                           8 * sizeof(float), // stride (7 floats per vertex definition)
                           (void*)(6 * sizeof(float))); // array buffer offset
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_texture.GetTexture());
-    glUniform1i(m_shader->GetSampler1(), 0);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, m_texture2.GetTexture());
-    glUniform1i(m_shader->GetSampler2(), 1);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer); // Bind our vertex buffer
 }

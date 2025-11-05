@@ -6,7 +6,7 @@ GameController::GameController()
 {
     m_shaderColor = {};
     m_shaderDiffuse = {};
-    m_meshBox = {};
+    m_meshBoxes.clear();
     m_meshLight = {};
     m_camera = {};
 }
@@ -17,8 +17,9 @@ void GameController::Initialize()
     // Call this first, as it creates a window required by GLEW
     M_ASSERT(glewInit() == GLEW_OK, "Failed to initialize GLEW."); // Initialize GLEW
     glfwSetInputMode(glfwWindow, GLFW_STICKY_KEYS, GL_TRUE); // Ensure we can capture the escape key
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f); // black background
+    glClearColor(0.1f, 0.1f, 0.01f, 0.0f); // black background
     glEnable(GL_DEPTH_TEST);
+    srand(time(0)); // Seed random number generator
 
     //Create a default perspective camera
     m_camera = Camera(WindowController::GetInstance().GetResolution());
@@ -33,21 +34,36 @@ void GameController::RunGame()
     m_shaderDiffuse.LoadShaders("Shaders/Diffuse.vertexshader.txt", "Shaders/Diffuse.fragmentshader.txt");
 
     // Create meshes
-    m_meshLight = Mesh();
-    m_meshLight.Create(&m_shaderColor);
-    m_meshLight.SetPosition({1, 0.5f, 0.5f});
-    m_meshLight.SetScale({0.1f, 0.1f, 0.1f});
+    for (int count = 0; count < 4; count++)
+    {
+        Mesh m = Mesh();
+        m.Create(&m_shaderColor);
+        m.SetPosition({0.5f + (float)count / 10.0f, 0.0f, -0.5f});
+        m.SetColor({glm::linearRand(0.0f, 1.0f), glm::linearRand(0.0f, 1.0f), glm::linearRand(0.0f, 1.0f)});
+        m.SetScale({0.1f, 0.1f, 0.1f});
+        Mesh::Lights.push_back(m);
+    }
 
-    m_meshBox = Mesh();
-    m_meshBox.Create(&m_shaderDiffuse);
-    m_meshBox.SetLightColor({0.5f, 0.9f, 0.5f});
-    m_meshBox.SetLightPosition(m_meshLight.GetPosition());
-    m_meshBox.SetCameraPosition(m_camera.GetPosition());
+    for (int col = 0; col < 10; col++)
+    {
+        for (int count = 0; count < 10; count++)
+        {
+            Mesh box = Mesh();
+            box.Create(&m_shaderDiffuse);
+            box.SetCameraPosition(m_camera.GetPosition());
+            box.SetScale({0.1f, 0.1f, 0.1f});
+            box.SetPosition({0.0, -0.5f + (float)count / 10.0f, -0.2f + (float)col / 10.0f});
+            m_meshBoxes.push_back(box);
+        }
+    }
 
-    do
+
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
-        m_meshBox.Render(m_camera.GetProjection() * m_camera.GetView());
+        for (unsigned int count = 0; count < m_meshBoxes.size(); count++)
+        {
+            m_meshBoxes[count].Render(m_camera.GetProjection() * m_camera.GetView());
+        }
         m_meshLight.Render(m_camera.GetProjection() * m_camera.GetView());
         glfwSwapBuffers(WindowController::GetInstance().GetWindow()); // Swap the back and front buffers
         glfwPollEvents();
@@ -57,7 +73,10 @@ void GameController::RunGame()
         glfwWindowShouldClose(WindowController::GetInstance().GetWindow()) == 0); // Check if the window was closed
 
     m_meshLight.Cleanup();
-    m_meshBox.Cleanup();
+    for (unsigned int count = 0; count < m_meshBoxes.size(); count++)
+    {
+        m_meshBoxes[count].Cleanup();
+    }
     m_shaderDiffuse.Cleanup();
     m_shaderColor.Cleanup();
 }

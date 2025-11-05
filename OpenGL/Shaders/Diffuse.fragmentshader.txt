@@ -7,22 +7,60 @@ in vec3 retViewDirection;
 
 out vec4 FragColor;
 
-uniform float SpecularStrength;
-uniform vec3 SpecularColor;
-uniform vec3 LightPosition;
-uniform vec3 LightDirection;
-uniform vec3 LightColor;
-uniform vec3 AmbientLight;
-uniform vec3 DiffuseColor;
-uniform sampler2D sampler1;
-uniform sampler2D sampler2;
+struct Material {
+    float specularStrength;
+    sampler2D diffuseTexture;
+    sampler2D specularTexture;
+};
+
+struct Light {
+    vec3 position;
+    vec3 color;
+    vec3 ambientColor;
+    vec3 diffuseColor;
+    vec3 specularColor;
+    
+    float constant;
+    float linear;
+    float quadratic;
+    
+    vec3 direction;
+    float coneAngle;
+    float falloff;
+};
+
+uniform Material material;
+#define NR_LIGHTS 4
+uniform Light light[NR_LIGHTS];
 
 void main()
 {
-    vec3 lightDir = normalize(LightPosition - retFragPos); // Normalize, for correct dot product results
-    vec3 lambertian = max(dot(lightDir, retNormal), 0.0f) * LightColor; // Add lambertian lighting
-    vec3 refl = reflect(-lightDir, retNormal); // Calculate reflection vector
-    vec3 specular = pow(max(dot(refl, retViewDirection), 0.0f), SpecularStrength) * SpecularColor; // Add specular lighting
-    vec3 outputColor = AmbientLight + lambertian * DiffuseColor + specular; // Final color components
-    FragColor = vec4(outputColor, 1.0f) * texture(sampler1, retTexCoord); // Calculate final color
+    vec4 finalColor = vec4(0);
+    for(int i = 0; i < NR_LIGHTS; i++)
+    {
+        vec3 lightDir = normalize(light[i].position - retFragPos); // Normalize, for correct dot product results
+        float a = cos(light[i].coneAngle);
+        float d = dot(normalize(light[i].direction), -lightDir);
+        if (a < d) // Visible in cone?
+        {
+            float lambertianStrength = dot(lightDir, retNormal); // Lambertian component
+            vec3 refl = reflect(-lightDir, retNormal);
+            float specularStrength = pow(max(dot(retViewDirection, refl), 0.0f), material.specularStrength); // Specular component
+            float distance = length(light[i].position - retFragPos);
+            float att = 1.0f / (light[i].constant + light[i].linear * distance + light[i].quadratic * (distance * distance)); // Point falloff
+            att *= 1 - pow(a / d, light[i].falloff); // Spotlight falloff
+
+            vec3 ambient = texture(material.diffuseTexture, retTexCoord).rgb * light[i].ambientColor * att;
+            vec3 lambertian = lambertianStrength * texture(material.diffuseTexture, retTexCoord).rgb * light[i].diffuseColor * att;
+            vec3 specular = specularStrength * texture(material.specularTexture, retTexCoord).rgb * light[i].specularColor * att;
+            finalColor += vec4(ambient + lambertian + specular, 1.0f); // Calculate final color
+        }
+        else
+        {
+            vec3 ambient = texture(material.diffuseTexture, retTexCoord).rgb * light[i].ambientColor / NR_LIGHTS;
+            finalColor += vec4(ambient, 1.0f); // Calculate final color
+        }
+    }
+
+    FragColor = finalColor;
 }

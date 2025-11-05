@@ -21,7 +21,7 @@ public:
 private:
     Shader m_shaderColor;
     Shader m_shaderDiffuse;
-    Mesh m_meshBox;
+    vector<Mesh> m_meshBoxes;
     Mesh m_meshLight;
     Camera m_camera;
 };
