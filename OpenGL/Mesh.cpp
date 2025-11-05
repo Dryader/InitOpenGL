@@ -49,7 +49,7 @@ void Mesh::Create(Shader* _shader)
         -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
         0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
         0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-        0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+        0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
         -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
         -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
         -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
@@ -113,7 +113,7 @@ void Mesh::Render(glm::mat4 _pv)
     SetShaderVariables(_pv);
     BindAttributes();
 
-    glDrawArrays(GL_TRIANGLES, 0, m_vertexData.size() / 8);
+    glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_vertexData.size() / 8));
     glDisableVertexAttribArray(m_shader->GetAttrNormals());
     glDisableVertexAttribArray(m_shader->GetAttrVertices());
     glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
@@ -122,6 +122,9 @@ void Mesh::Render(glm::mat4 _pv)
 
 void Mesh::BindAttributes()
 {
+    // Bind the vertex buffer before specifying attribute pointers
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+
     // 1st attribute buffer : vertices
     glEnableVertexAttribArray(m_shader->GetAttrVertices());
     glVertexAttribPointer(m_shader->GetAttrVertices(), // The attribute we want to configure
@@ -148,8 +151,6 @@ void Mesh::BindAttributes()
                           GL_FALSE, // normalized?
                           8 * sizeof(float), // stride (7 floats per vertex definition)
                           (void*)(6 * sizeof(float))); // array buffer offset
-
-    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer); // Bind the vertex buffer
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_texture.GetTexture());

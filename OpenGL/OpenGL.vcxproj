@@ -45,6 +45,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -112,17 +113,24 @@ copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\External\glew-2.1.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\glfw-3.3.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\stb;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\glfw-3.4.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\External\glew-2.1.0\lib;$(SolutionDir)\External\glfw-3.3.4\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2022;$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2019;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PreBuildEvent>
-      <Command>copy /Y "$(SolutionDir)\External\glew-2.1.0\bin\glew32d.dll" "$(TargetDir)"
-                copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
+      <Command>copy /Y "$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)"
+                if exist "$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2022\glfw3.dll" (
+                    copy /Y "$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)"
+                ) else if exist "$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2019\glfw3.dll" (
+                    copy /Y "$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2019\glfw3.dll" "$(TargetDir)"
+                ) else (
+                    copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
+                )
             </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>

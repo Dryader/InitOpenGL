@@ -1,0 +1,3 @@
+C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Debug\OpenGL.vcxproj.AssemblyReference.cache
+C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Debug\OpenGL.ToolWindow.resources
+C:\Users\Yuval\source\repos\InitOpenGL\OpenGL\Debug\OpenGL.vcxproj.GenerateResource.cache
