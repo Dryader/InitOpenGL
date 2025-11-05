@@ -113,7 +113,7 @@ copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\External\stb;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\glfw-3.4.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\stb; $(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\include; $(SolutionDir)\External\glm; $(SolutionDir)\External\obj_loader; $(SolutionDir)\External\glfw-3.4.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -190,6 +190,8 @@ copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Models\Teapot.mtl" />
+    <Content Include="Assets\Models\Teapot.obj" />
     <Content Include="Assets\Textures\Emoji.jpg" />
     <Content Include="Assets\Textures\MetalFrame.jpg" />
     <Content Include="Assets\Textures\MetalFrameWood.jpg" />
