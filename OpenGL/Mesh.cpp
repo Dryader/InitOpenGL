@@ -34,7 +34,8 @@ void Mesh::Create(Shader* _shader)
     m_texture2.LoadTexture("Assets/Textures/Emoji.jpg");
 
     m_vertexData = {
-        /*       Position        */ /*      Normals      */ /*  Texture Coords */
+        /* Position */ /* Normals */ /* Texture Coords
+        */
         -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
         0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
         0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
@@ -120,7 +121,7 @@ void Mesh::Render(glm::mat4 _wvp)
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_texture.GetTexture());
     glUniform1i(m_shader->GetSampler1(), 0);
-    glActiveTexture(GL_TEXTURE0 + 1);
+    glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_texture2.GetTexture());
     glUniform1i(m_shader->GetSampler2(), 1);
 
@@ -129,4 +130,3 @@ void Mesh::Render(glm::mat4 _wvp)
     glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
     glDisableVertexAttribArray(m_shader->GetAttrVertices());
 }
-
