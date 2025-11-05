@@ -8,11 +8,10 @@ Shader::Shader()
     m_infoLogLength = 0;
     m_attrWVP = 0;
     m_attrColors = 0;
+    m_attrNormals = 0;
     m_attrTexCoords = 0;
     m_sampler1 = 0;
     m_sampler2 = 0;
-    m_uniformMode = 0;
-    m_uniformBlendFactor = 0;
 }
 
 void Shader::Cleanup()
@@ -20,16 +19,25 @@ void Shader::Cleanup()
     glDeleteProgram(m_programID);
 }
 
+void Shader::SetVec3(const char* _name, glm::vec3 _value)
+{
+    GLint loc = glGetUniformLocation(m_programID, _name);
+    if (loc != -1)
+    {
+        glUniform3fv(loc, 1, &_value[0]);
+    }
+}
+
+
 void Shader::LoadAttributes()
 {
     m_attrVertices = glGetAttribLocation(m_programID, "vertices"); // Get a handle for the vertex buffer
     m_attrWVP = glGetUniformLocation(m_programID, "WVP"); // Get a handle for the WVP matrix
     m_attrColors = glGetAttribLocation(m_programID, "colors"); // Get a handle for the color buffer
+    m_attrNormals = glGetAttribLocation(m_programID, "normals"); // Get a handle for the normal buffer
     m_attrTexCoords = glGetAttribLocation(m_programID, "texCoords"); // Get a handle for the texture coordinates buffer
     m_sampler1 = glGetUniformLocation(m_programID, "sampler1"); // Get a handle for texture sampler 1
     m_sampler2 = glGetUniformLocation(m_programID, "sampler2"); // Get a handle for texture sampler 2
-    m_uniformMode = glGetUniformLocation(m_programID, "mode");
-    m_uniformBlendFactor = glGetUniformLocation(m_programID, "blendFactor");
 }
 
 void Shader::EvaluateShader(int _infoLength, GLuint _id)
@@ -49,7 +57,8 @@ GLuint Shader::LoadShaderFile(const char* _filePath, GLenum _type)
     // Read the Shader code from the file
     std::string shaderCode;
     std::ifstream shaderStream(_filePath, std::ios::in);
-    M_ASSERT(shaderStream.is_open(), ("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", _filePath));
+    M_ASSERT(shaderStream.is_open(),
+             ("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", _filePath));
     std::string Line = "";
     while (getline(shaderStream, Line))
     {
@@ -66,7 +75,6 @@ GLuint Shader::LoadShaderFile(const char* _filePath, GLenum _type)
     glGetShaderiv(shaderID, GL_COMPILE_STATUS, &m_result);
     glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &m_infoLogLength);
     EvaluateShader(m_infoLogLength, shaderID);
-
     // Attach shader to program
     glAttachShader(m_programID, shaderID);
 

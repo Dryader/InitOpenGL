@@ -13,4 +13,4 @@ struct Resolution
     }
 };
 
-#endif RESOLUTION_H
+#endif // RESOLUTION_H

@@ -15,16 +15,16 @@ public:
     GLuint GetAttrVertices() { return m_attrVertices; }
     GLuint GetAttrWVP() {return m_attrWVP;}
     GLuint GetAttrColors() { return m_attrColors; }
+    GLuint GetAttrNormals() { return m_attrNormals; }
     GLuint GetAttrTexCoords() { return m_attrTexCoords; }
     GLuint GetSampler1() { return m_sampler1; }
     GLuint GetSampler2() { return m_sampler2; }
-    GLuint GetUniformMode() { return m_uniformMode; }
-    GLuint GetUniformBlendFactor() { return m_uniformBlendFactor; }
     
 
     // Methods
     void LoadShaders(const char* _vertexFilePath, const char* _fragmentFilePath);
     void Cleanup();
+    void SetVec3(const char* _name, glm::vec3 _value);
 
 private:
     // Methods
@@ -40,11 +40,10 @@ private:
     int m_infoLogLength;
     GLuint m_attrWVP;
     GLuint m_attrColors;
+    GLuint m_attrNormals;
     GLuint m_attrTexCoords;
     GLuint m_sampler1;
     GLuint m_sampler2;
-    GLuint m_uniformMode;
-    GLuint m_uniformBlendFactor;
 };
 
 #endif //SHADER_H
