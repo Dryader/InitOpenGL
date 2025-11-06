@@ -1,0 +1,13 @@
+#version 330
+
+in vec4 vertices;
+
+uniform mat4 Projection;
+
+out vec2 retTexCoords;
+
+void main()
+{
+    gl_Position = Projection * vec4(vertices.xy, 0.0f, 1.0f);
+    retTexCoords = vertices.zw;
+}

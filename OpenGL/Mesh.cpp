@@ -1,5 +1,6 @@
 ﻿#include "Mesh.h"
 #include "Shader.h"
+#include "OBJ_Loader.h"
 
 vector<Mesh> Mesh::Lights;
 
@@ -14,6 +15,8 @@ Mesh::Mesh()
     m_rotation = {0, 0, 0};
     m_scale = {1, 1, 1};
     m_world = glm::mat4();
+    m_cameraPosition = {0.0f, 0.0f, 0.0f};
+    m_color = {1.0f, 1.0f, 1.0f};
 }
 
 Mesh::~Mesh()
@@ -57,12 +60,21 @@ void Mesh::Create(Shader* _shader, string _file)
         }
     }
 
-    // Remove directory if present.
-    string diffuseNap = Loader.LoadedMaterials[0].map_Kd;
-    const size_t last_slash_idx = diffuseNap.find_last_of("\\");
-    if (std::string::npos != last_slash_idx)
+    // Remove directory if present and handle empty map_Kd safely
+    string diffuseNap = Loader.LoadedMaterials.size() > 0 ? Loader.LoadedMaterials[0].map_Kd : "";
+    if (!diffuseNap.empty())
     {
-        diffuseNap.erase(0, last_slash_idx + 1);
+        size_t last_backslash = diffuseNap.find_last_of("\\");
+        size_t last_slash = diffuseNap.find_last_of("/");
+        size_t last_sep = (last_backslash == std::string::npos) ? last_slash : ((last_slash == std::string::npos) ? last_backslash : std::max(last_backslash, last_slash));
+        if (last_sep != std::string::npos)
+        {
+            diffuseNap.erase(0, last_sep + 1);
+        }
+    }
+    else
+    {
+        diffuseNap = "Wood.jpg"; // simple fallback texture name present in Assets/Textures
     }
 
     m_texture = Texture();
@@ -124,7 +136,8 @@ void Mesh::Render(glm::mat4 _pv)
     SetShaderVariables(_pv);
     BindAttributes();
 
-    glDrawArrays(GL_TRIANGLES, 0, m_vertexData.size());
+    // Each vertex has 8 floats (pos3 + normal3 + uv2)
+    glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(m_vertexData.size() / 8));
     glDisableVertexAttribArray(m_shader->GetAttrNormals());
     glDisableVertexAttribArray(m_shader->GetAttrVertices());
     glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
@@ -133,6 +146,9 @@ void Mesh::Render(glm::mat4 _pv)
 
 void Mesh::BindAttributes()
 {
+    // Bind our vertex buffer first
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+
     // 1st attribute buffer : vertices
     glEnableVertexAttribArray(m_shader->GetAttrVertices());
     glVertexAttribPointer(m_shader->GetAttrVertices(), // The attribute we want to configure
@@ -159,6 +175,4 @@ void Mesh::BindAttributes()
                           GL_FALSE, // normalized?
                           8 * sizeof(float), // stride (7 floats per vertex definition)
                           (void*)(6 * sizeof(float))); // array buffer offset
-
-    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer); // Bind our vertex buffer
 }
