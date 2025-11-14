@@ -37,12 +37,16 @@ void Mesh::Cleanup()
     m_texture2.Cleanup();
 }
 
-void Mesh::Create(Shader* _shader, string _file)
+bool Mesh::Create(Shader* _shader, string _file)
 {
     m_shader = _shader;
 
     objl::Loader Loader; // Initialize Loader
-    M_ASSERT(Loader.LoadFile(_file) == true, "Failed to load mesh."); // Load .obj File
+    bool loaded = Loader.LoadFile(_file);
+    if (!loaded)
+    {
+        return false;
+    }
 
     for (unsigned int i = 0; i < Loader.LoadedMeshes.size(); i++)
     {
@@ -85,6 +89,8 @@ void Mesh::Create(Shader* _shader, string _file)
     glGenBuffers(1, &m_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, m_vertexData.size() * sizeof(float), m_vertexData.data(), GL_STATIC_DRAW);
+    
+    return true; // Success
 }
 
 
@@ -138,9 +144,14 @@ void Mesh::Render(glm::mat4 _pv)
 
     // Each vertex has 8 floats (pos3 + normal3 + uv2)
     glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(m_vertexData.size() / 8));
-    glDisableVertexAttribArray(m_shader->GetAttrNormals());
-    glDisableVertexAttribArray(m_shader->GetAttrVertices());
-    glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
+    
+    // Safely disable attributes
+    if (m_shader->GetAttrNormals() != -1)
+        glDisableVertexAttribArray(m_shader->GetAttrNormals());
+    if (m_shader->GetAttrVertices() != -1)
+        glDisableVertexAttribArray(m_shader->GetAttrVertices());
+    if (m_shader->GetAttrTexCoords() != -1)
+        glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
 }
 
 
@@ -150,29 +161,26 @@ void Mesh::BindAttributes()
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
     // 1st attribute buffer : vertices
-    glEnableVertexAttribArray(m_shader->GetAttrVertices());
-    glVertexAttribPointer(m_shader->GetAttrVertices(), // The attribute we want to configure
-                          3, // size (3 components)
-                          GL_FLOAT, // type
-                          GL_FALSE, // normalized?
-                          8 * sizeof(float), // stride (8 floats per vertex definition)
-                          (void*)0); // array buffer offset
+    GLint attrVertices = m_shader->GetAttrVertices();
+    if (attrVertices != -1)
+    {
+        glEnableVertexAttribArray(attrVertices);
+        glVertexAttribPointer(attrVertices, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    }
 
     // 2nd attribute buffer : normals
-    glEnableVertexAttribArray(m_shader->GetAttrNormals());
-    glVertexAttribPointer(m_shader->GetAttrNormals(), // The attribute we want to configure
-                          3, // size (3 components)
-                          GL_FLOAT, // type
-                          GL_FALSE, // normalized?
-                          8 * sizeof(float), // stride (8 floats per vertex definition)
-                          (void*)(3 * sizeof(float))); // array buffer offset
+    GLint attrNormals = m_shader->GetAttrNormals();
+    if (attrNormals != -1)
+    {
+        glEnableVertexAttribArray(attrNormals);
+        glVertexAttribPointer(attrNormals, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    }
 
     // 3rd attribute buffer : texCoords
-    glEnableVertexAttribArray(m_shader->GetAttrTexCoords());
-    glVertexAttribPointer(m_shader->GetAttrTexCoords(), // The attribute we want to configure
-                          2, // size (2 components)
-                          GL_FLOAT, // type
-                          GL_FALSE, // normalized?
-                          8 * sizeof(float), // stride (7 floats per vertex definition)
-                          (void*)(6 * sizeof(float))); // array buffer offset
+    GLint attrTexCoords = m_shader->GetAttrTexCoords();
+    if (attrTexCoords != -1)
+    {
+        glEnableVertexAttribArray(attrTexCoords);
+        glVertexAttribPointer(attrTexCoords, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    }
 }

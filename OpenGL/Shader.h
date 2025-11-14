@@ -21,7 +21,7 @@ public:
     // Methods
     void LoadShaders(const char* _vertexFilePath, const char* _fragmentFilePath);
     void Cleanup();
-    void SetTextureSampler(const char* _name, GLuint _texUnit, int _texUnitID, int _value);
+    void SetTextureSampler(const char* _name, GLuint _texUnit, int _texUnitID, int _value, GLenum _texTarget = GL_TEXTURE_2D);
     void SetFloat(const char* _name, float _value);
     void SetVec3(const char* _name, glm::vec3 _value);
     void SetMat4(const char* _name, glm::mat4 _value);

@@ -28,7 +28,13 @@ uniform Light light[NR_LIGHTS];
 
 void main()
 {
-    vec4 finalColor = vec4(0);
+    //early out if we have no color at this fragment position
+    if (texture(material.diffuseTexture, retTexCoord).a == 0.0){
+        discard;
+    }
+
+
+    vec3 finalColor = vec3(0);
     for (int i = 0; i < NR_LIGHTS; i++)
     {
         vec3 lightDir = normalize(light[i].position - retFragPos); // Normalize, for correct dot product results
@@ -40,10 +46,10 @@ void main()
         vec3 lambertian = lambertianStrength * texture(material.diffuseTexture, retTexCoord).rgb * light[i].diffuseColor;
         vec3 specular = specularStrength * texture(material.specularTexture, retTexCoord).rgb * light[i].specularColor;
 
-        finalColor += vec4(ambient + lambertian + specular, 1.0f); // Calculate final color
+        finalColor += ambient + lambertian + specular; // Calculate final color
     }
 
-    FragColor = finalColor;
+    FragColor = vec4(finalColor, texture(material.diffuseTexture, retTexCoord).a);
 }
 
 

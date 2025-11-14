@@ -12,7 +12,14 @@
 #ifdef _WIN32
 #include <Windows.h>
 #define M_ASSERT(_cond, _msg) \
-if (!(_cond)) { OutputDebugStringA(_msg); std::abort(); glfwTerminate(); }
+if (!(_cond)) { \
+    OutputDebugStringA("ASSERTION FAILED: "); \
+    OutputDebugStringA(_msg); \
+    OutputDebugStringA("\n"); \
+    MessageBoxA(NULL, _msg, "Assertion Failed", MB_OK | MB_ICONERROR); \
+    glfwTerminate(); \
+    std::exit(1); \
+}
 #endif
 
 // Openg GL/Helper headers

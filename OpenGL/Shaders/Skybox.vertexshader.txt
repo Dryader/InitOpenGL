@@ -1,0 +1,15 @@
+#version 330
+
+in vec3 vertices;
+
+out vec3 retTexCoords;
+
+uniform mat4 PV;
+
+
+void main()
+{
+    retTexCoords = vertices;
+    vec4 pos = PV * vec4(vertices, 1.0);
+    gl_Position = pos.xyww; // Set z to w so after divide z/w = 1.0 (far plane)
+}

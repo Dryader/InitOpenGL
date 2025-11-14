@@ -109,6 +109,13 @@ void Fonts::RenderText(std::string _text, float _x, float _y, float _scale, glm:
     glUniformMatrix4fv(glGetUniformLocation(m_shader->GetProgramID(), "Projection"), 1, GL_FALSE, glm::value_ptr(m_orthoProj));
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
+    // Safety check: ensure vertex attribute exists
+    GLint attrVertices = m_shader->GetAttrVertices();
+    if (attrVertices == -1)
+    {
+        return; // Attribute not found in shader, exit safely
+    }
+
     // Iterate through all characters
     std::string::const_iterator c;
     for (c = _text.begin(); c != _text.end(); c++)
@@ -134,8 +141,8 @@ void Fonts::RenderText(std::string _text, float _x, float _y, float _scale, glm:
         m_shader->SetTextureSampler("material.diffuseTexture", GL_TEXTURE0, 0, ch.TextureID);
 
         // Update content of vertex buffer memory
-        glEnableVertexAttribArray(m_shader->GetAttrVertices());
-        glVertexAttribPointer(m_shader->GetAttrVertices(), 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), nullptr);
+        glEnableVertexAttribArray(attrVertices);
+        glVertexAttribPointer(attrVertices, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), nullptr);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // Be sure to use glBufferSubData and not glBufferData
 
         // Render quad
@@ -144,7 +151,7 @@ void Fonts::RenderText(std::string _text, float _x, float _y, float _scale, glm:
         // Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
         _x += (ch.Advance >> 6) * _scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
 
-        glDisableVertexAttribArray(m_shader->GetAttrVertices());
+        glDisableVertexAttribArray(attrVertices);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 }

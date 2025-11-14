@@ -30,17 +30,86 @@ void Texture::LoadTexture(string _fileName)
     // Load and generate the texture
     stbi_set_flip_vertically_on_load(true);
     GLubyte* data = stbi_load(_fileName.c_str(), &m_width, &m_height, &m_channels, 0);
+    
+    // If texture fails to load, try fallback
+    if (data == nullptr && _fileName != "Assets/Textures/Wood.jpg")
+    {
+        OutputDebugStringA(("Failed to load texture: " + _fileName + ", trying fallback Wood.jpg\n").c_str());
+        data = stbi_load("Assets/Textures/Wood.jpg", &m_width, &m_height, &m_channels, 0);
+    }
+    
+    // If fallback also fails, create a simple white texture
     if (data == nullptr)
     {
-        // Fallback: 1x1 white texture to avoid aborting when texture file is missing
-        unsigned char white[3] = {255, 255, 255};
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1, 1, 0, GL_RGB, GL_UNSIGNED_BYTE, white);
+        OutputDebugStringA("Failed to load fallback texture, creating white texture\n");
+        m_width = 2;
+        m_height = 2;
+        m_channels = 3;
+        GLubyte white[] = {255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255};
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, white);
         glGenerateMipmap(GL_TEXTURE_2D);
         return;
     }
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    
+    if (EndsWith(_fileName, ".png"))
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    }
+    else
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    }
+
+
     glGenerateMipmap(GL_TEXTURE_2D);
 
     // Free image data from RAM
     stbi_image_free(data);
+}
+
+
+void Texture::LoadCubeMap(vector<std::string> _faces)
+{
+    glGenTextures(1, &m_texture);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture);
+
+    for (unsigned int i = 0; i < _faces.size(); i++)
+    {
+        stbi_set_flip_vertically_on_load(false);
+        int w, h, channels;
+        GLubyte* data = stbi_load(_faces[i].c_str(), &w, &h, &channels, 0);
+        if (data == nullptr)
+        {
+            // create 1x1 fallback color (magenta) to highlight missing face
+            unsigned char fallback[4] = {255, 0, 255, 255};
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, fallback);
+            continue;
+        }
+        GLenum format = channels == 4 ? GL_RGBA : GL_RGB;
+        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                     0, format, w, h, 0, format, GL_UNSIGNED_BYTE, data);
+        stbi_image_free(data);
+    }
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+}
+
+// Helper: case-insensitive endswith
+bool Texture::EndsWith(const std::string& _str, const std::string& _suffix)
+{
+    if (_str.size() < _suffix.size()) return false;
+    size_t start = _str.size() - _suffix.size();
+    for (size_t i = 0; i < _suffix.size(); ++i)
+    {
+        char a = _str[start + i];
+        char b = _suffix[i];
+        if (a >= 'A' && a <= 'Z') a = char(a - 'A' + 'a');
+        if (b >= 'A' && b <= 'Z') b = char(b - 'A' + 'a');
+        if (a != b) return false;
+    }
+    return true;
 }

@@ -78,19 +78,26 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\External\stb;$(SolutionDir)\External\glew-2.1.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\glfw-3.3.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <!-- Mirror x64 includes with 32-bit compatibility -->
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\freetype-2.10.4\include;$(SolutionDir)\External\stb;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\obj_loader;$(SolutionDir)\External\glfw-3.3.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\External\glew-2.1.0\lib;$(SolutionDir)\External\glfw-3.3.4\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <!-- Updated to 32-bit libraries for FreeType, GLFW 3.3.4, and GLEW 2.2.0 -->
+      <AdditionalLibraryDirectories>$(SolutionDir)\External\freetype-2.10.4\release static\win32;$(SolutionDir)\External\glfw-3.3.4\lib-vc2019;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freetype.lib;opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PreBuildEvent>
-      <Command>copy /Y "$(SolutionDir)\External\glew-2.1.0\bin\glew32d.dll" "$(TargetDir)"
+      <Command>copy /Y "$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\bin\Release\Win32\glew32.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
-            </Command>
+if not exist "$(TargetDir)Assets\Models\" mkdir "$(TargetDir)Assets\Models\"
+if not exist "$(TargetDir)Assets\Textures\" mkdir "$(TargetDir)Assets\Textures\"
+if not exist "$(TargetDir)Shaders\" mkdir "$(TargetDir)Shaders\"
+xcopy /Y /D "$(ProjectDir)Assets\Models\*" "$(TargetDir)Assets\Models\"
+xcopy /Y /D "$(ProjectDir)Assets\Textures\*" "$(TargetDir)Assets\Textures\"
+xcopy /Y /D "$(ProjectDir)Shaders\*" "$(TargetDir)Shaders\"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -101,11 +108,20 @@ copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <!-- Mirror x64 includes with 32-bit compatibility -->
+      <AdditionalIncludeDirectories>$(SolutionDir)\External\freetype-2.10.4\include;$(SolutionDir)\External\stb;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\obj_loader;$(SolutionDir)\External\glfw-3.3.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <!-- Updated to 32-bit libraries for FreeType, GLFW 3.3.4, and GLEW 2.2.0 -->
+      <AdditionalLibraryDirectories>$(SolutionDir)\External\freetype-2.10.4\release static\win32;$(SolutionDir)\External\glfw-3.3.4\lib-vc2019;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freetype.lib;opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>copy /Y "$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\bin\Release\Win32\glew32.dll" "$(TargetDir)"
+copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -156,6 +172,7 @@ copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Resolution.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ToolWindow.cpp" />
     <ClCompile Include="WindowController.cpp" />
@@ -168,6 +185,7 @@ copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
     <ClInclude Include="Resolution.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="StandardIncludes.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="ToolWindow.h">
@@ -192,11 +210,26 @@ copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Models\Cube.mtl" />
+    <Content Include="Assets\Models\Cube.obj" />
+    <Content Include="Assets\Models\Plane.mtl" />
+    <Content Include="Assets\Models\Plane.obj" />
+    <Content Include="Assets\Models\SkyBox.mtl" />
+    <Content Include="Assets\Models\SkyBox.obj" />
     <Content Include="Assets\Models\Teapot.mtl" />
     <Content Include="Assets\Models\Teapot.obj" />
+    <Content Include="Assets\Models\Window.mtl" />
+    <Content Include="Assets\Models\Window.obj" />
+    <Content Include="Assets\Textures\back.jpg" />
+    <Content Include="Assets\Textures\bottom.jpg" />
     <Content Include="Assets\Textures\Emoji.jpg" />
+    <Content Include="Assets\Textures\Flowers.jpg" />
+    <Content Include="Assets\Textures\front.jpg" />
+    <Content Include="Assets\Textures\left.jpg" />
     <Content Include="Assets\Textures\MetalFrame.jpg" />
     <Content Include="Assets\Textures\MetalFrameWood.jpg" />
+    <Content Include="Assets\Textures\right.jpg" />
+    <Content Include="Assets\Textures\top.jpg" />
     <Content Include="Assets\Textures\Wood.jpg" />
     <Content Include="Shaders\Color.fragmentshader.txt" />
     <Content Include="Shaders\Color.vertexshader.txt" />
@@ -204,6 +237,8 @@ copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
     <Content Include="Shaders\Diffuse.vertexshader.txt" />
     <Content Include="Shaders\Font.fragmentshader.txt" />
     <Content Include="Shaders\Font.vertexshader.txt" />
+    <Content Include="Shaders\Skybox.fragmentshader.txt" />
+    <Content Include="Shaders\Skybox.vertexshader.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
