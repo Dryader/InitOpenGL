@@ -1,0 +1,9 @@
+#version 330
+in vec2 retTexCoords;
+out vec4 FragColor;
+uniform sampler2D sceneTexture;
+void main()
+{
+    vec3 col = texture(sceneTexture, retTexCoords).rgb;
+    FragColor = vec4(col, 1.0);
+}

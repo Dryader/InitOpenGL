@@ -4,7 +4,7 @@
 #include "StandardIncludes.h"
 #include "Mesh.h"
 #include "Shader.h"
-#include "WindowController.h"
+#include "PostProcessor.h"
 #include "Camera.h"
 #include "Skybox.h"
 
@@ -26,11 +26,12 @@ private:
     Shader m_shaderColor;
     Shader m_shaderDiffuse;
     Shader m_shaderFont;
-    Shader m_shaderSkybox;
+    Shader m_shaderPost;
     vector<Mesh> m_meshes;
     Camera m_camera;
     Skybox m_skybox;
     GLuint vao;
+    PostProcessor m_postProcessor;
 };
 
 #endif // GAME_CONTROLLER_H

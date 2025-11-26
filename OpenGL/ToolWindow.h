@@ -23,9 +23,12 @@ namespace OpenGL
         ToolWindow(void)
         {
             InitializeComponent();
-            RenderRedChannel = checkBoxRedChannel->Checked;
-            RenderGreenChannel = checkBoxGreenChannel->Checked;
-            RenderBlueChannel = checkBoxBlueChannel->Checked;
+            if (checkBoxRedChannel)
+                RenderRedChannel = checkBoxRedChannel->Checked;
+            if (checkBoxGreenChannel)
+                RenderGreenChannel = checkBoxGreenChannel->Checked;
+            if (checkBoxBlueChannel)
+                RenderBlueChannel = checkBoxBlueChannel->Checked;
         }
 
     protected:
@@ -49,7 +52,7 @@ namespace OpenGL
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        ComponentModel::Container^ components;
+        System::ComponentModel::Container^ components;
 
 
 #pragma region Windows Form Designer generated code

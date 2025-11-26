@@ -172,6 +172,7 @@
         <ClCompile Include="GameController.cpp"/>
         <ClCompile Include="main.cpp"/>
         <ClCompile Include="Mesh.cpp"/>
+        <ClCompile Include="PostProcessor.cpp" />
         <ClCompile Include="Resolution.cpp"/>
         <ClCompile Include="Shader.cpp"/>
         <ClCompile Include="Skybox.cpp"/>
@@ -184,6 +185,7 @@
         <ClInclude Include="Fonts.h"/>
         <ClInclude Include="GameController.h"/>
         <ClInclude Include="Mesh.h"/>
+        <ClInclude Include="PostProcessor.h" />
         <ClInclude Include="Resolution.h"/>
         <ClInclude Include="Shader.h"/>
         <ClInclude Include="Singleton.h"/>
@@ -239,6 +241,7 @@
         <Content Include="Shaders\Diffuse.vertexshader.txt"/>
         <Content Include="Shaders\Font.fragmentshader.txt"/>
         <Content Include="Shaders\Font.vertexshader.txt"/>
+        <Content Include="Shaders\PostProcessor.fragmentshader.txt" />
         <Content Include="Shaders\PostProcessor.vertexshader.txt"/>
         <Content Include="Shaders\Skybox.fragmentshader.txt"/>
         <Content Include="Shaders\Skybox.vertexshader.txt"/>

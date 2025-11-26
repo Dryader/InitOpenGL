@@ -1,0 +1,9 @@
+#version 330
+in vec2 vertices;
+in vec2 texCoords;
+out vec2 retTexCoords;
+void main()
+{
+    retTexCoords = texCoords;
+    gl_Position = vec4(vertices.x, vertices.y, 0.0, 1.0);
+}

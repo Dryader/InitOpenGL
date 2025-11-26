@@ -325,19 +325,19 @@ void Mesh::BindAttributes()
     {
         glBindBuffer(GL_ARRAY_BUFFER, m_instanceBuffer);
         glEnableVertexAttribArray(m_shader->GetAttrInstanceMatrix());
-        glVertexAttribPointer(m_shader->GetAttrInstanceMatrix(), 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::mat4),
+        glVertexAttribPointer(m_shader->GetAttrInstanceMatrix(), 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4),
                               static_cast<void*>(nullptr));
 
         glEnableVertexAttribArray(m_shader->GetAttrInstanceMatrix() + 1);
-        glVertexAttribPointer(m_shader->GetAttrInstanceMatrix() + 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::mat4),
+        glVertexAttribPointer(m_shader->GetAttrInstanceMatrix() + 1, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4),
                               (void*)(sizeof(glm::vec4)));
 
         glEnableVertexAttribArray(m_shader->GetAttrInstanceMatrix() + 2);
-        glVertexAttribPointer(m_shader->GetAttrInstanceMatrix() + 2, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::mat4),
+        glVertexAttribPointer(m_shader->GetAttrInstanceMatrix() + 2, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4),
                               (void*)(2 * sizeof(glm::vec4)));
 
         glEnableVertexAttribArray(m_shader->GetAttrInstanceMatrix() + 3);
-        glVertexAttribPointer(m_shader->GetAttrInstanceMatrix() + 3, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(glm::mat4),
+        glVertexAttribPointer(m_shader->GetAttrInstanceMatrix() + 3, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4),
                               (void*)(3 * sizeof(glm::vec4)));
 
         glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix(), 1);
