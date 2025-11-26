@@ -30,14 +30,14 @@ void Texture::LoadTexture(string _fileName)
     // Load and generate the texture
     stbi_set_flip_vertically_on_load(true);
     GLubyte* data = stbi_load(_fileName.c_str(), &m_width, &m_height, &m_channels, 0);
-    
+
     // If texture fails to load, try fallback
     if (data == nullptr && _fileName != "Assets/Textures/Wood.jpg")
     {
         OutputDebugStringA(("Failed to load texture: " + _fileName + ", trying fallback Wood.jpg\n").c_str());
         data = stbi_load("Assets/Textures/Wood.jpg", &m_width, &m_height, &m_channels, 0);
     }
-    
+
     // If fallback also fails, create a simple white texture
     if (data == nullptr)
     {
@@ -50,7 +50,7 @@ void Texture::LoadTexture(string _fileName)
         glGenerateMipmap(GL_TEXTURE_2D);
         return;
     }
-    
+
     if (EndsWith(_fileName, ".png"))
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -107,8 +107,8 @@ bool Texture::EndsWith(const std::string& _str, const std::string& _suffix)
     {
         char a = _str[start + i];
         char b = _suffix[i];
-        if (a >= 'A' && a <= 'Z') a = char(a - 'A' + 'a');
-        if (b >= 'A' && b <= 'Z') b = char(b - 'A' + 'a');
+        if (a >= 'A' && a <= 'Z') a = static_cast<char>(a - 'A' + 'a');
+        if (b >= 'A' && b <= 'Z') b = static_cast<char>(b - 'A' + 'a');
         if (a != b) return false;
     }
     return true;

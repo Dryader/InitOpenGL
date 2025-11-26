@@ -23,7 +23,7 @@ private:
     // Members
     Shader* m_shader;
     Texture m_texture;
-    GLuint m_vertexBuffer;             // GPU buffer
+    GLuint m_vertexBuffer; // GPU buffer
     std::vector<GLfloat> m_vertexData; // Store vertex data in RAM
 };
 

@@ -8,23 +8,31 @@ class Shader
 public:
     // Constructors / Destructors
     Shader();
-    virtual ~Shader() {}
+
+    virtual ~Shader()
+    {
+    }
 
     // Accessors
     GLuint GetProgramID() { return m_programID; }
     GLuint GetAttrVertices() { return m_attrVertices; }
-    GLuint GetAttrWVP() {return m_attrWVP;}
+    GLuint GetAttrWVP() { return m_attrWVP; }
     GLuint GetAttrColors() { return m_attrColors; }
     GLuint GetAttrNormals() { return m_attrNormals; }
+    GLuint GetAttrTangents() { return m_attrTangents; }
+    GLuint GetAttrBitangents() { return m_attrBitangents; }
+    GLuint GetAttrInstanceMatrix() { return m_attrInstanceMatrix; }
     GLuint GetAttrTexCoords() { return m_attrTexCoords; }
 
     // Methods
     void LoadShaders(const char* _vertexFilePath, const char* _fragmentFilePath);
     void Cleanup();
-    void SetTextureSampler(const char* _name, GLuint _texUnit, int _texUnitID, int _value, GLenum _texTarget = GL_TEXTURE_2D);
+    void SetTextureSampler(const char* _name, GLuint _texUnit, int _texUnitID, int _value,
+                           GLenum _texTarget = GL_TEXTURE_2D);
     void SetFloat(const char* _name, float _value);
     void SetVec3(const char* _name, glm::vec3 _value);
     void SetMat4(const char* _name, glm::mat4 _value);
+    void SetInt(const char* _name, int _value);
 
 private:
     // Methods
@@ -41,8 +49,10 @@ private:
     GLuint m_attrWVP;
     GLuint m_attrColors;
     GLuint m_attrNormals;
+    GLuint m_attrTangents;
+    GLuint m_attrBitangents;
     GLuint m_attrTexCoords;
-
+    GLuint m_attrInstanceMatrix;
 };
 
 #endif //SHADER_H

@@ -5,7 +5,7 @@
 Skybox::Skybox()
 {
     m_shader = nullptr;
-    m_texture = { };
+    m_texture = {};
     m_vertexBuffer = 0;
 }
 
@@ -47,7 +47,7 @@ bool Skybox::Create(Shader* _shader, string _file, vector<string> _faces)
     glGenBuffers(1, &m_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, m_vertexData.size() * sizeof(float), m_vertexData.data(), GL_STATIC_DRAW);
-    
+
     return true;
 }
 
@@ -66,7 +66,7 @@ void Skybox::BindAttributes()
     if (attrVertices != -1)
     {
         glEnableVertexAttribArray(attrVertices);
-        glVertexAttribPointer(attrVertices, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glVertexAttribPointer(attrVertices, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), static_cast<void*>(nullptr));
     }
 }
 
@@ -78,7 +78,7 @@ void Skybox::Render(glm::mat4 _pv)
     glUseProgram(m_shader->GetProgramID());
     SetShaderVariables(_pv);
     BindAttributes();
-    glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(m_vertexData.size() / 3));
+    glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(m_vertexData.size() / 3));
 
     if (m_shader->GetAttrVertices() != -1)
         glDisableVertexAttribArray(m_shader->GetAttrVertices());
@@ -86,4 +86,3 @@ void Skybox::Render(glm::mat4 _pv)
     glDepthFunc(GL_LESS);
     glEnable(GL_CULL_FACE);
 }
-

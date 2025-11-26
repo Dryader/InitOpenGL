@@ -1,246 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-  </ItemGroup>
-  <PropertyGroup Label="Globals">
-    <VCProjectVersion>17.0</VCProjectVersion>
-    <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{144175e1-a2e1-4658-bd08-e1b4d6a3fd42}</ProjectGuid>
-    <RootNamespace>OpenGL</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-    <CLRSupport>true</CLRSupport>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-    <CLRSupport>true</CLRSupport>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <!-- Mirror x64 includes with 32-bit compatibility -->
-      <AdditionalIncludeDirectories>$(SolutionDir)\External\freetype-2.10.4\include;$(SolutionDir)\External\stb;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\obj_loader;$(SolutionDir)\External\glfw-3.3.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <!-- Updated to 32-bit libraries for FreeType, GLFW 3.3.4, and GLEW 2.2.0 -->
-      <AdditionalLibraryDirectories>$(SolutionDir)\External\freetype-2.10.4\release static\win32;$(SolutionDir)\External\glfw-3.3.4\lib-vc2019;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib;opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
-    </Link>
-    <PreBuildEvent>
-      <Command>copy /Y "$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\bin\Release\Win32\glew32.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
-if not exist "$(TargetDir)Assets\Models\" mkdir "$(TargetDir)Assets\Models\"
-if not exist "$(TargetDir)Assets\Textures\" mkdir "$(TargetDir)Assets\Textures\"
-if not exist "$(TargetDir)Shaders\" mkdir "$(TargetDir)Shaders\"
-xcopy /Y /D "$(ProjectDir)Assets\Models\*" "$(TargetDir)Assets\Models\"
-xcopy /Y /D "$(ProjectDir)Assets\Textures\*" "$(TargetDir)Assets\Textures\"
-xcopy /Y /D "$(ProjectDir)Shaders\*" "$(TargetDir)Shaders\"</Command>
-    </PreBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <!-- Mirror x64 includes with 32-bit compatibility -->
-      <AdditionalIncludeDirectories>$(SolutionDir)\External\freetype-2.10.4\include;$(SolutionDir)\External\stb;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\obj_loader;$(SolutionDir)\External\glfw-3.3.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <!-- Updated to 32-bit libraries for FreeType, GLFW 3.3.4, and GLEW 2.2.0 -->
-      <AdditionalLibraryDirectories>$(SolutionDir)\External\freetype-2.10.4\release static\win32;$(SolutionDir)\External\glfw-3.3.4\lib-vc2019;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib;opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <PreBuildEvent>
-      <Command>copy /Y "$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\bin\Release\Win32\glew32.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"</Command>
-    </PreBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\External\freetype-2.10.4\include;$(SolutionDir)\External\stb;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\obj_loader;$(SolutionDir)\External\glfw-3.4.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\External\freetype-2.10.4\release static\win64;$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2022;$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2019;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib;opengl32.lib;glfw3dll.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
-    </Link>
-    <PreBuildEvent>
-      <Command>copy /Y "$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)"
+    <ItemGroup Label="ProjectConfigurations">
+        <ProjectConfiguration Include="Debug|Win32">
+            <Configuration>Debug</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|Win32">
+            <Configuration>Release</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Debug|x64">
+            <Configuration>Debug</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|x64">
+            <Configuration>Release</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+    </ItemGroup>
+    <PropertyGroup Label="Globals">
+        <VCProjectVersion>17.0</VCProjectVersion>
+        <Keyword>Win32Proj</Keyword>
+        <ProjectGuid>{144175e1-a2e1-4658-bd08-e1b4d6a3fd42}</ProjectGuid>
+        <RootNamespace>OpenGL</RootNamespace>
+        <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+        <ConfigurationType>Application</ConfigurationType>
+        <UseDebugLibraries>true</UseDebugLibraries>
+        <PlatformToolset>v143</PlatformToolset>
+        <CharacterSet>Unicode</CharacterSet>
+        <CLRSupport>true</CLRSupport>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+        <ConfigurationType>Application</ConfigurationType>
+        <UseDebugLibraries>false</UseDebugLibraries>
+        <PlatformToolset>v143</PlatformToolset>
+        <WholeProgramOptimization>true</WholeProgramOptimization>
+        <CharacterSet>Unicode</CharacterSet>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+        <ConfigurationType>Application</ConfigurationType>
+        <UseDebugLibraries>true</UseDebugLibraries>
+        <PlatformToolset>v143</PlatformToolset>
+        <CharacterSet>Unicode</CharacterSet>
+        <CLRSupport>true</CLRSupport>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+        <ConfigurationType>Application</ConfigurationType>
+        <UseDebugLibraries>false</UseDebugLibraries>
+        <PlatformToolset>v143</PlatformToolset>
+        <WholeProgramOptimization>true</WholeProgramOptimization>
+        <CharacterSet>Unicode</CharacterSet>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+    <ImportGroup Label="ExtensionSettings">
+    </ImportGroup>
+    <ImportGroup Label="Shared">
+    </ImportGroup>
+    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <PropertyGroup Label="UserMacros"/>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+        <ClCompile>
+            <WarningLevel>Level3</WarningLevel>
+            <SDLCheck>true</SDLCheck>
+            <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <ConformanceMode>true</ConformanceMode>
+            <!-- Mirror x64 includes with 32-bit compatibility -->
+            <AdditionalIncludeDirectories>$(SolutionDir)\External\freetype-2.10.4\include;$(SolutionDir)\External\stb;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\obj_loader;$(SolutionDir)\External\glfw-3.3.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ClCompile>
+        <Link>
+            <SubSystem>Windows</SubSystem>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <!-- Updated to 32-bit libraries for FreeType, GLFW 3.3.4, and GLEW 2.2.0 -->
+            <AdditionalLibraryDirectories>$(SolutionDir)\External\freetype-2.10.4\release static\win32;$(SolutionDir)\External\glfw-3.3.4\lib-vc2019;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+            <AdditionalDependencies>freetype.lib;opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+            <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+        </Link>
+        <PreBuildEvent>
+            <Command>copy /Y "$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\bin\Release\Win32\glew32.dll" "$(TargetDir)"
+                copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
+                if not exist "$(TargetDir)Assets\Models\" mkdir "$(TargetDir)Assets\Models\"
+                if not exist "$(TargetDir)Assets\Textures\" mkdir "$(TargetDir)Assets\Textures\"
+                if not exist "$(TargetDir)Shaders\" mkdir "$(TargetDir)Shaders\"
+                xcopy /Y /D "$(ProjectDir)Assets\Models\*" "$(TargetDir)Assets\Models\"
+                xcopy /Y /D "$(ProjectDir)Assets\Textures\*" "$(TargetDir)Assets\Textures\"
+                xcopy /Y /D "$(ProjectDir)Shaders\*" "$(TargetDir)Shaders\"
+            </Command>
+        </PreBuildEvent>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+        <ClCompile>
+            <WarningLevel>Level3</WarningLevel>
+            <FunctionLevelLinking>true</FunctionLevelLinking>
+            <IntrinsicFunctions>true</IntrinsicFunctions>
+            <SDLCheck>true</SDLCheck>
+            <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <ConformanceMode>true</ConformanceMode>
+            <!-- Mirror x64 includes with 32-bit compatibility -->
+            <AdditionalIncludeDirectories>$(SolutionDir)\External\freetype-2.10.4\include;$(SolutionDir)\External\stb;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\obj_loader;$(SolutionDir)\External\glfw-3.3.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ClCompile>
+        <Link>
+            <SubSystem>Console</SubSystem>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <!-- Updated to 32-bit libraries for FreeType, GLFW 3.3.4, and GLEW 2.2.0 -->
+            <AdditionalLibraryDirectories>$(SolutionDir)\External\freetype-2.10.4\release static\win32;$(SolutionDir)\External\glfw-3.3.4\lib-vc2019;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+            <AdditionalDependencies>freetype.lib;opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+        </Link>
+        <PreBuildEvent>
+            <Command>copy /Y "$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\bin\Release\Win32\glew32.dll" "$(TargetDir)"
+                copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
+            </Command>
+        </PreBuildEvent>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+        <ClCompile>
+            <WarningLevel>Level3</WarningLevel>
+            <SDLCheck>true</SDLCheck>
+            <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <ConformanceMode>true</ConformanceMode>
+            <AdditionalIncludeDirectories>$(SolutionDir)\External\freetype-2.10.4\include;$(SolutionDir)\External\stb;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\include;$(SolutionDir)\External\glm;$(SolutionDir)\External\obj_loader;$(SolutionDir)\External\glfw-3.4.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ClCompile>
+        <Link>
+            <SubSystem>Windows</SubSystem>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+            <AdditionalLibraryDirectories>$(SolutionDir)\External\freetype-2.10.4\release static\win64;$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2022;$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2019;$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+            <AdditionalDependencies>freetype.lib;opengl32.lib;glfw3dll.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+            <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+        </Link>
+        <PreBuildEvent>
+            <Command>copy /Y "$(SolutionDir)\External\glew-2.2.0-win32\glew-2.2.0\bin\Release\x64\glew32.dll" "$(TargetDir)"
                 if exist "$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2022\glfw3.dll" (
-                    copy /Y "$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)"
+                copy /Y "$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2022\glfw3.dll" "$(TargetDir)"
                 ) else if exist "$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2019\glfw3.dll" (
-                    copy /Y "$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2019\glfw3.dll" "$(TargetDir)"
+                copy /Y "$(SolutionDir)\External\glfw-3.4.bin.WIN64\lib-vc2019\glfw3.dll" "$(TargetDir)"
                 ) else (
-                    copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
+                copy /Y "$(SolutionDir)\External\glfw-3.3.4\lib-vc2019\glfw3.dll" "$(TargetDir)"
                 )
             </Command>
-    </PreBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Fonts.cpp" />
-    <ClCompile Include="GameController.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Resolution.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Skybox.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="ToolWindow.cpp" />
-    <ClCompile Include="WindowController.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Fonts.h" />
-    <ClInclude Include="GameController.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Resolution.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Singleton.h" />
-    <ClInclude Include="Skybox.h" />
-    <ClInclude Include="StandardIncludes.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="ToolWindow.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
-    <ClInclude Include="WindowController.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Shaders\SimpleFragmentShader.fragmentshader.txt" />
-    <Text Include="Shaders\SimpleVertexShader.vertexshader.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ToolWindow.resx">
-      <DependentUpon>ToolWindow.h</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\Models\Cube.mtl" />
-    <Content Include="Assets\Models\Cube.obj" />
-    <Content Include="Assets\Models\Plane.mtl" />
-    <Content Include="Assets\Models\Plane.obj" />
-    <Content Include="Assets\Models\SkyBox.mtl" />
-    <Content Include="Assets\Models\SkyBox.obj" />
-    <Content Include="Assets\Models\Teapot.mtl" />
-    <Content Include="Assets\Models\Teapot.obj" />
-    <Content Include="Assets\Models\Window.mtl" />
-    <Content Include="Assets\Models\Window.obj" />
-    <Content Include="Assets\Textures\back.jpg" />
-    <Content Include="Assets\Textures\bottom.jpg" />
-    <Content Include="Assets\Textures\Emoji.jpg" />
-    <Content Include="Assets\Textures\Flowers.jpg" />
-    <Content Include="Assets\Textures\front.jpg" />
-    <Content Include="Assets\Textures\left.jpg" />
-    <Content Include="Assets\Textures\MetalFrame.jpg" />
-    <Content Include="Assets\Textures\MetalFrameWood.jpg" />
-    <Content Include="Assets\Textures\right.jpg" />
-    <Content Include="Assets\Textures\top.jpg" />
-    <Content Include="Assets\Textures\Wood.jpg" />
-    <Content Include="Shaders\Color.fragmentshader.txt" />
-    <Content Include="Shaders\Color.vertexshader.txt" />
-    <Content Include="Shaders\Diffuse.fragmentshader.txt" />
-    <Content Include="Shaders\Diffuse.vertexshader.txt" />
-    <Content Include="Shaders\Font.fragmentshader.txt" />
-    <Content Include="Shaders\Font.vertexshader.txt" />
-    <Content Include="Shaders\Skybox.fragmentshader.txt" />
-    <Content Include="Shaders\Skybox.vertexshader.txt" />
-  </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+        </PreBuildEvent>
+    </ItemDefinitionGroup>
+    <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+        <ClCompile>
+            <WarningLevel>Level3</WarningLevel>
+            <FunctionLevelLinking>true</FunctionLevelLinking>
+            <IntrinsicFunctions>true</IntrinsicFunctions>
+            <SDLCheck>true</SDLCheck>
+            <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+            <ConformanceMode>true</ConformanceMode>
+        </ClCompile>
+        <Link>
+            <SubSystem>Console</SubSystem>
+            <GenerateDebugInformation>true</GenerateDebugInformation>
+        </Link>
+    </ItemDefinitionGroup>
+    <ItemGroup>
+        <ClCompile Include="Camera.cpp"/>
+        <ClCompile Include="Fonts.cpp"/>
+        <ClCompile Include="GameController.cpp"/>
+        <ClCompile Include="main.cpp"/>
+        <ClCompile Include="Mesh.cpp"/>
+        <ClCompile Include="Resolution.cpp"/>
+        <ClCompile Include="Shader.cpp"/>
+        <ClCompile Include="Skybox.cpp"/>
+        <ClCompile Include="Texture.cpp"/>
+        <ClCompile Include="ToolWindow.cpp"/>
+        <ClCompile Include="WindowController.cpp"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ClInclude Include="Camera.h"/>
+        <ClInclude Include="Fonts.h"/>
+        <ClInclude Include="GameController.h"/>
+        <ClInclude Include="Mesh.h"/>
+        <ClInclude Include="Resolution.h"/>
+        <ClInclude Include="Shader.h"/>
+        <ClInclude Include="Singleton.h"/>
+        <ClInclude Include="Skybox.h"/>
+        <ClInclude Include="StandardIncludes.h"/>
+        <ClInclude Include="Texture.h"/>
+        <ClInclude Include="ToolWindow.h">
+            <FileType>CppForm</FileType>
+        </ClInclude>
+        <ClInclude Include="WindowController.h"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Text Include="Shaders\SimpleFragmentShader.fragmentshader.txt"/>
+        <Text Include="Shaders\SimpleVertexShader.vertexshader.txt"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="System"/>
+        <Reference Include="System.Data"/>
+        <Reference Include="System.Drawing"/>
+        <Reference Include="System.Windows.Forms"/>
+        <Reference Include="System.Xml"/>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="ToolWindow.resx">
+            <DependentUpon>ToolWindow.h</DependentUpon>
+        </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="Assets\Models\Cube.mtl"/>
+        <Content Include="Assets\Models\Cube.obj"/>
+        <Content Include="Assets\Models\Plane.mtl"/>
+        <Content Include="Assets\Models\Plane.obj"/>
+        <Content Include="Assets\Models\SkyBox.mtl"/>
+        <Content Include="Assets\Models\SkyBox.obj"/>
+        <Content Include="Assets\Models\Teapot.mtl"/>
+        <Content Include="Assets\Models\Teapot.obj"/>
+        <Content Include="Assets\Models\Window.mtl"/>
+        <Content Include="Assets\Models\Window.obj"/>
+        <Content Include="Assets\Textures\back.jpg"/>
+        <Content Include="Assets\Textures\bottom.jpg"/>
+        <Content Include="Assets\Textures\Emoji.jpg"/>
+        <Content Include="Assets\Textures\Flowers.jpg"/>
+        <Content Include="Assets\Textures\front.jpg"/>
+        <Content Include="Assets\Textures\left.jpg"/>
+        <Content Include="Assets\Textures\MetalFrame.jpg"/>
+        <Content Include="Assets\Textures\MetalFrameWood.jpg"/>
+        <Content Include="Assets\Textures\right.jpg"/>
+        <Content Include="Assets\Textures\top.jpg"/>
+        <Content Include="Assets\Textures\Wood.jpg"/>
+        <Content Include="Shaders\Color.fragmentshader.txt"/>
+        <Content Include="Shaders\Color.vertexshader.txt"/>
+        <Content Include="Shaders\Diffuse.fragmentshader.txt"/>
+        <Content Include="Shaders\Diffuse.vertexshader.txt"/>
+        <Content Include="Shaders\Font.fragmentshader.txt"/>
+        <Content Include="Shaders\Font.vertexshader.txt"/>
+        <Content Include="Shaders\PostProcessor.vertexshader.txt"/>
+        <Content Include="Shaders\Skybox.fragmentshader.txt"/>
+        <Content Include="Shaders\Skybox.vertexshader.txt"/>
+    </ItemGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+    <ImportGroup Label="ExtensionTargets">
+    </ImportGroup>
 </Project>

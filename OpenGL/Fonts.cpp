@@ -5,10 +5,10 @@
 Fonts::Fonts()
 {
     m_shader = nullptr;
-    m_library = 0;
-    m_face = 0;
+    m_library = nullptr;
+    m_face = nullptr;
     m_vertexBuffer = 0;
-    m_orthoProj = { };
+    m_orthoProj = {};
 }
 
 void Fonts::Create(Shader* _shader, string _name, FT_UInt _size)
@@ -23,14 +23,14 @@ void Fonts::AllocateBuffers()
 {
     glGenBuffers(1, &m_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
 }
 
 void Fonts::Initialize(string _name, FT_UInt _size)
 {
     // Build orthographic projection using current resolution
     Resolution r = WindowController::GetInstance().GetResolution();
-    m_orthoProj = glm::ortho(0.0f, (float)r.m_width, 0.0f, (float)r.m_height);
+    m_orthoProj = glm::ortho(0.0f, static_cast<float>(r.m_width), 0.0f, static_cast<float>(r.m_height));
 
     // Initialize the library and font face
     M_ASSERT(FT_Init_FreeType(&m_library) == false, "Could not init FreeType Library");
@@ -91,10 +91,12 @@ void Fonts::CreateCharacters()
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         // Now store character for later use
-        Character character = { texture,
-                                glm::ivec2(m_face->glyph->bitmap.width, m_face->glyph->bitmap.rows),
-                                glm::ivec2(m_face->glyph->bitmap_left, m_face->glyph->bitmap_top),
-                                (unsigned int)m_face->glyph->advance.x };
+        Character character = {
+            texture,
+            glm::ivec2(m_face->glyph->bitmap.width, m_face->glyph->bitmap.rows),
+            glm::ivec2(m_face->glyph->bitmap_left, m_face->glyph->bitmap_top),
+            static_cast<unsigned int>(m_face->glyph->advance.x)
+        };
 
         m_characters.insert(std::pair<char, Character>(c, character));
     }
@@ -103,10 +105,11 @@ void Fonts::CreateCharacters()
 void Fonts::RenderText(std::string _text, float _x, float _y, float _scale, glm::vec3 _color)
 {
     Resolution v = WindowController::GetInstance().GetResolution();
-    _y = (float)v.m_height - _y;
+    _y = static_cast<float>(v.m_height) - _y;
     glUseProgram(m_shader->GetProgramID()); // Use our shader
     m_shader->SetVec3("TextColor", _color);
-    glUniformMatrix4fv(glGetUniformLocation(m_shader->GetProgramID(), "Projection"), 1, GL_FALSE, glm::value_ptr(m_orthoProj));
+    glUniformMatrix4fv(glGetUniformLocation(m_shader->GetProgramID(), "Projection"), 1, GL_FALSE,
+                       glm::value_ptr(m_orthoProj));
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
     // Safety check: ensure vertex attribute exists
@@ -118,7 +121,7 @@ void Fonts::RenderText(std::string _text, float _x, float _y, float _scale, glm:
 
     // Iterate through all characters
     std::string::const_iterator c;
-    for (c = _text.begin(); c != _text.end(); c++)
+    for (c = _text.begin(); c != _text.end(); ++c)
     {
         Character ch = m_characters[*c];
         float xpos = _x + ch.Bearing.x * _scale;
@@ -128,13 +131,13 @@ void Fonts::RenderText(std::string _text, float _x, float _y, float _scale, glm:
 
         // Update vertex buffer for each character
         float vertices[6][4] = {
-            { xpos    , ypos + h, 0.0f, 0.0f },
-            { xpos    , ypos    , 0.0f, 1.0f },
-            { xpos + w, ypos    , 1.0f, 1.0f },
+            {xpos, ypos + h, 0.0f, 0.0f},
+            {xpos, ypos, 0.0f, 1.0f},
+            {xpos + w, ypos, 1.0f, 1.0f},
 
-            { xpos    , ypos + h, 0.0f, 0.0f },
-            { xpos + w, ypos    , 1.0f, 1.0f },
-            { xpos + w, ypos + h, 1.0f, 0.0f },
+            {xpos, ypos + h, 0.0f, 0.0f},
+            {xpos + w, ypos, 1.0f, 1.0f},
+            {xpos + w, ypos + h, 1.0f, 0.0f},
         };
 
         // Render glyph texture over quad
@@ -143,13 +146,15 @@ void Fonts::RenderText(std::string _text, float _x, float _y, float _scale, glm:
         // Update content of vertex buffer memory
         glEnableVertexAttribArray(attrVertices);
         glVertexAttribPointer(attrVertices, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), nullptr);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // Be sure to use glBufferSubData and not glBufferData
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+        // Be sure to use glBufferSubData and not glBufferData
 
         // Render quad
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
         // Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-        _x += (ch.Advance >> 6) * _scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+        _x += (ch.Advance >> 6) * _scale;
+        // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
 
         glDisableVertexAttribArray(attrVertices);
         glBindTexture(GL_TEXTURE_2D, 0);

@@ -10,6 +10,9 @@ Shader::Shader()
     m_attrColors = 0;
     m_attrNormals = 0;
     m_attrTexCoords = 0;
+    m_attrTangents = 0;
+    m_attrBitangents = 0;
+    m_attrInstanceMatrix = 0;
 }
 
 void Shader::Cleanup()
@@ -47,6 +50,15 @@ void Shader::SetMat4(const char* _name, glm::mat4 _value)
     }
 }
 
+void Shader::SetInt(const char* _name, int _value)
+{
+    GLint loc = glGetUniformLocation(m_programID, _name);
+    if (loc != -1)
+    {
+        glUniform1i(loc, _value);
+    }
+}
+
 void Shader::LoadAttributes()
 {
     m_attrVertices = glGetAttribLocation(m_programID, "vertices"); // Get a handle for the vertex buffer
@@ -54,6 +66,10 @@ void Shader::LoadAttributes()
     m_attrColors = glGetAttribLocation(m_programID, "colors"); // Get a handle for the color buffer
     m_attrNormals = glGetAttribLocation(m_programID, "normals"); // Get a handle for the normal buffer
     m_attrTexCoords = glGetAttribLocation(m_programID, "texCoords"); // Get a handle for the texture coordinates buffer
+    m_attrTangents = glGetAttribLocation(m_programID, "tangents"); // Get a handle for the tangent buffer
+    m_attrBitangents = glGetAttribLocation(m_programID, "bitangents"); // Get a handle for the bitangent buffer
+    m_attrInstanceMatrix = glGetAttribLocation(m_programID, "instanceMatrix");
+    // Get a handle for the instance matrix buffer
 }
 
 void Shader::EvaluateShader(int _infoLength, GLuint _id)
@@ -61,7 +77,7 @@ void Shader::EvaluateShader(int _infoLength, GLuint _id)
     if (_infoLength > 0)
     {
         std::vector<char> errorMessage(_infoLength + 1);
-        glGetShaderInfoLog(_id, _infoLength, NULL, &errorMessage[0]);
+        glGetShaderInfoLog(_id, _infoLength, nullptr, &errorMessage[0]);
         M_ASSERT(0, ("%s\n", &errorMessage[0]));
     }
 }
@@ -83,8 +99,8 @@ GLuint Shader::LoadShaderFile(const char* _filePath, GLenum _type)
     shaderStream.close();
 
     // Compile Shader
-    char const* sourcePointer = shaderCode.c_str();
-    glShaderSource(shaderID, 1, &sourcePointer, NULL);
+    const char* sourcePointer = shaderCode.c_str();
+    glShaderSource(shaderID, 1, &sourcePointer, nullptr);
     glCompileShader(shaderID);
 
     // Check Shader

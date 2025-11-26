@@ -4,6 +4,7 @@ in vec3 retNormal;
 in vec2 retTexCoord;
 in vec3 retFragPos;
 in vec3 retViewDirection;
+in mat3 retTBN;
 
 out vec4 FragColor;
 
@@ -11,6 +12,7 @@ struct Material {
     float specularStrength;
     sampler2D diffuseTexture;
     sampler2D specularTexture;
+    sampler2D normalTexture;
 };
 
 struct Light {
@@ -25,31 +27,41 @@ struct Light {
 uniform Material material;
 #define NR_LIGHTS 1
 uniform Light light[NR_LIGHTS];
+uniform bool EnableNormalMap = false;
 
 void main()
 {
     //early out if we have no color at this fragment position
-    if (texture(material.diffuseTexture, retTexCoord).a == 0.0){
+    vec4 diffColor = texture(material.diffuseTexture, retTexCoord);
+    if(diffColor.a == 0)
+    {
         discard;
     }
-
 
     vec3 finalColor = vec3(0);
     for (int i = 0; i < NR_LIGHTS; i++)
     {
         vec3 lightDir = normalize(light[i].position - retFragPos); // Normalize, for correct dot product results
+        vec3 normal = retNormal;
+        if (EnableNormalMap == true)
+        {
+            normal = texture(material.normalTexture, retTexCoord).rgb;
+            normal = normal * 2.0 - 1.0; // Transform from [0,1] to [-1,1]
+            normal = normalize(retTBN * normal); // Transform normal from tangent space to world space
+        }
+        
         float lambertianStrength = dot(lightDir, retNormal); // Add lambertian lighting
         vec3 refl = reflect(-lightDir, retNormal);
         float specularStrength = pow(max(dot(retViewDirection, refl), 0.0f), material.specularStrength);
 
-        vec3 ambient = texture(material.diffuseTexture, retTexCoord).rgb * light[i].ambientColor / NR_LIGHTS;
-        vec3 lambertian = lambertianStrength * texture(material.diffuseTexture, retTexCoord).rgb * light[i].diffuseColor;
+        vec3 ambient = diffColor.rgb *  light[i].ambientColor / NR_LIGHTS;
+        vec3 lambertian = lambertianStrength * diffColor.rgb * light[i].diffuseColor;
         vec3 specular = specularStrength * texture(material.specularTexture, retTexCoord).rgb * light[i].specularColor;
 
         finalColor += ambient + lambertian + specular; // Calculate final color
     }
 
-    FragColor = vec4(finalColor, texture(material.diffuseTexture, retTexCoord).a);
+    FragColor = vec4(finalColor, diffColor.a);
 }
 
 

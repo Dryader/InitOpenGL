@@ -13,7 +13,10 @@ class GameController : public Singleton<GameController>
 public:
     // Constructors / Destructors
     GameController();
-    virtual ~GameController() { }
+
+    ~GameController() override
+    {
+    }
 
     // Methods
     void Initialize();
@@ -25,9 +28,9 @@ private:
     Shader m_shaderFont;
     Shader m_shaderSkybox;
     vector<Mesh> m_meshes;
-    Mesh m_meshLight;
     Camera m_camera;
     Skybox m_skybox;
+    GLuint vao;
 };
 
 #endif // GAME_CONTROLLER_H
