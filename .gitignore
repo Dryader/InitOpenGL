@@ -1,4 +1,4 @@
-﻿# Root .gitignore for InitOpenGL (Visual Studio + Rider + C++)
+﻿﻿# Root .gitignore for InitOpenGL (Visual Studio + Rider + C++)
 
 # OS
 .DS_Store
@@ -9,6 +9,7 @@ Desktop.ini
 .vs/
 .vscode/
 .idea/
+.idea
 *.suo
 *.user
 *.userosscache
@@ -20,7 +21,9 @@ Desktop.ini
 # Visual Studio build artifacts
 [Bb]in/
 [Oo]bj/
+[Dd]ebug/
 [Dd]ebug*/
+[Rr]elease/
 [Rr]elease*/
 [Xx]64/
 [Xx]86/
@@ -39,6 +42,13 @@ ipch/
 *.cache
 *.tmp
 *.tmp_proj
+*.metagen
+*.recipe
+*.lib
+
+# Executable files
+*.exe
+*.dll
 
 # JetBrains/Rider caches and user config
 _ReSharper*/
@@ -55,13 +65,17 @@ cmake-build-*/
 
 # Project-specific user files
 OpenGL/OpenGL.vcxproj.user
+OpenGL/Debug/
+OpenGL/x64/
 InitOpenGL.sln.DotSettings.user
 
-# Keep External sources tracked, but ignore common transient binaries anywhere
-# (we avoid ignoring *.lib or *.dll globally to not hide vendor binaries you commit intentionally)
-# Uncomment if you prefer to ignore all binaries globally:
-# *.exe
-# *.dll
-# *.lib
-# *.pdb
+# External dependencies (keep .gitignore inside External/ folder if tracking source)
+# Uncomment to ignore all external libraries (binaries and intermediate files)
+# External/*/bin/
+# External/*/lib/
+# External/*/build/
+
+# Runtime/Output files
+Debug/
+x64/
 
