@@ -21,10 +21,10 @@ void main()
         vec2( offset, -offset)  // bottom-right
     );
 
-    //sharpen kernel
+    //edge detection kernel
     float kernel[9] = float[](
         -1, -1, -1,
-        -1,  9, -1,
+        -1,  8, -1,
         -1, -1, -1
     );
 
