@@ -14,5 +14,6 @@ newmtl SciFi_Fighter_AK5
 	Ke 0.0000 0.0000 0.0000
 	map_Ka C:\Users\oberh\Documents\Lecturing\Sheridan\Classes\PROG54310 - Computer Graphics and Animation\2021\Source\Week 12\NormalMapsInstancing\Assets\Textures\FighterDiffuse.jpg
 	map_Kd C:\Users\oberh\Documents\Lecturing\Sheridan\Classes\PROG54310 - Computer Graphics and Animation\2021\Source\Week 12\NormalMapsInstancing\Assets\Textures\FighterDiffuse.jpg
+	map_Ks C:\Users\oberh\Documents\Lecturing\Sheridan\Classes\PROG54310 - Computer Graphics and Animation\2021\Source\Week 12\NormalMapsInstancing\Assets\Textures\FighterSpecular.jpg
 	map_bump C:\Users\oberh\Documents\Lecturing\Sheridan\Classes\PROG54310 - Computer Graphics and Animation\2021\Source\Week 12\NormalMapsInstancing\Assets\Textures\FighterNormal.jpg
 	bump C:\Users\oberh\Documents\Lecturing\Sheridan\Classes\PROG54310 - Computer Graphics and Animation\2021\Source\Week 12\NormalMapsInstancing\Assets\Textures\FighterNormal.jpg

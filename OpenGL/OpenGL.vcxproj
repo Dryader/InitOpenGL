@@ -167,6 +167,7 @@
         </Link>
     </ItemDefinitionGroup>
     <ItemGroup>
+        <ClCompile Include="ASEMesh.cpp" />
         <ClCompile Include="Camera.cpp"/>
         <ClCompile Include="Fonts.cpp"/>
         <ClCompile Include="GameController.cpp"/>
@@ -181,6 +182,7 @@
         <ClCompile Include="WindowController.cpp"/>
     </ItemGroup>
     <ItemGroup>
+        <ClInclude Include="ASEMesh.h" />
         <ClInclude Include="Camera.h"/>
         <ClInclude Include="Fonts.h"/>
         <ClInclude Include="GameController.h"/>
@@ -214,19 +216,41 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
+        <Content Include="Assets\Models\asteroid.mtl" />
+        <Content Include="Assets\Models\asteroid.obj" />
         <Content Include="Assets\Models\Cube.mtl"/>
         <Content Include="Assets\Models\Cube.obj"/>
+        <Content Include="Assets\Models\Fighter.mtl" />
+        <Content Include="Assets\Models\Fighter.obj" />
+        <Content Include="Assets\Models\Fish.mtl" />
+        <Content Include="Assets\Models\Fish.obj" />
         <Content Include="Assets\Models\Plane.mtl"/>
         <Content Include="Assets\Models\Plane.obj"/>
         <Content Include="Assets\Models\SkyBox.mtl"/>
         <Content Include="Assets\Models\SkyBox.obj"/>
+        <Content Include="Assets\Models\Sphere.obj" />
         <Content Include="Assets\Models\Teapot.mtl"/>
         <Content Include="Assets\Models\Teapot.obj"/>
+        <Content Include="Assets\Models\Torus.obj" />
+        <Content Include="Assets\Models\Wall.mtl" />
+        <Content Include="Assets\Models\Wall.obj" />
         <Content Include="Assets\Models\Window.mtl"/>
         <Content Include="Assets\Models\Window.obj"/>
+        <Content Include="Assets\Textures\Asteroid.jpg" />
+        <Content Include="Assets\Textures\AsteroidNormal.jpg" />
+        <Content Include="Assets\Textures\Atlantic bluefin tuna Normal .jpg" />
+        <Content Include="Assets\Textures\Atlantic bluefin tuna specular.jpg" />
+        <Content Include="Assets\Textures\Atlantic bluefin tuna.jpg" />
         <Content Include="Assets\Textures\back.jpg"/>
         <Content Include="Assets\Textures\bottom.jpg"/>
+        <Content Include="Assets\Textures\BrickWall.jpg" />
+        <Content Include="Assets\Textures\BrickWallNormal.jpg" />
+        <Content Include="Assets\Textures\BrickWallSpecular.jpg" />
+        <Content Include="Assets\Textures\BrickWallTexture.png" />
         <Content Include="Assets\Textures\Emoji.jpg"/>
+        <Content Include="Assets\Textures\FighterDiffuse.jpg" />
+        <Content Include="Assets\Textures\FighterNormal.jpg" />
+        <Content Include="Assets\Textures\FighterSpecular.jpg" />
         <Content Include="Assets\Textures\Flowers.jpg"/>
         <Content Include="Assets\Textures\front.jpg"/>
         <Content Include="Assets\Textures\left.jpg"/>

@@ -17,7 +17,10 @@ public:
     //Accessors
     void SetPosition(glm::vec3 _position) { m_position = _position; }
     glm::vec3 GetPosition() { return m_position; }
+    void SetRotation(glm::vec3 _rotation) { m_rotation = _rotation; }
+    glm::vec3 GetRotation() { return m_rotation; }
     void SetScale(glm::vec3 _scale) { m_scale = _scale; }
+    glm::vec3 GetScale() { return m_scale; }
     void SetColor(glm::vec3 _color) { m_color = _color; }
     glm::vec3 GetColor() { return m_color; }
     void SetCameraPosition(glm::vec3 _cameraPosition) { m_cameraPosition = _cameraPosition; }
@@ -33,6 +36,7 @@ public:
 private:
     void SetShaderVariables(glm::mat4 _pv);
     void BindAttributes();
+    void LoadASEFile(string _file);
     string Concat(string _s1, int _index, string _s2);
     string RemoveFolder(string _map);
     void CalculateTangents(vector<objl::Vertex> _vertices, objl::Vector3& _tanget, objl::Vector3& _bitanget);

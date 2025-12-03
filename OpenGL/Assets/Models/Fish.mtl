@@ -1,0 +1,19 @@
+# 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
+# File Created: 21.10.2022 09:54:17
+
+newmtl Atlantic_bluefin_tuna
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\oberh\Downloads\Atlantic_bluefin_tuna(max)\Atlantic bluefin tuna\Atlantic bluefin tuna.jpg
+	map_Ks C:\Users\oberh\Downloads\Atlantic_bluefin_tuna(max)\Atlantic bluefin tuna\Atlantic bluefin tuna specular.jpg
+	map_Kd C:\Users\oberh\Downloads\Atlantic_bluefin_tuna(max)\Atlantic bluefin tuna\Atlantic bluefin tuna.jpg
+	map_bump C:\Users\oberh\Downloads\Atlantic_bluefin_tuna(max)\Atlantic bluefin tuna\Atlantic bluefin tuna Normal .jpg
+	bump C:\Users\oberh\Downloads\Atlantic_bluefin_tuna(max)\Atlantic bluefin tuna\Atlantic bluefin tuna Normal .jpg
