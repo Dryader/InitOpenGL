@@ -16,7 +16,7 @@ namespace OpenGL
     {
     public:
         // Static properties for light and material settings
-        static bool MoveLightEnabled = false;
+        static bool MoveLightEnabled = true;
         static float SpecularStrength = 4.0f;
         static float SpecularColorR = 1.0f;
         static float SpecularColorG = 1.0f;
@@ -167,6 +167,7 @@ namespace OpenGL
             this->radioButtonMoveLight->AutoSize = true;
             this->radioButtonMoveLight->Location = Point(10, yPos);
             this->radioButtonMoveLight->Text = L"Move Light";
+            this->radioButtonMoveLight->Checked = true;
             this->radioButtonMoveLight->CheckedChanged += gcnew EventHandler(this, &ToolWindow::radioButtonMoveLight_CheckedChanged);
             this->Controls->Add(this->radioButtonMoveLight);
             yPos += 25;
@@ -180,67 +181,67 @@ namespace OpenGL
             
             // Specular Strength
             this->labelSpecularStrength->Location = Point(10, yPos);
-            this->labelSpecularStrength->Text = L"Specular Strength";
-            this->labelSpecularStrength->Size = Drawing::Size(150, 20);
+            this->labelSpecularStrength->Text = L"Specular Strength                                    1";
+            this->labelSpecularStrength->Size = Drawing::Size(360, 20);
             this->Controls->Add(this->labelSpecularStrength);
-            yPos += 20;
+            yPos += 25;
             
             this->trackBarSpecularStrength->Location = Point(10, yPos);
-            this->trackBarSpecularStrength->Size = Drawing::Size(260, 45);
+            this->trackBarSpecularStrength->Size = Drawing::Size(350, 45);
             this->trackBarSpecularStrength->Minimum = 0;
             this->trackBarSpecularStrength->Maximum = 100;
             this->trackBarSpecularStrength->Value = 40;
             this->trackBarSpecularStrength->ValueChanged += gcnew EventHandler(this, &ToolWindow::trackBarSpecularStrength_ValueChanged);
             this->Controls->Add(this->trackBarSpecularStrength);
-            yPos += 50;
+            yPos += 60;
             
             // Specular Color R
             this->labelSpecularColorR->Location = Point(10, yPos);
-            this->labelSpecularColorR->Text = L"Specular Color R";
-            this->labelSpecularColorR->Size = Drawing::Size(150, 20);
+            this->labelSpecularColorR->Text = L"Specular Color R                                    3.00";
+            this->labelSpecularColorR->Size = Drawing::Size(360, 20);
             this->Controls->Add(this->labelSpecularColorR);
-            yPos += 20;
+            yPos += 25;
             
             this->trackBarSpecularColorR->Location = Point(10, yPos);
-            this->trackBarSpecularColorR->Size = Drawing::Size(260, 45);
+            this->trackBarSpecularColorR->Size = Drawing::Size(350, 45);
             this->trackBarSpecularColorR->Minimum = 0;
-            this->trackBarSpecularColorR->Maximum = 100;
+            this->trackBarSpecularColorR->Maximum = 300;
             this->trackBarSpecularColorR->Value = 100;
             this->trackBarSpecularColorR->ValueChanged += gcnew EventHandler(this, &ToolWindow::trackBarSpecularColorR_ValueChanged);
             this->Controls->Add(this->trackBarSpecularColorR);
-            yPos += 50;
+            yPos += 60;
             
             // Specular Color G
             this->labelSpecularColorG->Location = Point(10, yPos);
-            this->labelSpecularColorG->Text = L"Specular Color G";
-            this->labelSpecularColorG->Size = Drawing::Size(150, 20);
+            this->labelSpecularColorG->Text = L"G                                                  1.68";
+            this->labelSpecularColorG->Size = Drawing::Size(360, 20);
             this->Controls->Add(this->labelSpecularColorG);
-            yPos += 20;
+            yPos += 25;
             
             this->trackBarSpecularColorG->Location = Point(10, yPos);
-            this->trackBarSpecularColorG->Size = Drawing::Size(260, 45);
+            this->trackBarSpecularColorG->Size = Drawing::Size(350, 45);
             this->trackBarSpecularColorG->Minimum = 0;
-            this->trackBarSpecularColorG->Maximum = 100;
+            this->trackBarSpecularColorG->Maximum = 300;
             this->trackBarSpecularColorG->Value = 100;
             this->trackBarSpecularColorG->ValueChanged += gcnew EventHandler(this, &ToolWindow::trackBarSpecularColorG_ValueChanged);
             this->Controls->Add(this->trackBarSpecularColorG);
-            yPos += 50;
+            yPos += 60;
             
             // Specular Color B
             this->labelSpecularColorB->Location = Point(10, yPos);
-            this->labelSpecularColorB->Text = L"Specular Color B";
-            this->labelSpecularColorB->Size = Drawing::Size(150, 20);
+            this->labelSpecularColorB->Text = L"B                                                  1.00";
+            this->labelSpecularColorB->Size = Drawing::Size(360, 20);
             this->Controls->Add(this->labelSpecularColorB);
-            yPos += 20;
+            yPos += 25;
             
             this->trackBarSpecularColorB->Location = Point(10, yPos);
-            this->trackBarSpecularColorB->Size = Drawing::Size(260, 45);
+            this->trackBarSpecularColorB->Size = Drawing::Size(350, 45);
             this->trackBarSpecularColorB->Minimum = 0;
-            this->trackBarSpecularColorB->Maximum = 100;
+            this->trackBarSpecularColorB->Maximum = 300;
             this->trackBarSpecularColorB->Value = 100;
             this->trackBarSpecularColorB->ValueChanged += gcnew EventHandler(this, &ToolWindow::trackBarSpecularColorB_ValueChanged);
             this->Controls->Add(this->trackBarSpecularColorB);
-            yPos += 50;
+            yPos += 60;
             
             // Transform Section
             this->radioButtonTransform->AutoSize = true;
@@ -276,7 +277,7 @@ namespace OpenGL
             this->buttonResetTransform->Size = Drawing::Size(220, 25);
             this->buttonResetTransform->Click += gcnew EventHandler(this, &ToolWindow::buttonResetTransform_Click);
             this->Controls->Add(this->buttonResetTransform);
-            yPos += 35;
+            yPos += 40;
             
             // Water Scale Section
             this->radioButtonWaterScale->AutoSize = true;
@@ -287,42 +288,34 @@ namespace OpenGL
             yPos += 25;
             
             this->labelWaterScaleFrequency->Location = Point(30, yPos);
-            this->labelWaterScaleFrequency->Text = L"Frequency";
-            this->labelWaterScaleFrequency->Size = Drawing::Size(250, 20);
+            this->labelWaterScaleFrequency->Text = L"Frequency                                              4.00";
+            this->labelWaterScaleFrequency->Size = Drawing::Size(310, 20);
             this->Controls->Add(this->labelWaterScaleFrequency);
-            yPos += 20;
+            yPos += 25;
             
             this->trackBarWaterScaleFrequency->Location = Point(30, yPos);
-            this->trackBarWaterScaleFrequency->Size = Drawing::Size(240, 45);
+            this->trackBarWaterScaleFrequency->Size = Drawing::Size(320, 45);
             this->trackBarWaterScaleFrequency->Minimum = 0;
-            this->trackBarWaterScaleFrequency->Maximum = 100;
+            this->trackBarWaterScaleFrequency->Maximum = 40;
             this->trackBarWaterScaleFrequency->Value = 40;
             this->trackBarWaterScaleFrequency->ValueChanged += gcnew EventHandler(this, &ToolWindow::trackBarWaterScaleFrequency_ValueChanged);
             this->Controls->Add(this->trackBarWaterScaleFrequency);
-            yPos += 50;
+            yPos += 60;
             
             this->labelWaterScaleAmplitude->Location = Point(30, yPos);
-            this->labelWaterScaleAmplitude->Text = L"Amplitude";
-            this->labelWaterScaleAmplitude->Size = Drawing::Size(250, 20);
+            this->labelWaterScaleAmplitude->Text = L"Amplitude                                              0.01";
+            this->labelWaterScaleAmplitude->Size = Drawing::Size(310, 20);
             this->Controls->Add(this->labelWaterScaleAmplitude);
-            yPos += 20;
+            yPos += 25;
             
             this->trackBarWaterScaleAmplitude->Location = Point(30, yPos);
-            this->trackBarWaterScaleAmplitude->Size = Drawing::Size(240, 45);
+            this->trackBarWaterScaleAmplitude->Size = Drawing::Size(320, 45);
             this->trackBarWaterScaleAmplitude->Minimum = 0;
             this->trackBarWaterScaleAmplitude->Maximum = 100;
             this->trackBarWaterScaleAmplitude->Value = 1;
             this->trackBarWaterScaleAmplitude->ValueChanged += gcnew EventHandler(this, &ToolWindow::trackBarWaterScaleAmplitude_ValueChanged);
             this->Controls->Add(this->trackBarWaterScaleAmplitude);
-            yPos += 50;
-            
-            // Space Scene Section
-            this->radioButtonSpaceScene->AutoSize = true;
-            this->radioButtonSpaceScene->Location = Point(10, yPos);
-            this->radioButtonSpaceScene->Text = L"Space Scene";
-            this->radioButtonSpaceScene->CheckedChanged += gcnew EventHandler(this, &ToolWindow::radioButtonSpaceScene_CheckedChanged);
-            this->Controls->Add(this->radioButtonSpaceScene);
-            yPos += 25;
+            yPos += 60;
             
             this->checkBoxWireframeRender->AutoSize = true;
             this->checkBoxWireframeRender->Location = Point(30, yPos);
@@ -336,6 +329,14 @@ namespace OpenGL
             this->checkBoxTintBlue->Text = L"Tint Blue";
             this->checkBoxTintBlue->CheckedChanged += gcnew EventHandler(this, &ToolWindow::checkBoxTintBlue_CheckedChanged);
             this->Controls->Add(this->checkBoxTintBlue);
+            yPos += 25;
+            
+            // Space Scene Section
+            this->radioButtonSpaceScene->AutoSize = true;
+            this->radioButtonSpaceScene->Location = Point(10, yPos);
+            this->radioButtonSpaceScene->Text = L"Space Scene";
+            this->radioButtonSpaceScene->CheckedChanged += gcnew EventHandler(this, &ToolWindow::radioButtonSpaceScene_CheckedChanged);
+            this->Controls->Add(this->radioButtonSpaceScene);
             yPos += 25;
             
             // Form properties
@@ -399,13 +400,13 @@ namespace OpenGL
         void trackBarSpecularColorG_ValueChanged(Object^ sender, EventArgs^ e)
         {
             SpecularColorG = static_cast<float>(trackBarSpecularColorG->Value) / 100.0f;
-            labelSpecularColorG->Text = String::Format("Specular Color G                                    {0:0.00}", SpecularColorG);
+            labelSpecularColorG->Text = String::Format("G                                                  {0:0.00}", SpecularColorG);
         }
 
         void trackBarSpecularColorB_ValueChanged(Object^ sender, EventArgs^ e)
         {
             SpecularColorB = static_cast<float>(trackBarSpecularColorB->Value) / 100.0f;
-            labelSpecularColorB->Text = String::Format("Specular Color B                                    {0:0.00}", SpecularColorB);
+            labelSpecularColorB->Text = String::Format("B                                                  {0:0.00}", SpecularColorB);
         }
 
         void checkBoxTranslate_CheckedChanged(Object^ sender, EventArgs^ e)

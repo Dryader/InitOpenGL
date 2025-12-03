@@ -24,8 +24,8 @@ Mesh::Mesh()
     m_instanceCount = 1;
     m_enableInstancing = false;
     m_elementSize = 0;
+    m_color = {1, 1, 1};
 }
-
 Mesh::~Mesh()
 {
 }
@@ -54,7 +54,7 @@ string Mesh::RemoveFolder(string _map)
 
 void Mesh::CalculateTangents(vector<objl::Vertex> _vertices, objl::Vector3& _tanget, objl::Vector3& _bitanget)
 {
-    //calculate tanget/bitanget vectors of both triangles
+    // Calculate tangent/bitangent vectors for triangle
     objl::Vector3 edge1 = _vertices[1].Position - _vertices[0].Position;
     objl::Vector3 edge2 = _vertices[2].Position - _vertices[0].Position;
     objl::Vector2 deltaUV1 = _vertices[1].TextureCoordinate - _vertices[0].TextureCoordinate;
@@ -62,13 +62,32 @@ void Mesh::CalculateTangents(vector<objl::Vertex> _vertices, objl::Vector3& _tan
 
     float f = 1.0f / (deltaUV1.X * deltaUV2.Y - deltaUV2.X * deltaUV1.Y);
 
+    // Calculate raw tangent
     _tanget.X = f * (deltaUV2.Y * edge1.X - deltaUV1.Y * edge2.X);
     _tanget.Y = f * (deltaUV2.Y * edge1.Y - deltaUV1.Y * edge2.Y);
     _tanget.Z = f * (deltaUV2.Y * edge1.Z - deltaUV1.Y * edge2.Z);
 
+    // Calculate raw bitangent
     _bitanget.X = f * (-deltaUV2.X * edge1.X + deltaUV1.X * edge2.X);
     _bitanget.Y = f * (-deltaUV2.X * edge1.Y + deltaUV1.X * edge2.Y);
     _bitanget.Z = f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z);
+
+    // Normalize tangent and bitangent
+    float tanLen = sqrt(_tanget.X * _tanget.X + _tanget.Y * _tanget.Y + _tanget.Z * _tanget.Z);
+    if (tanLen > 0.0001f)
+    {
+        _tanget.X /= tanLen;
+        _tanget.Y /= tanLen;
+        _tanget.Z /= tanLen;
+    }
+
+    float bitLen = sqrt(_bitanget.X * _bitanget.X + _bitanget.Y * _bitanget.Y + _bitanget.Z * _bitanget.Z);
+    if (bitLen > 0.0001f)
+    {
+        _bitanget.X /= bitLen;
+        _bitanget.Y /= bitLen;
+        _bitanget.Z /= bitLen;
+    }
 }
 
 
@@ -198,55 +217,84 @@ bool Mesh::Create(Shader* _shader, string _file, int _instanceCount)
     else
     {
         M_ASSERT(Loader.LoadFile(_file) == true, "Failed to load mesh."); // Load .obj File
+        
+        // Extract vertex data from loaded OBJ meshes
+        for (unsigned int meshIdx = 0; meshIdx < Loader.LoadedMeshes.size(); meshIdx++)
+        {
+            objl::Mesh& curMesh = Loader.LoadedMeshes[meshIdx];
+            
+            // Process vertices in groups of 3 (triangles) to calculate tangents
+            for (unsigned int i = 0; i < curMesh.Indices.size(); i += 3)
+            {
+                vector<objl::Vertex> triangle;
+                objl::Vector3 tangent;
+                objl::Vector3 bitangent;
+                
+                // Get the three vertices of the triangle
+                for (int j = 0; j < 3; j++)
+                {
+                    unsigned int idx = curMesh.Indices[i + j];
+                    triangle.push_back(curMesh.Vertices[idx]);
+                }
+                
+                // Calculate tangent and bitangent for this triangle
+                CalculateTangents(triangle, tangent, bitangent);
+                
+                // Add all three vertices with their tangent/bitangent data
+                for (int j = 0; j < 3; j++)
+                {
+                    m_vertexData.push_back(triangle[j].Position.X);
+                    m_vertexData.push_back(triangle[j].Position.Y);
+                    m_vertexData.push_back(triangle[j].Position.Z);
+                    m_vertexData.push_back(triangle[j].Normal.X);
+                    m_vertexData.push_back(triangle[j].Normal.Y);
+                    m_vertexData.push_back(triangle[j].Normal.Z);
+                    m_vertexData.push_back(triangle[j].TextureCoordinate.X);
+                    m_vertexData.push_back(triangle[j].TextureCoordinate.Y);
+                    m_vertexData.push_back(tangent.X);
+                    m_vertexData.push_back(tangent.Y);
+                    m_vertexData.push_back(tangent.Z);
+                    m_vertexData.push_back(bitangent.X);
+                    m_vertexData.push_back(bitangent.Y);
+                    m_vertexData.push_back(bitangent.Z);
+                }
+            }
+        }
+        
+        // Note: m_enableNormalMap will be set later based on whether a bump map texture exists
     }
 #pragma endregion
 
-    // Remove directory if present and handle empty map_Kd safely
-    // string diffuseNap = Loader.LoadedMaterials.size() > 0 ? Loader.LoadedMaterials[0].map_Kd : "";
-    // if (!diffuseNap.empty())
-    // {
-    //     size_t last_backslash = diffuseNap.find_last_of("\\");
-    //     size_t last_slash = diffuseNap.find_last_of("/");
-    //     size_t last_sep = (last_backslash == std::string::npos)
-    //                           ? last_slash
-    //                           : ((last_slash == std::string::npos)
-    //                                  ? last_backslash
-    //                                  : std::max(last_backslash, last_slash));
-    //     if (last_sep != std::string::npos)
-    //     {
-    //         diffuseNap.erase(0, last_sep + 1);
-    //     }
-    // }
-    // else
-    // {
-    //     diffuseNap = "Wood.jpg"; // simple fallback texture name present in Assets/Textures
-    // }
+    // Only load textures from OBJ loader for non-ASE files
+    // ASE files already have their textures loaded in LoadASEFile()
+    if (!EndsWith(_file, ".ase"))
+    {
+        m_textureDiffuse = Texture();
+        if (Loader.LoadedMaterials.size() > 0 && Loader.LoadedMaterials[0].map_Kd != "")
+        {
+            m_textureDiffuse.LoadTexture("Assets/Textures/" + RemoveFolder(Loader.LoadedMaterials[0].map_Kd));
+        }
+        else
+        {
+            m_textureDiffuse.LoadTexture("Assets/Textures/Wood.jpg");
+        }
 
-    m_textureDiffuse = Texture();
-    if (Loader.LoadedMaterials.size() > 0 && Loader.LoadedMaterials[0].map_Kd != "")
-    {
-        m_textureDiffuse.LoadTexture("Assets/Textures/" + RemoveFolder(Loader.LoadedMaterials[0].map_Kd));
-    }
-    else
-    {
-        m_textureDiffuse.LoadTexture("Assets/Textures/Wood.jpg");
-    }
+        m_textureSpecular = Texture();
+        if (Loader.LoadedMaterials.size() > 0 && Loader.LoadedMaterials[0].map_Ks != "")
+        {
+            m_textureSpecular.LoadTexture("Assets/Textures/" + RemoveFolder(Loader.LoadedMaterials[0].map_Ks));
+        }
+        else
+        {
+            m_textureSpecular.LoadTexture("Assets/Textures/Wood.jpg");
+        }
 
-    m_textureSpecular = Texture();
-    if (Loader.LoadedMaterials.size() > 0 && Loader.LoadedMaterials[0].map_Ks != "")
-    {
-        m_textureSpecular.LoadTexture("Assets/Textures/" + RemoveFolder(Loader.LoadedMaterials[0].map_Ks));
-    }
-    else
-    {
-        m_textureSpecular.LoadTexture("Assets/Textures/Wood.jpg");
-    }
-
-    m_textureNormal = Texture();
-    if (Loader.LoadedMaterials.size() > 0 && Loader.LoadedMaterials[0].map_bump != "")
-    {
-        m_textureNormal.LoadTexture("Assets/Textures/" + RemoveFolder(Loader.LoadedMaterials[0].map_bump));
-        m_enableNormalMap = true;
+        m_textureNormal = Texture();
+        if (Loader.LoadedMaterials.size() > 0 && Loader.LoadedMaterials[0].map_bump != "")
+        {
+            m_textureNormal.LoadTexture("Assets/Textures/" + RemoveFolder(Loader.LoadedMaterials[0].map_bump));
+            m_enableNormalMap = true;
+        }
     }
 
     glGenBuffers(1, &m_vertexBuffer);
@@ -285,6 +333,8 @@ void Mesh::CalculateTransform()
 {
     m_world = glm::translate(glm::mat4(1.0f), m_position);
     m_world = glm::rotate(m_world, glm::radians(m_rotation.x), glm::vec3(1, 0, 0));
+    m_world = glm::rotate(m_world, glm::radians(m_rotation.y), glm::vec3(0, 1, 0));
+    m_world = glm::rotate(m_world, glm::radians(m_rotation.z), glm::vec3(0, 0, 1));
     m_world = glm::scale(m_world, m_scale);
 }
 
@@ -365,11 +415,11 @@ void Mesh::BindAttributes()
     // Bind our vertex buffer first
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
-    int stride = 8;
-    if (m_enableNormalMap)
-    {
-        stride += 6; // 3 for tangent, 3 for bitangent
-    }
+    // Vertex data always has 14 floats per vertex:
+    // position (3) + normal (3) + texcoord (2) + tangent (3) + bitangent (3)
+    int stride = 14;
+    m_elementSize = 14;
+    
     glEnableVertexAttribArray(m_shader->GetAttrVertices());
     glVertexAttribPointer(m_shader->GetAttrVertices(), 3, GL_FLOAT, GL_FALSE, stride * sizeof(float),
                           static_cast<void*>(nullptr));
@@ -381,7 +431,6 @@ void Mesh::BindAttributes()
     glEnableVertexAttribArray(m_shader->GetAttrTexCoords());
     glVertexAttribPointer(m_shader->GetAttrTexCoords(), 2, GL_FLOAT, GL_FALSE, stride * sizeof(float),
                           (void*)(6 * sizeof(float)));
-    m_elementSize = 8;
 
     if (m_enableNormalMap)
     {
@@ -392,7 +441,6 @@ void Mesh::BindAttributes()
         glEnableVertexAttribArray(m_shader->GetAttrBitangents());
         glVertexAttribPointer(m_shader->GetAttrBitangents(), 3, GL_FLOAT, GL_FALSE, stride * sizeof(float),
                               (void*)(11 * sizeof(float)));
-        m_elementSize += 6;
     }
     if (m_enableInstancing)
     {

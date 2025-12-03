@@ -43,6 +43,7 @@ void main()
     {
         vec3 lightDir = normalize(light[i].position - retFragPos); // Normalize, for correct dot product results
         vec3 normal = retNormal;
+        
         if (EnableNormalMap == true)
         {
             normal = texture(material.normalTexture, retTexCoord).rgb;
@@ -50,8 +51,8 @@ void main()
             normal = normalize(retTBN * normal); // Transform normal from tangent space to world space
         }
         
-        float lambertianStrength = dot(lightDir, retNormal); // Add lambertian lighting
-        vec3 refl = reflect(-lightDir, retNormal);
+        float lambertianStrength = dot(lightDir, normal); // Add lambertian lighting
+        vec3 refl = reflect(-lightDir, normal);
         float specularStrength = pow(max(dot(retViewDirection, refl), 0.0f), material.specularStrength);
 
         vec3 ambient = diffColor.rgb *  light[i].ambientColor / NR_LIGHTS;

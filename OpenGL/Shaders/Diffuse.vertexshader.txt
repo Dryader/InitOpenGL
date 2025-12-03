@@ -35,8 +35,17 @@ void main()
     retFragPos = vec3(world * vec4(vertices, 1.0f));
     retViewDirection = normalize(CameraPosition - retFragPos);
     
+    // Transform tangent, bitangent, and normal to world space
     vec3 T = normalize(vec3(world * vec4(tangents, 0.0)));
     vec3 B = normalize(vec3(world * vec4(bitangents, 0.0)));
     vec3 N = normalize(vec3(world * vec4(normals, 0.0)));
+    
+    // Gram-Schmidt orthogonalization: make tangent perpendicular to normal
+    T = normalize(T - dot(T, N) * N);
+    
+    // Recalculate bitangent to ensure it's perpendicular to both N and T
+    B = cross(N, T);
+    
+    // Build TBN matrix (note: row-major order in GLM)
     retTBN = mat3(T, B, N);
 }
