@@ -5,24 +5,25 @@ out vec4 FragColor;
 
 uniform sampler2D sceneTexture;
 uniform bool TintBlueEnabled = false;
+uniform float Time = 0.0;
+uniform float Frequency = 4.0;
+uniform float Amplitude = 0.01;
 
 const float offset = 1.0 / 300.0;
 
 void main()
 {
-    vec2 offsets[9] = vec2[](
-        vec2(-offset,  offset), // top-left
-        vec2( 0.0f,    offset), // top-center
-        vec2( offset,  offset), // top-right
-        vec2(-offset,  0.0f),   // center-left
-        vec2( 0.0f,    0.0f),   // center-center
-        vec2( offset,  0.0f),   // center-right
-        vec2(-offset, -offset), // bottom-left
-        vec2( 0.0f,   -offset), // bottom-center
-        vec2( offset, -offset)  // bottom-right
-    );
-
-    vec3 col = vec3(texture(sceneTexture, retTexCoords.st));
+    vec2 texCoord = retTexCoords.st;
+    
+    // Apply wave distortion to create a unified wave effect across the entire scene
+    // Use smaller frequency scale for smoother, less jerky motion
+    float waveX = sin(texCoord.y * Frequency + Time) * Amplitude;
+    float waveY = sin(texCoord.x * Frequency + Time * 0.7) * Amplitude * 0.5;
+    
+    texCoord.x += waveX;
+    texCoord.y += waveY;
+    
+    vec3 col = vec3(texture(sceneTexture, texCoord));
     
     // Apply tint blue effect if enabled
     if (TintBlueEnabled)

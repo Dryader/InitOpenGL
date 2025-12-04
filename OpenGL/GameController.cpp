@@ -99,8 +99,8 @@ void GameController::RunGame()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
         
-        // Only use post-processor for fighter scene, not water scene
-        if (!OpenGL::ToolWindow::WaterSceneEnabled)
+        // Use post-processor for water scene wave effect, or skip for fighter scene
+        if (OpenGL::ToolWindow::WaterSceneEnabled)
         {
             m_postProcessor.Start();
         }
@@ -245,13 +245,7 @@ void GameController::RunGame()
             lastTime = currentTime;
         }
         
-        // End post-processor only if it was started
-        if (!OpenGL::ToolWindow::WaterSceneEnabled)
-        {
-            m_postProcessor.End();
-        }
-
-        // Render FPS
+        // Render FPS and other text BEFORE post-processor ends, so they get affected by wave effect
         f.RenderText(fpsS, 100, 100, 0.5f, {1.0f, 1.0f, 0.0f});
 
         // Get and render mouse position
@@ -314,6 +308,18 @@ void GameController::RunGame()
             f.RenderText(string(posBuffer), 100, 220, 0.5f, {1.0f, 1.0f, 0.0f});
             f.RenderText(string(rotBuffer), 100, 250, 0.5f, {1.0f, 1.0f, 0.0f});
             f.RenderText(string(scaleBuffer), 100, 280, 0.5f, {1.0f, 1.0f, 0.0f});
+        }
+        
+        // End post-processor only if it was started (for water scene)
+        if (OpenGL::ToolWindow::WaterSceneEnabled)
+        {
+            // For water scene, set the water effect uniforms before ending post-processor
+            glUseProgram(m_shaderPost.GetProgramID());
+            m_shaderPost.SetFloat("Time", static_cast<float>(m_gameTime));
+            m_shaderPost.SetFloat("Frequency", OpenGL::ToolWindow::WaterScaleFrequency);
+            m_shaderPost.SetFloat("Amplitude", OpenGL::ToolWindow::WaterScaleAmplitude);
+            glUseProgram(0);
+            m_postProcessor.End();
         }
 
         glfwSwapBuffers(window); // Swap the back and front buffers
