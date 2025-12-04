@@ -21,6 +21,7 @@ namespace OpenGL
         static float SpecularColorR = 1.0f;
         static float SpecularColorG = 1.0f;
         static float SpecularColorB = 1.0f;
+        static bool TransformEnabled = false;
         static bool TranslateEnabled = false;
         static bool RotateEnabled = false;
         static bool ScaleEnabled = false;
@@ -371,7 +372,7 @@ namespace OpenGL
         
         void radioButtonTransform_CheckedChanged(Object^ sender, EventArgs^ e)
         {
-            // Transform section selected
+            TransformEnabled = radioButtonTransform->Checked;
         }
         
         void radioButtonWaterScale_CheckedChanged(Object^ sender, EventArgs^ e)

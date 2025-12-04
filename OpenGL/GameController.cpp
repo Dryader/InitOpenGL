@@ -94,8 +94,8 @@ void GameController::RunGame()
             glfwGetCursorPos(window, &mouseX, &mouseY);
             int leftButtonState = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
 
-            // Auto-rotate fighter when not manually controlling
-            if (!OpenGL::ToolWindow::RotateEnabled)
+            // Auto-rotate fighter when not in Transform mode
+            if (!OpenGL::ToolWindow::TransformEnabled)
             {
                 glm::vec3 currentRot = m_meshes[0].GetRotation();
                 m_meshes[0].SetRotation(glm::vec3(currentRot.x + 0.04f, currentRot.y, currentRot.z));
@@ -134,10 +134,13 @@ void GameController::RunGame()
                     if (OpenGL::ToolWindow::ScaleEnabled)
                     {
                         glm::vec3 currentScale = m_meshes[0].GetScale();
-                        float scaleFactor = 1.0f + (deltaY * 0.001f);
-                        m_meshes[0].SetScale(glm::vec3(currentScale.x * scaleFactor,
-                                                       currentScale.y * scaleFactor,
-                                                       currentScale.z * scaleFactor));
+                        // Horizontal movement affects X scale (left/right stretch)
+                        float scaleFactorX = 1.0f + (deltaX * 0.005f);
+                        // Vertical movement affects Y scale (up/down stretch)
+                        float scaleFactorY = 1.0f + (deltaY * 0.005f);
+                        m_meshes[0].SetScale(glm::vec3(currentScale.x * scaleFactorX,
+                                                       currentScale.y * scaleFactorY,
+                                                       currentScale.z));
                     }
 
                     lastMouseX = mouseX;
