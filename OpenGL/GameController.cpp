@@ -55,6 +55,9 @@ void GameController::RunGame()
     m_shaderWater = Shader();
     m_shaderWater.LoadShaders("Shaders/Water.vertexshader.txt", "Shaders/Water.fragmentshader.txt");
 
+    m_shaderSkybox = Shader();
+    m_shaderSkybox.LoadShaders("Shaders/Skybox.vertexshader.txt", "Shaders/Skybox.fragmentshader.txt");
+
     // Create meshes
 
     auto m = Mesh();
@@ -80,6 +83,30 @@ void GameController::RunGame()
     m_waterPlane.SetRotation({0.0f, 180.0f, 0.0f});
     m_waterPlane.SetScale({0.020000f, 0.020000f, 0.020000f});
 
+    // Skybox setup
+    vector<string> faces = {
+        "Assets/Textures/right.jpg",    // Right
+        "Assets/Textures/left.jpg",     // Left
+        "Assets/Textures/top.jpg",      // Top
+        "Assets/Textures/bottom.jpg",   // Bottom
+        "Assets/Textures/front.jpg",    // Front
+        "Assets/Textures/back.jpg"      // Back
+    };
+    m_skybox.Create(&m_shaderSkybox, "Assets/Models/SkyBox.obj", faces);
+
+    // Space scene setup - Spaceship at origin facing away from camera
+    m_spaceship = Mesh();
+    m_spaceship.Create(&m_shaderDiffuse, "Assets/Models/Fighter.obj");
+    m_spaceship.SetCameraPosition(m_camera.GetPosition());
+    m_spaceship.SetPosition({0.0f, 0.0f, 0.0f});
+    m_spaceship.SetRotation({0.0f, 180.0f, 0.0f});  // Face away from camera
+    m_spaceship.SetScale({0.0008f, 0.0008f, 0.0008f});
+
+    // Asteroids - instance rendered around spaceship (100 asteroids)
+    m_asteroids = Mesh();
+    m_asteroids.Create(&m_shaderDiffuse, "Assets/Models/asteroid.obj", 100);
+    m_asteroids.SetCameraPosition(m_camera.GetPosition());
+
 
     auto f = Fonts();
     f.Create(&m_shaderFont, "arial.ttf", 40);
@@ -99,7 +126,7 @@ void GameController::RunGame()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
         
-        // Use post-processor for water scene wave effect, or skip for fighter scene
+        // Use post-processor for water scene wave effect only
         if (OpenGL::ToolWindow::WaterSceneEnabled)
         {
             m_postProcessor.Start();
@@ -197,6 +224,12 @@ void GameController::RunGame()
         // Update game time
         m_gameTime += 0.01;
 
+        // Rotate camera in space scene
+        if (OpenGL::ToolWindow::SpaceSceneEnabled)
+        {
+            m_camera.Rotate();
+        }
+
         // Render appropriate scene based on ToolWindow selection
         if (OpenGL::ToolWindow::WaterSceneEnabled)
         {
@@ -209,6 +242,19 @@ void GameController::RunGame()
             glUseProgram(0);
             m_waterPlane.Render(m_camera.GetProjection() * m_camera.GetView());
         }
+        else if (OpenGL::ToolWindow::SpaceSceneEnabled)
+        {
+            // Render space scene with skybox
+            m_skybox.Render(m_camera.GetProjection() * m_camera.GetView());
+
+            // Render spaceship
+            m_spaceship.SetCameraPosition(m_camera.GetPosition());
+            m_spaceship.Render(m_camera.GetProjection() * m_camera.GetView());
+
+            // Render instance-rendered asteroids
+            m_asteroids.SetCameraPosition(m_camera.GetPosition());
+            m_asteroids.Render(m_camera.GetProjection() * m_camera.GetView());
+        }
         else
         {
             // Render default fighter scene
@@ -219,8 +265,8 @@ void GameController::RunGame()
             }
         }
 
-        // Only render lights for fighter scene, not water scene
-        if (!OpenGL::ToolWindow::WaterSceneEnabled)
+        // Only render lights for fighter scene, not water or space scene
+        if (!OpenGL::ToolWindow::WaterSceneEnabled && !OpenGL::ToolWindow::SpaceSceneEnabled)
         {
             for (unsigned int count = 0; count < Mesh::Lights.size(); count++)
             {

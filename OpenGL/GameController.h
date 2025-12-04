@@ -28,6 +28,7 @@ private:
     Shader m_shaderFont;
     Shader m_shaderPost;
     Shader m_shaderWater;
+    Shader m_shaderSkybox;
     vector<Mesh> m_meshes;
     Camera m_camera;
     Skybox m_skybox;
@@ -35,6 +36,8 @@ private:
     PostProcessor m_postProcessor;
     double m_gameTime;
     Mesh m_waterPlane;
+    Mesh m_spaceship;
+    Mesh m_asteroids;
 };
 
 #endif // GAME_CONTROLLER_H
