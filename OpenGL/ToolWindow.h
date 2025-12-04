@@ -29,6 +29,10 @@ namespace OpenGL
         static bool WireframeRenderEnabled = false;
         static bool TintBlueEnabled = false;
         static bool SpaceSceneEnabled = false;
+        static bool ResetLightPositionRequested = false;
+        static float DefaultLightPositionX = 0.0f;
+        static float DefaultLightPositionY = 0.5f;
+        static float DefaultLightPositionZ = 1.0f;
 
         ToolWindow(void)
         {
@@ -382,7 +386,8 @@ namespace OpenGL
 
         void buttonResetLightPosition_Click(Object^ sender, EventArgs^ e)
         {
-            // Reset light position - placeholder for game controller integration
+            // Signal that light position should be reset
+            ResetLightPositionRequested = true;
         }
 
         void trackBarSpecularStrength_ValueChanged(Object^ sender, EventArgs^ e)

@@ -149,6 +149,15 @@ void GameController::RunGame()
                 leftButtonWasPressed = false;
             }
 
+        // Handle light position reset
+            if (OpenGL::ToolWindow::ResetLightPositionRequested && Mesh::Lights.size() > 0)
+            {
+                Mesh::Lights[0].SetPosition(glm::vec3(OpenGL::ToolWindow::DefaultLightPositionX, 
+                                                       OpenGL::ToolWindow::DefaultLightPositionY, 
+                                                       OpenGL::ToolWindow::DefaultLightPositionZ));
+                OpenGL::ToolWindow::ResetLightPositionRequested = false;
+            }
+
             // Handle light movement - only when left click is down and MoveLightEnabled is true
             if (OpenGL::ToolWindow::MoveLightEnabled && Mesh::Lights.size() > 0 && leftButtonState == GLFW_PRESS)
             {
