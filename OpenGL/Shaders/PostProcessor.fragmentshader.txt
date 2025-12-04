@@ -4,6 +4,7 @@ in vec2 retTexCoords;
 out vec4 FragColor;
 
 uniform sampler2D sceneTexture;
+uniform bool TintBlueEnabled = false;
 
 const float offset = 1.0 / 300.0;
 
@@ -22,6 +23,14 @@ void main()
     );
 
     vec3 col = vec3(texture(sceneTexture, retTexCoords.st));
+    
+    // Apply tint blue effect if enabled
+    if (TintBlueEnabled)
+    {
+        col.r = col.r / 2.0;
+        col.g = col.g / 2.0;
+        // col.b remains unchanged
+    }
 
     FragColor = vec4(col, 1.0);
 }

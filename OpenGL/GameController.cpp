@@ -11,8 +11,10 @@ GameController::GameController()
     m_shaderFont = {};
     m_camera = {};
     m_shaderPost = {};
+    m_shaderWater = {};
     m_meshes.clear();
     vao = 0;
+    m_gameTime = 0.0;
 }
 
 void GameController::Initialize()
@@ -50,6 +52,9 @@ void GameController::RunGame()
     m_shaderPost = Shader();
     m_shaderPost.LoadShaders("Shaders/PostProcessor.vertexshader.txt", "Shaders/PostProcessor.fragmentshader.txt");
 
+    m_shaderWater = Shader();
+    m_shaderWater.LoadShaders("Shaders/Water.vertexshader.txt", "Shaders/Water.fragmentshader.txt");
+
     // Create meshes
 
     auto m = Mesh();
@@ -66,6 +71,14 @@ void GameController::RunGame()
     fighter.SetRotation({0.0f, 0.0f, 0.0f});
     fighter.SetScale({0.0008f, 0.0008f, 0.0008f});
     m_meshes.push_back(fighter);
+
+    // Water scene setup - Fish with Atlantic bluefin tuna textures
+    m_waterPlane = Mesh();
+    m_waterPlane.Create(&m_shaderWater, "Assets/Models/Fish.obj");
+    m_waterPlane.SetCameraPosition(m_camera.GetPosition());
+    m_waterPlane.SetPosition({0.0f, 0.0f, 0.0f});
+    m_waterPlane.SetRotation({0.0f, 180.0f, 0.0f});
+    m_waterPlane.SetScale({0.020000f, 0.020000f, 0.020000f});
 
 
     auto f = Fonts();
@@ -85,7 +98,12 @@ void GameController::RunGame()
     do
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
-        m_postProcessor.Start();
+        
+        // Only use post-processor for fighter scene, not water scene
+        if (!OpenGL::ToolWindow::WaterSceneEnabled)
+        {
+            m_postProcessor.Start();
+        }
 
         // Handle mouse interactions for fighter transformations
         if (m_meshes.size() > 0)
@@ -95,7 +113,7 @@ void GameController::RunGame()
             int leftButtonState = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
 
             // Auto-rotate fighter when not in Transform mode
-            if (!OpenGL::ToolWindow::TransformEnabled)
+            if (!OpenGL::ToolWindow::TransformEnabled && !OpenGL::ToolWindow::WaterSceneEnabled)
             {
                 glm::vec3 currentRot = m_meshes[0].GetRotation();
                 m_meshes[0].SetRotation(glm::vec3(currentRot.x + 0.04f, currentRot.y, currentRot.z));
@@ -115,7 +133,7 @@ void GameController::RunGame()
                     double deltaY = mouseY - lastMouseY;
 
                     // Apply transformations based on ToolWindow settings
-                    if (OpenGL::ToolWindow::TranslateEnabled)
+                    if (OpenGL::ToolWindow::TranslateEnabled && !OpenGL::ToolWindow::WaterSceneEnabled)
                     {
                         glm::vec3 currentPos = m_meshes[0].GetPosition();
                         m_meshes[0].SetPosition(glm::vec3(currentPos.x + deltaX * 0.001f,
@@ -123,7 +141,7 @@ void GameController::RunGame()
                                                           currentPos.z));
                     }
 
-                    if (OpenGL::ToolWindow::RotateEnabled)
+                    if (OpenGL::ToolWindow::RotateEnabled && !OpenGL::ToolWindow::WaterSceneEnabled)
                     {
                         glm::vec3 currentRot = m_meshes[0].GetRotation();
                         m_meshes[0].SetRotation(glm::vec3(currentRot.x + deltaY * 0.5f,
@@ -131,7 +149,7 @@ void GameController::RunGame()
                                                           currentRot.z));
                     }
 
-                    if (OpenGL::ToolWindow::ScaleEnabled)
+                    if (OpenGL::ToolWindow::ScaleEnabled && !OpenGL::ToolWindow::WaterSceneEnabled)
                     {
                         glm::vec3 currentScale = m_meshes[0].GetScale();
                         // Horizontal movement affects X scale (left/right stretch)
@@ -152,12 +170,12 @@ void GameController::RunGame()
                 leftButtonWasPressed = false;
             }
 
-        // Handle light position reset
+            // Handle light position reset
             if (OpenGL::ToolWindow::ResetLightPositionRequested && Mesh::Lights.size() > 0)
             {
-                Mesh::Lights[0].SetPosition(glm::vec3(OpenGL::ToolWindow::DefaultLightPositionX, 
-                                                       OpenGL::ToolWindow::DefaultLightPositionY, 
-                                                       OpenGL::ToolWindow::DefaultLightPositionZ));
+                Mesh::Lights[0].SetPosition(glm::vec3(OpenGL::ToolWindow::DefaultLightPositionX,
+                                                      OpenGL::ToolWindow::DefaultLightPositionY,
+                                                      OpenGL::ToolWindow::DefaultLightPositionZ));
                 OpenGL::ToolWindow::ResetLightPositionRequested = false;
             }
 
@@ -176,14 +194,46 @@ void GameController::RunGame()
             }
         }
 
-        for (unsigned int count = 0; count < m_meshes.size(); count++)
+        // Update game time
+        m_gameTime += 0.01;
+
+        // Render appropriate scene based on ToolWindow selection
+        if (OpenGL::ToolWindow::WaterSceneEnabled)
         {
-            m_meshes[count].SetCameraPosition(m_camera.GetPosition());
-            m_meshes[count].Render(m_camera.GetProjection() * m_camera.GetView());
+            // Render water scene
+            m_waterPlane.SetCameraPosition(m_camera.GetPosition());
+            glUseProgram(m_shaderWater.GetProgramID());
+            m_shaderWater.SetFloat("Time", static_cast<float>(m_gameTime));
+            m_shaderWater.SetFloat("Frequency", OpenGL::ToolWindow::WaterScaleFrequency);
+            m_shaderWater.SetFloat("Amplitude", OpenGL::ToolWindow::WaterScaleAmplitude);
+            glUseProgram(0);
+            m_waterPlane.Render(m_camera.GetProjection() * m_camera.GetView());
         }
-        for (unsigned int count = 0; count < Mesh::Lights.size(); count++)
+        else
         {
-            Mesh::Lights[count].Render(m_camera.GetProjection() * m_camera.GetView());
+            // Render default fighter scene
+            for (unsigned int count = 0; count < m_meshes.size(); count++)
+            {
+                m_meshes[count].SetCameraPosition(m_camera.GetPosition());
+                m_meshes[count].Render(m_camera.GetProjection() * m_camera.GetView());
+            }
+        }
+
+        // Only render lights for fighter scene, not water scene
+        if (!OpenGL::ToolWindow::WaterSceneEnabled)
+        {
+            for (unsigned int count = 0; count < Mesh::Lights.size(); count++)
+            {
+                Mesh::Lights[count].Render(m_camera.GetProjection() * m_camera.GetView());
+            }
+        }
+
+        // Update post-processor tint blue uniform only for fighter scene
+        if (!OpenGL::ToolWindow::WaterSceneEnabled)
+        {
+            glUseProgram(m_shaderPost.GetProgramID());
+            m_shaderPost.SetBool("TintBlueEnabled", OpenGL::ToolWindow::TintBlueEnabled);
+            glUseProgram(0);
         }
 
         double currentTime = glfwGetTime();
@@ -194,7 +244,12 @@ void GameController::RunGame()
             fps = 0;
             lastTime = currentTime;
         }
-        m_postProcessor.End();
+        
+        // End post-processor only if it was started
+        if (!OpenGL::ToolWindow::WaterSceneEnabled)
+        {
+            m_postProcessor.End();
+        }
 
         // Render FPS
         f.RenderText(fpsS, 100, 100, 0.5f, {1.0f, 1.0f, 0.0f});
@@ -215,9 +270,32 @@ void GameController::RunGame()
         f.RenderText(leftButtonStr, 100, 160, 0.5f, {1.0f, 1.0f, 0.0f});
         f.RenderText(middleButtonStr, 100, 190, 0.5f, {1.0f, 1.0f, 0.0f});
 
-        // Render fighter information if meshes exist
-        if (m_meshes.size() > 0)
+        // Render fighter/fish information based on scene
+        if (OpenGL::ToolWindow::WaterSceneEnabled)
         {
+            // Render fish information for water scene
+            glm::vec3 fishPos = m_waterPlane.GetPosition();
+            glm::vec3 fishRot = m_waterPlane.GetRotation();
+            glm::vec3 fishScale = m_waterPlane.GetScale();
+
+            char posBuffer[256];
+            char rotBuffer[256];
+            char scaleBuffer[256];
+
+            sprintf_s(posBuffer, "Fish Position: (vec3(%.6f, %.6f, %.6f))", fishPos.x, fishPos.y,
+                      fishPos.z);
+            sprintf_s(rotBuffer, "Fish Rotation: (vec3(%.6f, %.6f, %.6f))", fishRot.x, fishRot.y,
+                      fishRot.z);
+            sprintf_s(scaleBuffer, "Fish Scale  : (vec3(%.6f, %.6f, %.6f))", fishScale.x, fishScale.y,
+                      fishScale.z);
+
+            f.RenderText(string(posBuffer), 100, 220, 0.5f, {1.0f, 1.0f, 0.0f});
+            f.RenderText(string(rotBuffer), 100, 250, 0.5f, {1.0f, 1.0f, 0.0f});
+            f.RenderText(string(scaleBuffer), 100, 280, 0.5f, {1.0f, 1.0f, 0.0f});
+        }
+        else if (m_meshes.size() > 0)
+        {
+            // Render fighter information for fighter scene
             glm::vec3 fighterPos = m_meshes[0].GetPosition();
             glm::vec3 fighterRot = m_meshes[0].GetRotation();
             glm::vec3 fighterScale = m_meshes[0].GetScale();

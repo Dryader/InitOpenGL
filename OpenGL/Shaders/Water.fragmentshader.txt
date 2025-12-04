@@ -1,0 +1,68 @@
+#version 330
+
+in vec3 retNormal;
+in vec2 retTexCoord;
+in vec3 retFragPos;
+in vec3 retViewDirection;
+in mat3 retTBN;
+
+out vec4 FragColor;
+
+struct Material {
+    float specularStrength;
+    sampler2D diffuseTexture;
+    sampler2D specularTexture;
+    sampler2D normalTexture;
+};
+
+struct Light {
+    vec3 position;
+    vec3 color;
+    vec3 ambientColor;
+    vec3 diffuseColor;
+    vec3 specularColor;
+};
+
+uniform Material material;
+#define NR_LIGHTS 1
+uniform Light light[NR_LIGHTS];
+uniform bool EnableNormalMap = false;
+
+void main()
+{
+    //early out if we have no color at this fragment position
+    vec4 diffColor = texture(material.diffuseTexture, retTexCoord);
+    if(diffColor.a == 0)
+    {
+        discard;
+    }
+
+    vec3 finalColor = vec3(0);
+    for (int i = 0; i < NR_LIGHTS; i++)
+    {
+        vec3 lightDir = normalize(light[i].position - retFragPos);
+        vec3 normal = retNormal;
+        
+        if (EnableNormalMap == true)
+        {
+            normal = texture(material.normalTexture, retTexCoord).rgb;
+            normal = normal * 2.0 - 1.0;
+            normal = normalize(retTBN * normal);
+        }
+
+        float lambertianStrength = max(dot(lightDir, normal), 0.0);
+        vec3 refl = reflect(-lightDir, normal);
+        float specularStrength = pow(max(dot(retViewDirection, refl), 0.0), 32.0) * material.specularStrength;
+
+        // Add ambient component
+        finalColor += light[i].ambientColor;
+
+        // Add diffuse component
+        finalColor += diffColor.xyz * light[i].diffuseColor * lambertianStrength;
+
+        // Add specular component
+        finalColor += light[i].specularColor * specularStrength;
+    }
+    FragColor = vec4(finalColor, diffColor.a);
+}
+

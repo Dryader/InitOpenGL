@@ -59,6 +59,15 @@ void Shader::SetInt(const char* _name, int _value)
     }
 }
 
+void Shader::SetBool(const char* _name, bool _value)
+{
+    GLint loc = glGetUniformLocation(m_programID, _name);
+    if (loc != -1)
+    {
+        glUniform1i(loc, _value ? 1 : 0);
+    }
+}
+
 void Shader::LoadAttributes()
 {
     m_attrVertices = glGetAttribLocation(m_programID, "vertices"); // Get a handle for the vertex buffer

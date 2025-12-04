@@ -270,6 +270,8 @@
         <Content Include="Shaders\PostProcessor.vertexshader.txt"/>
         <Content Include="Shaders\Skybox.fragmentshader.txt"/>
         <Content Include="Shaders\Skybox.vertexshader.txt"/>
+        <Content Include="Shaders\Water.fragmentshader.txt" />
+        <Content Include="Shaders\Water.vertexshader.txt" />
     </ItemGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
     <ImportGroup Label="ExtensionTargets">

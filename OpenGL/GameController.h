@@ -27,11 +27,14 @@ private:
     Shader m_shaderDiffuse;
     Shader m_shaderFont;
     Shader m_shaderPost;
+    Shader m_shaderWater;
     vector<Mesh> m_meshes;
     Camera m_camera;
     Skybox m_skybox;
     GLuint vao;
     PostProcessor m_postProcessor;
+    double m_gameTime;
+    Mesh m_waterPlane;
 };
 
 #endif // GAME_CONTROLLER_H

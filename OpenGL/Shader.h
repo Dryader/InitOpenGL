@@ -33,6 +33,7 @@ public:
     void SetVec3(const char* _name, glm::vec3 _value);
     void SetMat4(const char* _name, glm::mat4 _value);
     void SetInt(const char* _name, int _value);
+    void SetBool(const char* _name, bool _value);
 
 private:
     // Methods
