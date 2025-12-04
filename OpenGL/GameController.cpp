@@ -228,13 +228,20 @@ void GameController::RunGame()
             }
         }
 
-        // Update post-processor tint blue uniform only for fighter scene
-        if (!OpenGL::ToolWindow::WaterSceneEnabled)
+        // Apply wireframe rendering if enabled
+        if (OpenGL::ToolWindow::WireframeRenderEnabled)
         {
-            glUseProgram(m_shaderPost.GetProgramID());
-            m_shaderPost.SetBool("TintBlueEnabled", OpenGL::ToolWindow::TintBlueEnabled);
-            glUseProgram(0);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         }
+        else
+        {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        }
+
+        // Update post-processor tint blue uniform for both scenes
+        glUseProgram(m_shaderPost.GetProgramID());
+        m_shaderPost.SetBool("TintBlueEnabled", OpenGL::ToolWindow::TintBlueEnabled);
+        glUseProgram(0);
 
         double currentTime = glfwGetTime();
         fps++;
