@@ -37,6 +37,7 @@ private:
     void SetShaderVariables(glm::mat4 _pv);
     void BindAttributes();
     void LoadASEFile(string _file);
+    void GetSpecularSettings(float& _strength, float& _colorR, float& _colorG, float& _colorB);
     string Concat(string _s1, int _index, string _s2);
     string RemoveFolder(string _map);
     void CalculateTangents(vector<objl::Vertex> _vertices, objl::Vector3& _tanget, objl::Vector3& _bitanget);

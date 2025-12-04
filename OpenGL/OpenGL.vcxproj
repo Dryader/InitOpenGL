@@ -173,6 +173,7 @@
         <ClCompile Include="GameController.cpp"/>
         <ClCompile Include="main.cpp"/>
         <ClCompile Include="Mesh.cpp"/>
+        <ClCompile Include="MeshManagedHelper.cpp" />
         <ClCompile Include="PostProcessor.cpp" />
         <ClCompile Include="Resolution.cpp"/>
         <ClCompile Include="Shader.cpp"/>

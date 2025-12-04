@@ -2,9 +2,11 @@
 #include "Shader.h"
 #include "OBJ_Loader.h"
 #include "ASEMesh.h"
+#include "ToolWindow.h"
 #include <msclr/marshal_cppstd.h>
 
 using namespace ASEMeshes;
+using namespace OpenGL;
 
 vector<Mesh> Mesh::Lights;
 
@@ -365,7 +367,14 @@ void Mesh::SetShaderVariables(glm::mat4 _pv)
     }
 
     // Configure material
-    m_shader->SetFloat("material.specularStrength", 8);
+    float specularStrength;
+    float specularColorR;
+    float specularColorG;
+    float specularColorB;
+    GetSpecularSettings(specularStrength, specularColorR, specularColorG, specularColorB);
+    
+    m_shader->SetFloat("material.specularStrength", specularStrength);
+    m_shader->SetVec3("light[0].specularColor", {specularColorR, specularColorG, specularColorB});
     m_shader->SetTextureSampler("material.diffuseTexture", GL_TEXTURE0, 0, m_textureDiffuse.GetTexture());
     m_shader->SetTextureSampler("material.specularTexture", GL_TEXTURE1, 1, m_textureSpecular.GetTexture());
     m_shader->SetTextureSampler("material.normalTexture", GL_TEXTURE2, 2, m_textureNormal.GetTexture());

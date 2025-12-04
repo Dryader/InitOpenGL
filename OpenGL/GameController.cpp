@@ -98,7 +98,7 @@ void GameController::RunGame()
             if (!OpenGL::ToolWindow::RotateEnabled)
             {
                 glm::vec3 currentRot = m_meshes[0].GetRotation();
-                m_meshes[0].SetRotation(glm::vec3(currentRot.x + 0.1f, currentRot.y, currentRot.z));
+                m_meshes[0].SetRotation(glm::vec3(currentRot.x + 0.04f, currentRot.y, currentRot.z));
             }
 
             if (leftButtonState == GLFW_PRESS)
