@@ -17,6 +17,7 @@ public:
     glm::vec3 GetPosition() { return m_position; }
 
     void Rotate();
+    void ResetRotation();  // Reset camera rotation angle
 
 private:
     glm::mat4 m_projection;

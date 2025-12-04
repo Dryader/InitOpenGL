@@ -30,6 +30,7 @@ public:
     void Cleanup();
     void CalculateTransform();
     void Render(glm::mat4 _pv);
+    void UpdateInstanceRotations(float _deltaTime);
 
     static vector<Mesh> Lights;
 
@@ -65,6 +66,12 @@ private:
     glm::mat4 m_world;
     glm::vec3 m_cameraPosition;
     glm::vec3 m_color;
+
+    // Per-instance properties for dynamic updates
+    std::vector<glm::vec3> m_instancePositions;
+    std::vector<glm::vec3> m_instanceRotations;
+    std::vector<glm::vec3> m_instanceScales;
+    std::vector<glm::vec3> m_instanceRotationVelocities;
 };
 
 

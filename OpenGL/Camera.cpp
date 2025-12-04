@@ -12,8 +12,8 @@ Camera::Camera()
 
 Camera::Camera(Resolution _screenResolution)
 {
-    m_position = {0, 0.5f, 1.5f};
-    m_lookAt = {0, 0, 0};
+    m_position = {0, 0, 1.5f};  // Camera at origin height, looking at fighter straight ahead
+    m_lookAt = {0, 0, 0};       // Looking at origin where fighter is
     m_rotation = {0, 0, 0};
     m_angle = 0;
     m_projection = glm::perspective(glm::radians(45.0f),
@@ -39,6 +39,15 @@ void Camera::Rotate()
         glm::vec3(0, 1, 0)); // up
 }
 
+void Camera::ResetRotation()
+{
+    m_angle = 0.0f;
+    m_lookAt = glm::vec3(0, 0, 0);
+    m_view = glm::lookAt(
+        m_position,
+        m_lookAt,
+        glm::vec3(0, 1, 0));
+}
 
 Camera::~Camera()
 {

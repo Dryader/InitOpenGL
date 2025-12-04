@@ -38,6 +38,8 @@ private:
     Mesh m_waterPlane;
     Mesh m_spaceship;
     Mesh m_asteroids;
+    bool m_previousWaterSceneEnabled = false;
+    bool m_previousSpaceSceneEnabled = false;
 };
 
 #endif // GAME_CONTROLLER_H

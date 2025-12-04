@@ -32,8 +32,9 @@ namespace OpenGL
         static bool TintBlueEnabled = false;
         static bool SpaceSceneEnabled = false;
         static bool ResetLightPositionRequested = false;
+        static bool ResetTransformRequested = false;
         static float DefaultLightPositionX = 0.0f;
-        static float DefaultLightPositionY = 0.5f;
+        static float DefaultLightPositionY = 0.0f;  // Eye level with fighter
         static float DefaultLightPositionZ = 1.0f;
 
         ToolWindow(void)
@@ -468,6 +469,8 @@ namespace OpenGL
             TranslateEnabled = false;
             RotateEnabled = false;
             ScaleEnabled = false;
+            
+            ResetTransformRequested = true;
         }
 
         void trackBarWaterScaleFrequency_ValueChanged(Object^ sender, EventArgs^ e)

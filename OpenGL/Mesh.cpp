@@ -27,6 +27,10 @@ Mesh::Mesh()
     m_enableInstancing = false;
     m_elementSize = 0;
     m_color = {1, 1, 1};
+    m_instancePositions.clear();
+    m_instanceRotations.clear();
+    m_instanceScales.clear();
+    m_instanceRotationVelocities.clear();
 }
 Mesh::~Mesh()
 {
@@ -309,11 +313,37 @@ bool Mesh::Create(Shader* _shader, string _file, int _instanceCount)
         glGenBuffers(1, &m_instanceBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, m_instanceBuffer);
 
-        srand(glfwGetTime());
+        srand(static_cast<unsigned int>(glfwGetTime()));
         for (unsigned int i = 0; i < m_instanceCount; i++)
         {
+            // Generate random position (much closer to camera)
+            glm::vec3 position = glm::vec3(-8 + (rand() % 16), -8 + (rand() % 16), -8 + (rand() % 16));
+            m_instancePositions.push_back(position);
+
+            // Generate random rotation
+            glm::vec3 rotation = glm::vec3(static_cast<float>(rand() % 360), 
+                                          static_cast<float>(rand() % 360), 
+                                          static_cast<float>(rand() % 360));
+            m_instanceRotations.push_back(rotation);
+
+            // Generate random scale (much larger base scale for visibility)
+            float baseScale = 0.01f;  // Increased from 0.002f
+            float randomScale = 0.5f + (rand() % 100) / 100.0f;
+            m_instanceScales.push_back(glm::vec3(baseScale * randomScale, baseScale * randomScale, baseScale * randomScale));
+
+            // Generate random rotation velocities (rotation speed in degrees per frame, much smaller for smooth effect)
+            glm::vec3 rotationVelocity = glm::vec3((rand() % 50) / 100.0f - 0.25f, 
+                                                   (rand() % 50) / 100.0f - 0.25f, 
+                                                   (rand() % 50) / 100.0f - 0.25f);
+            m_instanceRotationVelocities.push_back(rotationVelocity);
+
+            // Create transformation matrix
             auto model = glm::mat4(1.0f);
-            model = glm::translate(model, glm::vec3(-20 + rand() % 40, -10 + rand() % 20, 10 + rand() % 20));
+            model = glm::translate(model, position);
+            model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1, 0, 0));
+            model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0, 1, 0));
+            model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0, 0, 1));
+            model = glm::scale(model, m_instanceScales[i]);
 
             for (int x = 0; x < 4; x++)
             {
@@ -323,7 +353,7 @@ bool Mesh::Create(Shader* _shader, string _file, int _instanceCount)
                 }
             }
         }
-        glBufferData(GL_ARRAY_BUFFER, m_instanceCount * sizeof(glm::mat4), m_instanceData.data(), GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, m_instanceCount * sizeof(glm::mat4), m_instanceData.data(), GL_DYNAMIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
@@ -338,6 +368,42 @@ void Mesh::CalculateTransform()
     m_world = glm::rotate(m_world, glm::radians(m_rotation.y), glm::vec3(0, 1, 0));
     m_world = glm::rotate(m_world, glm::radians(m_rotation.z), glm::vec3(0, 0, 1));
     m_world = glm::scale(m_world, m_scale);
+}
+
+void Mesh::UpdateInstanceRotations(float _deltaTime)
+{
+    if (!m_enableInstancing)
+        return;
+
+    // Update instance rotations and recalculate transformation matrices
+    m_instanceData.clear();
+
+    for (unsigned int i = 0; i < m_instanceCount; i++)
+    {
+        // Update rotation based on velocity
+        m_instanceRotations[i] += m_instanceRotationVelocities[i];
+
+        // Create transformation matrix
+        auto model = glm::mat4(1.0f);
+        model = glm::translate(model, m_instancePositions[i]);
+        model = glm::rotate(model, glm::radians(m_instanceRotations[i].x), glm::vec3(1, 0, 0));
+        model = glm::rotate(model, glm::radians(m_instanceRotations[i].y), glm::vec3(0, 1, 0));
+        model = glm::rotate(model, glm::radians(m_instanceRotations[i].z), glm::vec3(0, 0, 1));
+        model = glm::scale(model, m_instanceScales[i]);
+
+        for (int x = 0; x < 4; x++)
+        {
+            for (int y = 0; y < 4; y++)
+            {
+                m_instanceData.push_back(model[x][y]);
+            }
+        }
+    }
+
+    // Update the GPU buffer with new data
+    glBindBuffer(GL_ARRAY_BUFFER, m_instanceBuffer);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, m_instanceCount * sizeof(glm::mat4), m_instanceData.data());
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Mesh::SetShaderVariables(glm::mat4 _pv)
@@ -385,9 +451,6 @@ void Mesh::Render(glm::mat4 _pv)
 {
     glUseProgram(m_shader->GetProgramID()); // Use our shader
 
-    // Auto-rotate only if not using ToolWindow controls
-    // m_rotation.x += 0.1f;
-
     CalculateTransform();
     SetShaderVariables(_pv);
     BindAttributes();
@@ -400,8 +463,9 @@ void Mesh::Render(glm::mat4 _pv)
     {
         glDrawArrays(GL_TRIANGLES, 0, m_vertexData.size() / m_elementSize);
     }
+    
+    glDisableVertexAttribArray(m_shader->GetAttrVertices());
     glDisableVertexAttribArray(m_shader->GetAttrNormals());
-    glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
     glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
 
     if (m_enableNormalMap)
@@ -409,12 +473,20 @@ void Mesh::Render(glm::mat4 _pv)
         glDisableVertexAttribArray(m_shader->GetAttrTangents());
         glDisableVertexAttribArray(m_shader->GetAttrBitangents());
     }
+    
     if (m_enableInstancing)
     {
-        glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix(), 1);
-        glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 1, 1);
-        glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 2, 1);
-        glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 3, 1);
+        // Disable instancing vertex attributes and reset divisors
+        glDisableVertexAttribArray(m_shader->GetAttrInstanceMatrix());
+        glDisableVertexAttribArray(m_shader->GetAttrInstanceMatrix() + 1);
+        glDisableVertexAttribArray(m_shader->GetAttrInstanceMatrix() + 2);
+        glDisableVertexAttribArray(m_shader->GetAttrInstanceMatrix() + 3);
+        
+        // Reset divisors to 0
+        glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix(), 0);
+        glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 1, 0);
+        glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 2, 0);
+        glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 3, 0);
     }
 }
 
@@ -470,6 +542,7 @@ void Mesh::BindAttributes()
         glVertexAttribPointer(m_shader->GetAttrInstanceMatrix() + 3, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4),
                               (void*)(3 * sizeof(glm::vec4)));
 
+        // Set divisor to 1 so each row of the matrix advances per instance
         glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix(), 1);
         glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 1, 1);
         glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 2, 1);

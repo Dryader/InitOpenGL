@@ -83,14 +83,14 @@ void GameController::RunGame()
     m_waterPlane.SetRotation({0.0f, 180.0f, 0.0f});
     m_waterPlane.SetScale({0.020000f, 0.020000f, 0.020000f});
 
-    // Skybox setup
+    // Skybox setup - standard cubemap ordering
     vector<string> faces = {
-        "Assets/Textures/right.jpg",    // Right
-        "Assets/Textures/left.jpg",     // Left
-        "Assets/Textures/top.jpg",      // Top
-        "Assets/Textures/bottom.jpg",   // Bottom
-        "Assets/Textures/front.jpg",    // Front
-        "Assets/Textures/back.jpg"      // Back
+        "Assets/Textures/right.jpg",    // GL_TEXTURE_CUBE_MAP_POSITIVE_X
+        "Assets/Textures/left.jpg",     // GL_TEXTURE_CUBE_MAP_NEGATIVE_X
+        "Assets/Textures/top.jpg",      // GL_TEXTURE_CUBE_MAP_POSITIVE_Y
+        "Assets/Textures/bottom.jpg",   // GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+        "Assets/Textures/back.jpg",     // GL_TEXTURE_CUBE_MAP_POSITIVE_Z
+        "Assets/Textures/front.jpg"     // GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
     };
     m_skybox.Create(&m_shaderSkybox, "Assets/Models/SkyBox.obj", faces);
 
@@ -206,23 +206,46 @@ void GameController::RunGame()
                 OpenGL::ToolWindow::ResetLightPositionRequested = false;
             }
 
+            // Handle transform reset
+            if (OpenGL::ToolWindow::ResetTransformRequested && m_meshes.size() > 0)
+            {
+                m_meshes[0].SetPosition({0.0f, 0.0f, 0.0f});
+                m_meshes[0].SetRotation({0.0f, 0.0f, 0.0f});
+                m_meshes[0].SetScale({0.0008f, 0.0008f, 0.0008f});
+                OpenGL::ToolWindow::ResetTransformRequested = false;
+            }
+
             // Handle light movement - only when left click is down and MoveLightEnabled is true
             if (OpenGL::ToolWindow::MoveLightEnabled && Mesh::Lights.size() > 0 && leftButtonState == GLFW_PRESS)
             {
-                // Convert mouse coordinates to world space (rough approximation)
-                // Mouse X: -1 to 1 mapped to screen width
-                // Mouse Y: -1 to 1 mapped to screen height
+                // Convert mouse coordinates to world space
+                // Mouse X: map to -1 to 1 range, scale by ~3 for reasonable movement range
+                // Mouse Y: map to -1 to 1 range, scale by ~3 for reasonable movement range
                 Resolution r = WindowController::GetInstance().GetResolution();
                 float normalizedX = (static_cast<float>(mouseX) / r.m_width) * 2.0f - 1.0f;
                 float normalizedY = 1.0f - (static_cast<float>(mouseY) / r.m_height) * 2.0f;
 
-                // Update light position to follow mouse, keeping it at a fixed distance from camera
-                Mesh::Lights[0].SetPosition(glm::vec3(normalizedX * 0.5f, 0.5f + normalizedY * 0.5f, 1.0f));
+                // Update light position to follow mouse with better scaling
+                // X ranges from -1.5 to 1.5, Y ranges from -1.5 to 1.5, Z stays at 1.0
+                Mesh::Lights[0].SetPosition(glm::vec3(normalizedX * 1.5f, normalizedY * 1.5f, 1.0f));
             }
         }
 
         // Update game time
         m_gameTime += 0.01;
+
+        // Detect scene changes and reset camera rotation
+        bool currentWaterSceneEnabled = OpenGL::ToolWindow::WaterSceneEnabled;
+        bool currentSpaceSceneEnabled = OpenGL::ToolWindow::SpaceSceneEnabled;
+        
+        if (currentWaterSceneEnabled != m_previousWaterSceneEnabled || 
+            currentSpaceSceneEnabled != m_previousSpaceSceneEnabled)
+        {
+            // Scene has changed - reset camera rotation to prevent losing the object
+            m_camera.ResetRotation();
+            m_previousWaterSceneEnabled = currentWaterSceneEnabled;
+            m_previousSpaceSceneEnabled = currentSpaceSceneEnabled;
+        }
 
         // Rotate camera in space scene
         if (OpenGL::ToolWindow::SpaceSceneEnabled)
@@ -251,17 +274,18 @@ void GameController::RunGame()
             m_spaceship.SetCameraPosition(m_camera.GetPosition());
             m_spaceship.Render(m_camera.GetProjection() * m_camera.GetView());
 
-            // Render instance-rendered asteroids
+            // Update and render instance-rendered asteroids
+            m_asteroids.UpdateInstanceRotations(0.016f);  // Assuming ~60fps
             m_asteroids.SetCameraPosition(m_camera.GetPosition());
             m_asteroids.Render(m_camera.GetProjection() * m_camera.GetView());
         }
         else
         {
-            // Render default fighter scene
-            for (unsigned int count = 0; count < m_meshes.size(); count++)
+            // Render default fighter scene - render only first fighter (main fighter)
+            if (m_meshes.size() > 0 && !OpenGL::ToolWindow::WaterSceneEnabled && !OpenGL::ToolWindow::SpaceSceneEnabled)
             {
-                m_meshes[count].SetCameraPosition(m_camera.GetPosition());
-                m_meshes[count].Render(m_camera.GetProjection() * m_camera.GetView());
+                m_meshes[0].SetCameraPosition(m_camera.GetPosition());
+                m_meshes[0].Render(m_camera.GetProjection() * m_camera.GetView());
             }
         }
 
@@ -389,13 +413,7 @@ void GameController::RunGame()
     {
         m_meshes[count].Cleanup();
     }
-    // for (unsigned int count = 0; count < m_meshes.size(); count++)
-    // {
-    //     for (int x = 0; x < 1000; x++)
-    //     {
-    //         m_meshes[count].Render(m_camera.GetProjection() * m_camera.GetView());
-    //     }
-    // }
+
 
     f.Cleanup();
     m_postProcessor.Cleanup();
