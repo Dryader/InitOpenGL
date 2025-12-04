@@ -353,12 +353,9 @@ void GameController::RunGame()
             char rotBuffer[256];
             char scaleBuffer[256];
 
-            sprintf_s(posBuffer, "Fish Position: (vec3(%.6f, %.6f, %.6f))", fishPos.x, fishPos.y,
-                      fishPos.z);
-            sprintf_s(rotBuffer, "Fish Rotation: (vec3(%.6f, %.6f, %.6f))", fishRot.x, fishRot.y,
-                      fishRot.z);
-            sprintf_s(scaleBuffer, "Fish Scale  : (vec3(%.6f, %.6f, %.6f))", fishScale.x, fishScale.y,
-                      fishScale.z);
+            sprintf_s(posBuffer, "Fish Position: X:%.2f Y:%.2f Z:%.2f", fishPos.x, fishPos.y, fishPos.z);
+            sprintf_s(rotBuffer, "Fish Rotation: X:%.2f Y:%.2f Z:%.2f", fishRot.x, fishRot.y, fishRot.z);
+            sprintf_s(scaleBuffer, "Fish Scale   : X:%.2f Y:%.2f Z:%.2f", fishScale.x, fishScale.y, fishScale.z);
 
             f.RenderText(string(posBuffer), 100, 220, 0.5f, {1.0f, 1.0f, 0.0f});
             f.RenderText(string(rotBuffer), 100, 250, 0.5f, {1.0f, 1.0f, 0.0f});
@@ -375,12 +372,9 @@ void GameController::RunGame()
             char rotBuffer[256];
             char scaleBuffer[256];
 
-            sprintf_s(posBuffer, "Fighter Position: (vec3(%.6f, %.6f, %.6f))", fighterPos.x, fighterPos.y,
-                      fighterPos.z);
-            sprintf_s(rotBuffer, "Fighter Rotation: (vec3(%.6f, %.6f, %.6f))", fighterRot.x, fighterRot.y,
-                      fighterRot.z);
-            sprintf_s(scaleBuffer, "Fighter Scale  : (vec3(%.6f, %.6f, %.6f))", fighterScale.x, fighterScale.y,
-                      fighterScale.z);
+            sprintf_s(posBuffer, "Fighter Position: X:%.2f Y:%.2f Z:%.2f", fighterPos.x, fighterPos.y, fighterPos.z);
+            sprintf_s(rotBuffer, "Fighter Rotation: X:%.2f Y:%.2f Z:%.2f", fighterRot.x, fighterRot.y, fighterRot.z);
+            sprintf_s(scaleBuffer, "Fighter Scale   : X:%.2f Y:%.2f Z:%.2f", fighterScale.x, fighterScale.y, fighterScale.z);
 
             f.RenderText(string(posBuffer), 100, 220, 0.5f, {1.0f, 1.0f, 0.0f});
             f.RenderText(string(rotBuffer), 100, 250, 0.5f, {1.0f, 1.0f, 0.0f});
