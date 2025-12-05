@@ -70,15 +70,14 @@ void Shader::SetBool(const char* _name, bool _value)
 
 void Shader::LoadAttributes()
 {
-    m_attrVertices = glGetAttribLocation(m_programID, "vertices"); // Get a handle for the vertex buffer
-    m_attrWVP = glGetUniformLocation(m_programID, "WVP"); // Get a handle for the WVP matrix
-    m_attrColors = glGetAttribLocation(m_programID, "colors"); // Get a handle for the color buffer
-    m_attrNormals = glGetAttribLocation(m_programID, "normals"); // Get a handle for the normal buffer
-    m_attrTexCoords = glGetAttribLocation(m_programID, "texCoords"); // Get a handle for the texture coordinates buffer
-    m_attrTangents = glGetAttribLocation(m_programID, "tangents"); // Get a handle for the tangent buffer
-    m_attrBitangents = glGetAttribLocation(m_programID, "bitangents"); // Get a handle for the bitangent buffer
+    m_attrVertices = glGetAttribLocation(m_programID, "vertices");
+    m_attrWVP = glGetUniformLocation(m_programID, "WVP");
+    m_attrColors = glGetAttribLocation(m_programID, "colors");
+    m_attrNormals = glGetAttribLocation(m_programID, "normals");
+    m_attrTexCoords = glGetAttribLocation(m_programID, "texCoords");
+    m_attrTangents = glGetAttribLocation(m_programID, "tangents");
+    m_attrBitangents = glGetAttribLocation(m_programID, "bitangents");
     m_attrInstanceMatrix = glGetAttribLocation(m_programID, "instanceMatrix");
-    // Get a handle for the instance matrix buffer
 }
 
 void Shader::EvaluateShader(int _infoLength, GLuint _id)
@@ -93,9 +92,8 @@ void Shader::EvaluateShader(int _infoLength, GLuint _id)
 
 GLuint Shader::LoadShaderFile(const char* _filePath, GLenum _type)
 {
-    GLuint shaderID = glCreateShader(_type); // Create the shader
+    GLuint shaderID = glCreateShader(_type);
 
-    // Read the Shader code from the file
     std::string shaderCode;
     std::ifstream shaderStream(_filePath, std::ios::in);
     M_ASSERT(shaderStream.is_open(),
@@ -107,16 +105,13 @@ GLuint Shader::LoadShaderFile(const char* _filePath, GLenum _type)
     }
     shaderStream.close();
 
-    // Compile Shader
     const char* sourcePointer = shaderCode.c_str();
     glShaderSource(shaderID, 1, &sourcePointer, nullptr);
     glCompileShader(shaderID);
 
-    // Check Shader
     glGetShaderiv(shaderID, GL_COMPILE_STATUS, &m_result);
     glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &m_infoLogLength);
     EvaluateShader(m_infoLogLength, shaderID);
-    // Attach shader to program
     glAttachShader(m_programID, shaderID);
 
     return shaderID;
@@ -124,17 +119,15 @@ GLuint Shader::LoadShaderFile(const char* _filePath, GLenum _type)
 
 void Shader::CreateShaderProgram(const char* _vertexFilePath, const char* _fragmentFilePath)
 {
-    m_programID = glCreateProgram(); // Create the shader program
-    GLuint vertexShaderID = LoadShaderFile(_vertexFilePath, GL_VERTEX_SHADER); // Load vertex shader
-    GLuint fragmentShaderID = LoadShaderFile(_fragmentFilePath, GL_FRAGMENT_SHADER); // Load fragment shader
-    glLinkProgram(m_programID); // Link the program
+    m_programID = glCreateProgram();
+    GLuint vertexShaderID = LoadShaderFile(_vertexFilePath, GL_VERTEX_SHADER);
+    GLuint fragmentShaderID = LoadShaderFile(_fragmentFilePath, GL_FRAGMENT_SHADER);
+    glLinkProgram(m_programID);
 
-    // Check the program
     glGetProgramiv(m_programID, GL_LINK_STATUS, &m_result);
     glGetProgramiv(m_programID, GL_INFO_LOG_LENGTH, &m_infoLogLength);
     EvaluateShader(m_infoLogLength, m_programID);
 
-    // Free resources
     glDetachShader(m_programID, vertexShaderID);
     glDetachShader(m_programID, fragmentShaderID);
     glDeleteShader(vertexShaderID);

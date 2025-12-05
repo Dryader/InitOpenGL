@@ -9,13 +9,9 @@ namespace OpenGL
     using namespace System::Data;
     using namespace System::Drawing;
 
-    /// <summary>
-    /// Summary for ToolWindow
-    /// </summary>
     public ref class ToolWindow : public Form
     {
     public:
-        // Static properties for light and material settings
         static bool MoveLightEnabled = true;
         static float SpecularStrength = 4.0f;
         static float SpecularColorR = 1.0f;
@@ -34,7 +30,7 @@ namespace OpenGL
         static bool ResetLightPositionRequested = false;
         static bool ResetTransformRequested = false;
         static float DefaultLightPositionX = 0.0f;
-        static float DefaultLightPositionY = 0.0f;  // Eye level with fighter
+        static float DefaultLightPositionY = 0.0f;
         static float DefaultLightPositionZ = 1.0f;
 
         ToolWindow(void)
@@ -44,9 +40,6 @@ namespace OpenGL
         }
 
     protected:
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
         ~ToolWindow()
         {
             if (components)
@@ -56,11 +49,9 @@ namespace OpenGL
         }
 
     private:
-        // Move Light Section
         RadioButton^ radioButtonMoveLight;
         Button^ buttonResetLightPosition;
 
-        // Specular Section
         TrackBar^ trackBarSpecularStrength;
         Label^ labelSpecularStrength;
         TrackBar^ trackBarSpecularColorR;
@@ -70,29 +61,23 @@ namespace OpenGL
         Label^ labelSpecularColorG;
         Label^ labelSpecularColorB;
 
-        // Transform Section
         RadioButton^ radioButtonTransform;
         CheckBox^ checkBoxTranslate;
         CheckBox^ checkBoxRotate;
         CheckBox^ checkBoxScale;
         Button^ buttonResetTransform;
 
-        // Water Scale Section
         RadioButton^ radioButtonWaterScale;
         TrackBar^ trackBarWaterScaleFrequency;
         TrackBar^ trackBarWaterScaleAmplitude;
         Label^ labelWaterScaleFrequency;
         Label^ labelWaterScaleAmplitude;
 
-        // Render Options Section
         RadioButton^ radioButtonSpaceScene;
         CheckBox^ checkBoxWireframeRender;
         CheckBox^ checkBoxTintBlue;
 
 
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         System::ComponentModel::Container^ components;
 
         void InitializeValues(void)
@@ -110,7 +95,6 @@ namespace OpenGL
             WireframeRenderEnabled = checkBoxWireframeRender->Checked;
             SpaceSceneEnabled = radioButtonSpaceScene->Checked;
 
-            // Update label text with initial values
             labelSpecularStrength->Text = String::Format(
                 "Specular Strength                                    {0:0.00}", SpecularStrength);
             labelSpecularColorR->Text = String::Format("Specular Color R                                    {0:0.00}",
@@ -127,17 +111,11 @@ namespace OpenGL
         }
 
 #pragma region Windows Form Designer generated code
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         void InitializeComponent(void)
         {
-            // Move Light Section
             this->radioButtonMoveLight = (gcnew RadioButton());
             this->buttonResetLightPosition = (gcnew Button());
 
-            // Specular Section
             this->trackBarSpecularStrength = (gcnew TrackBar());
             this->labelSpecularStrength = (gcnew Label());
             this->trackBarSpecularColorR = (gcnew TrackBar());
@@ -147,21 +125,18 @@ namespace OpenGL
             this->labelSpecularColorG = (gcnew Label());
             this->labelSpecularColorB = (gcnew Label());
 
-            // Transform Section
             this->radioButtonTransform = (gcnew RadioButton());
             this->checkBoxTranslate = (gcnew CheckBox());
             this->checkBoxRotate = (gcnew CheckBox());
             this->checkBoxScale = (gcnew CheckBox());
             this->buttonResetTransform = (gcnew Button());
 
-            // Water Scale Section
             this->radioButtonWaterScale = (gcnew RadioButton());
             this->trackBarWaterScaleFrequency = (gcnew TrackBar());
             this->trackBarWaterScaleAmplitude = (gcnew TrackBar());
             this->labelWaterScaleFrequency = (gcnew Label());
             this->labelWaterScaleAmplitude = (gcnew Label());
 
-            // Space Scene Section
             this->radioButtonSpaceScene = (gcnew RadioButton());
             this->checkBoxWireframeRender = (gcnew CheckBox());
             this->checkBoxTintBlue = (gcnew CheckBox());
@@ -178,7 +153,6 @@ namespace OpenGL
 
             int yPos = 10;
 
-            // Move Light Section
             this->radioButtonMoveLight->AutoSize = true;
             this->radioButtonMoveLight->Location = Point(10, yPos);
             this->radioButtonMoveLight->Text = L"Move Light";
@@ -196,7 +170,6 @@ namespace OpenGL
             this->Controls->Add(this->buttonResetLightPosition);
             yPos += 35;
 
-            // Specular Strength
             this->labelSpecularStrength->Location = Point(10, yPos);
             this->labelSpecularStrength->Text = L"Specular Strength                                    1";
             this->labelSpecularStrength->Size = Drawing::Size(360, 20);
@@ -213,7 +186,6 @@ namespace OpenGL
             this->Controls->Add(this->trackBarSpecularStrength);
             yPos += 60;
 
-            // Specular Color R
             this->labelSpecularColorR->Location = Point(10, yPos);
             this->labelSpecularColorR->Text = L"Specular Color R                                    3.00";
             this->labelSpecularColorR->Size = Drawing::Size(360, 20);
@@ -230,7 +202,6 @@ namespace OpenGL
             this->Controls->Add(this->trackBarSpecularColorR);
             yPos += 60;
 
-            // Specular Color G
             this->labelSpecularColorG->Location = Point(10, yPos);
             this->labelSpecularColorG->Text = L"G                                                  1.68";
             this->labelSpecularColorG->Size = Drawing::Size(360, 20);
@@ -247,7 +218,6 @@ namespace OpenGL
             this->Controls->Add(this->trackBarSpecularColorG);
             yPos += 60;
 
-            // Specular Color B
             this->labelSpecularColorB->Location = Point(10, yPos);
             this->labelSpecularColorB->Text = L"B                                                  1.00";
             this->labelSpecularColorB->Size = Drawing::Size(360, 20);
@@ -264,7 +234,6 @@ namespace OpenGL
             this->Controls->Add(this->trackBarSpecularColorB);
             yPos += 60;
 
-            // Transform Section
             this->radioButtonTransform->AutoSize = true;
             this->radioButtonTransform->Location = Point(10, yPos);
             this->radioButtonTransform->Text = L"Transform";
@@ -303,7 +272,6 @@ namespace OpenGL
             this->Controls->Add(this->buttonResetTransform);
             yPos += 40;
 
-            // Water Scale Section
             this->radioButtonWaterScale->AutoSize = true;
             this->radioButtonWaterScale->Location = Point(10, yPos);
             this->radioButtonWaterScale->Text = L"Water Scene";
@@ -360,7 +328,6 @@ namespace OpenGL
             this->Controls->Add(this->checkBoxTintBlue);
             yPos += 25;
 
-            // Space Scene Section
             this->radioButtonSpaceScene->AutoSize = true;
             this->radioButtonSpaceScene->Location = Point(10, yPos);
             this->radioButtonSpaceScene->Text = L"Space Scene";
@@ -369,7 +336,6 @@ namespace OpenGL
             this->Controls->Add(this->radioButtonSpaceScene);
             yPos += 25;
 
-            // Form properties
             this->AutoScaleDimensions = SizeF(8, 16);
             this->AutoScaleMode = Windows::Forms::AutoScaleMode::Font;
             this->ClientSize = Drawing::Size(380, yPos + 20);
@@ -412,7 +378,6 @@ namespace OpenGL
 
         void buttonResetLightPosition_Click(Object^ sender, EventArgs^ e)
         {
-            // Signal that light position should be reset
             ResetLightPositionRequested = true;
         }
 
@@ -461,7 +426,6 @@ namespace OpenGL
 
         void buttonResetTransform_Click(Object^ sender, EventArgs^ e)
         {
-            // Reset transform values to default
             checkBoxTranslate->Checked = false;
             checkBoxRotate->Checked = false;
             checkBoxScale->Checked = false;
@@ -469,7 +433,7 @@ namespace OpenGL
             TranslateEnabled = false;
             RotateEnabled = false;
             ScaleEnabled = false;
-            
+
             ResetTransformRequested = true;
         }
 

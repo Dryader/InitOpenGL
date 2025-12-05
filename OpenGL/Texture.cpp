@@ -21,24 +21,20 @@ void Texture::LoadTexture(string _fileName)
     glGenTextures(1, &m_texture);
     glBindTexture(GL_TEXTURE_2D, m_texture);
 
-    // Set the texture wrapping/filtering options (on the currently bound texture)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    // Load and generate the texture
     stbi_set_flip_vertically_on_load(true);
     GLubyte* data = stbi_load(_fileName.c_str(), &m_width, &m_height, &m_channels, 0);
 
-    // If texture fails to load, try fallback
     if (data == nullptr && _fileName != "Assets/Textures/Wood.jpg")
     {
         OutputDebugStringA(("Failed to load texture: " + _fileName + ", trying fallback Wood.jpg\n").c_str());
         data = stbi_load("Assets/Textures/Wood.jpg", &m_width, &m_height, &m_channels, 0);
     }
 
-    // If fallback also fails, create a simple white texture
     if (data == nullptr)
     {
         OutputDebugStringA("Failed to load fallback texture, creating white texture\n");
@@ -63,7 +59,6 @@ void Texture::LoadTexture(string _fileName)
 
     glGenerateMipmap(GL_TEXTURE_2D);
 
-    // Free image data from RAM
     stbi_image_free(data);
 }
 
@@ -80,7 +75,6 @@ void Texture::LoadCubeMap(vector<std::string> _faces)
         GLubyte* data = stbi_load(_faces[i].c_str(), &w, &h, &channels, 0);
         if (data == nullptr)
         {
-            // create 1x1 fallback color (magenta) to highlight missing face
             unsigned char fallback[4] = {255, 0, 255, 255};
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, fallback);
             continue;
@@ -98,7 +92,6 @@ void Texture::LoadCubeMap(vector<std::string> _faces)
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 }
 
-// Helper: case-insensitive endswith
 bool Texture::EndsWith(const std::string& _str, const std::string& _suffix)
 {
     if (_str.size() < _suffix.size()) return false;

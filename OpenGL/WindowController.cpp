@@ -16,9 +16,8 @@ WindowController::~WindowController()
 
 void WindowController::NewWindow()
 {
-    M_ASSERT(glfwInit(), "Failed to initialize GLFW."); // Initialise GLFW
+    M_ASSERT(glfwInit(), "Failed to initialize GLFW.");
 
-    // Open a window and create its OpenGL context
     glfwWindowHint(GLFW_SAMPLES, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

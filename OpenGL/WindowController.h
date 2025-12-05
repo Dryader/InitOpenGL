@@ -6,24 +6,20 @@
 class WindowController : public Singleton<WindowController>
 {
 public:
-    // Constructors / Destructors
     WindowController();
     ~WindowController() override;
 
-    // Accessors
     GLFWwindow* GetWindow()
     {
         if (m_window == nullptr) { NewWindow(); }
         return m_window;
     }
 
-    // Methods
     void NewWindow();
     Resolution GetResolution();
 
 private:
-    // Members
     GLFWwindow* m_window;
 };
 
-#endif // WINDOW_CONTROLLER_H
+#endif

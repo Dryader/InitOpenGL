@@ -32,6 +32,7 @@ Mesh::Mesh()
     m_instanceScales.clear();
     m_instanceRotationVelocities.clear();
 }
+
 Mesh::~Mesh()
 {
 }
@@ -60,7 +61,6 @@ string Mesh::RemoveFolder(string _map)
 
 void Mesh::CalculateTangents(vector<objl::Vertex> _vertices, objl::Vector3& _tanget, objl::Vector3& _bitanget)
 {
-    // Calculate tangent/bitangent vectors for triangle
     objl::Vector3 edge1 = _vertices[1].Position - _vertices[0].Position;
     objl::Vector3 edge2 = _vertices[2].Position - _vertices[0].Position;
     objl::Vector2 deltaUV1 = _vertices[1].TextureCoordinate - _vertices[0].TextureCoordinate;
@@ -68,17 +68,14 @@ void Mesh::CalculateTangents(vector<objl::Vertex> _vertices, objl::Vector3& _tan
 
     float f = 1.0f / (deltaUV1.X * deltaUV2.Y - deltaUV2.X * deltaUV1.Y);
 
-    // Calculate raw tangent
     _tanget.X = f * (deltaUV2.Y * edge1.X - deltaUV1.Y * edge2.X);
     _tanget.Y = f * (deltaUV2.Y * edge1.Y - deltaUV1.Y * edge2.Y);
     _tanget.Z = f * (deltaUV2.Y * edge1.Z - deltaUV1.Y * edge2.Z);
 
-    // Calculate raw bitangent
     _bitanget.X = f * (-deltaUV2.X * edge1.X + deltaUV1.X * edge2.X);
     _bitanget.Y = f * (-deltaUV2.X * edge1.Y + deltaUV1.X * edge2.Y);
     _bitanget.Z = f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z);
 
-    // Normalize tangent and bitangent
     float tanLen = sqrt(_tanget.X * _tanget.X + _tanget.Y * _tanget.Y + _tanget.Z * _tanget.Z);
     if (tanLen > 0.0001f)
     {
@@ -202,6 +199,15 @@ void Mesh::LoadASEFile(string _file)
         m_enableNormalMap = true;
     }
 }
+
+void Mesh::GetSpecularSettings(float& _strength, float& _colorR, float& _colorG, float& _colorB)
+{
+    using namespace OpenGL;
+    _strength = ToolWindow::SpecularStrength;
+    _colorR = ToolWindow::SpecularColorR;
+    _colorG = ToolWindow::SpecularColorG;
+    _colorB = ToolWindow::SpecularColorB;
+}
 #pragma unmanaged
 
 bool Mesh::Create(Shader* _shader, string _file, int _instanceCount)
@@ -214,7 +220,7 @@ bool Mesh::Create(Shader* _shader, string _file, int _instanceCount)
     }
 
 #pragma region LoadMesh
-    objl::Loader Loader; // Initialize Loader
+    objl::Loader Loader;
 
     if (EndsWith(_file, ".ase"))
     {
@@ -222,31 +228,26 @@ bool Mesh::Create(Shader* _shader, string _file, int _instanceCount)
     }
     else
     {
-        M_ASSERT(Loader.LoadFile(_file) == true, "Failed to load mesh."); // Load .obj File
-        
-        // Extract vertex data from loaded OBJ meshes
+        M_ASSERT(Loader.LoadFile(_file) == true, "Failed to load mesh.");
+
         for (unsigned int meshIdx = 0; meshIdx < Loader.LoadedMeshes.size(); meshIdx++)
         {
             objl::Mesh& curMesh = Loader.LoadedMeshes[meshIdx];
-            
-            // Process vertices in groups of 3 (triangles) to calculate tangents
+
             for (unsigned int i = 0; i < curMesh.Indices.size(); i += 3)
             {
                 vector<objl::Vertex> triangle;
                 objl::Vector3 tangent;
                 objl::Vector3 bitangent;
-                
-                // Get the three vertices of the triangle
+
                 for (int j = 0; j < 3; j++)
                 {
                     unsigned int idx = curMesh.Indices[i + j];
                     triangle.push_back(curMesh.Vertices[idx]);
                 }
-                
-                // Calculate tangent and bitangent for this triangle
+
                 CalculateTangents(triangle, tangent, bitangent);
-                
-                // Add all three vertices with their tangent/bitangent data
+
                 for (int j = 0; j < 3; j++)
                 {
                     m_vertexData.push_back(triangle[j].Position.X);
@@ -266,13 +267,9 @@ bool Mesh::Create(Shader* _shader, string _file, int _instanceCount)
                 }
             }
         }
-        
-        // Note: m_enableNormalMap will be set later based on whether a bump map texture exists
     }
 #pragma endregion
 
-    // Only load textures from OBJ loader for non-ASE files
-    // ASE files already have their textures loaded in LoadASEFile()
     if (!EndsWith(_file, ".ase"))
     {
         m_textureDiffuse = Texture();
@@ -316,28 +313,24 @@ bool Mesh::Create(Shader* _shader, string _file, int _instanceCount)
         srand(static_cast<unsigned int>(glfwGetTime()));
         for (unsigned int i = 0; i < m_instanceCount; i++)
         {
-            // Generate random position (much closer to camera)
             glm::vec3 position = glm::vec3(-8 + (rand() % 16), -8 + (rand() % 16), -8 + (rand() % 16));
             m_instancePositions.push_back(position);
 
-            // Generate random rotation
-            glm::vec3 rotation = glm::vec3(static_cast<float>(rand() % 360), 
-                                          static_cast<float>(rand() % 360), 
-                                          static_cast<float>(rand() % 360));
+            glm::vec3 rotation = glm::vec3(static_cast<float>(rand() % 360),
+                                           static_cast<float>(rand() % 360),
+                                           static_cast<float>(rand() % 360));
             m_instanceRotations.push_back(rotation);
 
-            // Generate random scale (much larger base scale for visibility)
-            float baseScale = 0.01f;  // Increased from 0.002f
+            float baseScale = 0.01f;
             float randomScale = 0.5f + (rand() % 100) / 100.0f;
-            m_instanceScales.push_back(glm::vec3(baseScale * randomScale, baseScale * randomScale, baseScale * randomScale));
+            m_instanceScales.push_back(glm::vec3(baseScale * randomScale, baseScale * randomScale,
+                                                 baseScale * randomScale));
 
-            // Generate random rotation velocities (rotation speed in degrees per frame, much smaller for smooth effect)
-            glm::vec3 rotationVelocity = glm::vec3((rand() % 50) / 100.0f - 0.25f, 
-                                                   (rand() % 50) / 100.0f - 0.25f, 
+            glm::vec3 rotationVelocity = glm::vec3((rand() % 50) / 100.0f - 0.25f,
+                                                   (rand() % 50) / 100.0f - 0.25f,
                                                    (rand() % 50) / 100.0f - 0.25f);
             m_instanceRotationVelocities.push_back(rotationVelocity);
 
-            // Create transformation matrix
             auto model = glm::mat4(1.0f);
             model = glm::translate(model, position);
             model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1, 0, 0));
@@ -375,15 +368,12 @@ void Mesh::UpdateInstanceRotations(float _deltaTime)
     if (!m_enableInstancing)
         return;
 
-    // Update instance rotations and recalculate transformation matrices
     m_instanceData.clear();
 
     for (unsigned int i = 0; i < m_instanceCount; i++)
     {
-        // Update rotation based on velocity
         m_instanceRotations[i] += m_instanceRotationVelocities[i];
 
-        // Create transformation matrix
         auto model = glm::mat4(1.0f);
         model = glm::translate(model, m_instancePositions[i]);
         model = glm::rotate(model, glm::radians(m_instanceRotations[i].x), glm::vec3(1, 0, 0));
@@ -400,7 +390,6 @@ void Mesh::UpdateInstanceRotations(float _deltaTime)
         }
     }
 
-    // Update the GPU buffer with new data
     glBindBuffer(GL_ARRAY_BUFFER, m_instanceBuffer);
     glBufferSubData(GL_ARRAY_BUFFER, 0, m_instanceCount * sizeof(glm::mat4), m_instanceData.data());
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -414,7 +403,6 @@ void Mesh::SetShaderVariables(glm::mat4 _pv)
     m_shader->SetInt("EnableNormalMap", m_enableNormalMap);
     m_shader->SetInt("EnableInstancing", m_enableInstancing);
 
-    // Configure light
     for (unsigned int i = 0; i < Lights.size(); i++)
     {
         m_shader->SetFloat(Concat("light[", i, "].constant").c_str(), 1.0f);
@@ -432,13 +420,12 @@ void Mesh::SetShaderVariables(glm::mat4 _pv)
         m_shader->SetFloat(Concat("light[", i, "].falloff").c_str(), 200);
     }
 
-    // Configure material
     float specularStrength;
     float specularColorR;
     float specularColorG;
     float specularColorB;
     GetSpecularSettings(specularStrength, specularColorR, specularColorG, specularColorB);
-    
+
     m_shader->SetFloat("material.specularStrength", specularStrength);
     m_shader->SetVec3("light[0].specularColor", {specularColorR, specularColorG, specularColorB});
     m_shader->SetTextureSampler("material.diffuseTexture", GL_TEXTURE0, 0, m_textureDiffuse.GetTexture());
@@ -449,7 +436,7 @@ void Mesh::SetShaderVariables(glm::mat4 _pv)
 
 void Mesh::Render(glm::mat4 _pv)
 {
-    glUseProgram(m_shader->GetProgramID()); // Use our shader
+    glUseProgram(m_shader->GetProgramID());
 
     CalculateTransform();
     SetShaderVariables(_pv);
@@ -463,7 +450,7 @@ void Mesh::Render(glm::mat4 _pv)
     {
         glDrawArrays(GL_TRIANGLES, 0, m_vertexData.size() / m_elementSize);
     }
-    
+
     glDisableVertexAttribArray(m_shader->GetAttrVertices());
     glDisableVertexAttribArray(m_shader->GetAttrNormals());
     glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
@@ -473,16 +460,14 @@ void Mesh::Render(glm::mat4 _pv)
         glDisableVertexAttribArray(m_shader->GetAttrTangents());
         glDisableVertexAttribArray(m_shader->GetAttrBitangents());
     }
-    
+
     if (m_enableInstancing)
     {
-        // Disable instancing vertex attributes and reset divisors
         glDisableVertexAttribArray(m_shader->GetAttrInstanceMatrix());
         glDisableVertexAttribArray(m_shader->GetAttrInstanceMatrix() + 1);
         glDisableVertexAttribArray(m_shader->GetAttrInstanceMatrix() + 2);
         glDisableVertexAttribArray(m_shader->GetAttrInstanceMatrix() + 3);
-        
-        // Reset divisors to 0
+
         glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix(), 0);
         glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 1, 0);
         glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 2, 0);
@@ -493,14 +478,11 @@ void Mesh::Render(glm::mat4 _pv)
 
 void Mesh::BindAttributes()
 {
-    // Bind our vertex buffer first
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
-    // Vertex data always has 14 floats per vertex:
-    // position (3) + normal (3) + texcoord (2) + tangent (3) + bitangent (3)
     int stride = 14;
     m_elementSize = 14;
-    
+
     glEnableVertexAttribArray(m_shader->GetAttrVertices());
     glVertexAttribPointer(m_shader->GetAttrVertices(), 3, GL_FLOAT, GL_FALSE, stride * sizeof(float),
                           static_cast<void*>(nullptr));
@@ -542,7 +524,6 @@ void Mesh::BindAttributes()
         glVertexAttribPointer(m_shader->GetAttrInstanceMatrix() + 3, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4),
                               (void*)(3 * sizeof(glm::vec4)));
 
-        // Set divisor to 1 so each row of the matrix advances per instance
         glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix(), 1);
         glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 1, 1);
         glVertexAttribDivisor(m_shader->GetAttrInstanceMatrix() + 2, 1);

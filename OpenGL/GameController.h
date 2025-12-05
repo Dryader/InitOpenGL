@@ -11,14 +11,12 @@
 class GameController : public Singleton<GameController>
 {
 public:
-    // Constructors / Destructors
     GameController();
 
     ~GameController() override
     {
     }
 
-    // Methods
     void Initialize();
     void RunGame();
 
@@ -42,4 +40,4 @@ private:
     bool m_previousSpaceSceneEnabled = false;
 };
 
-#endif // GAME_CONTROLLER_H
+#endif

@@ -10,11 +10,9 @@ class Shader;
 class Mesh
 {
 public:
-    // Constructors / Destructors
     Mesh();
     virtual ~Mesh();
 
-    //Accessors
     void SetPosition(glm::vec3 _position) { m_position = _position; }
     glm::vec3 GetPosition() { return m_position; }
     void SetRotation(glm::vec3 _rotation) { m_rotation = _rotation; }
@@ -25,7 +23,6 @@ public:
     glm::vec3 GetColor() { return m_color; }
     void SetCameraPosition(glm::vec3 _cameraPosition) { m_cameraPosition = _cameraPosition; }
 
-    // Methods
     bool Create(Shader* _shader, string _file, int _instanceCount = 1);
     void Cleanup();
     void CalculateTransform();
@@ -67,7 +64,6 @@ private:
     glm::vec3 m_cameraPosition;
     glm::vec3 m_color;
 
-    // Per-instance properties for dynamic updates
     std::vector<glm::vec3> m_instancePositions;
     std::vector<glm::vec3> m_instanceRotations;
     std::vector<glm::vec3> m_instanceScales;
@@ -75,4 +71,4 @@ private:
 };
 
 
-#endif // MESH_H
+#endif

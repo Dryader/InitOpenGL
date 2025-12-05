@@ -20,18 +20,17 @@ GameController::GameController()
 void GameController::Initialize()
 {
     GLFWwindow* glfwWindow = WindowController::GetInstance().GetWindow();
-    M_ASSERT(glewInit() == GLEW_OK, "Failed to initialize GLEW."); // Initialize GLEW
-    glfwSetInputMode(glfwWindow, GLFW_STICKY_KEYS, GL_TRUE); // Ensure we can capture the escape key
-    glClearColor(0, 0, 0, 1); // Black background
+    M_ASSERT(glewInit() == GLEW_OK, "Failed to initialize GLEW.");
+    glfwSetInputMode(glfwWindow, GLFW_STICKY_KEYS, GL_TRUE);
+    glClearColor(0, 0, 0, 1);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_CULL_FACE);
-    srand(static_cast<unsigned int>(time(0))); // Seed random number generator
+    srand(static_cast<unsigned int>(time(0)));
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
-    //Create a default perspective camera
     Resolution r = WindowController::GetInstance().GetResolution();
     glViewport(0, 0, r.m_width, r.m_height);
     m_camera = Camera(r);
@@ -85,12 +84,12 @@ void GameController::RunGame()
 
     // Skybox setup - standard cubemap ordering
     vector<string> faces = {
-        "Assets/Textures/right.jpg",    // GL_TEXTURE_CUBE_MAP_POSITIVE_X
-        "Assets/Textures/left.jpg",     // GL_TEXTURE_CUBE_MAP_NEGATIVE_X
-        "Assets/Textures/top.jpg",      // GL_TEXTURE_CUBE_MAP_POSITIVE_Y
-        "Assets/Textures/bottom.jpg",   // GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
-        "Assets/Textures/back.jpg",     // GL_TEXTURE_CUBE_MAP_POSITIVE_Z
-        "Assets/Textures/front.jpg"     // GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+        "Assets/Textures/right.jpg", // GL_TEXTURE_CUBE_MAP_POSITIVE_X
+        "Assets/Textures/left.jpg", // GL_TEXTURE_CUBE_MAP_NEGATIVE_X
+        "Assets/Textures/top.jpg", // GL_TEXTURE_CUBE_MAP_POSITIVE_Y
+        "Assets/Textures/bottom.jpg", // GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+        "Assets/Textures/back.jpg", // GL_TEXTURE_CUBE_MAP_POSITIVE_Z
+        "Assets/Textures/front.jpg" // GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
     };
     m_skybox.Create(&m_shaderSkybox, "Assets/Models/SkyBox.obj", faces);
 
@@ -99,7 +98,7 @@ void GameController::RunGame()
     m_spaceship.Create(&m_shaderDiffuse, "Assets/Models/Fighter.obj");
     m_spaceship.SetCameraPosition(m_camera.GetPosition());
     m_spaceship.SetPosition({0.0f, 0.0f, 0.0f});
-    m_spaceship.SetRotation({0.0f, 180.0f, 0.0f});  // Face away from camera
+    m_spaceship.SetRotation({0.0f, 180.0f, 0.0f}); // Face away from camera
     m_spaceship.SetScale({0.0008f, 0.0008f, 0.0008f});
 
     // Asteroids - instance rendered around spaceship (100 asteroids)
@@ -125,7 +124,7 @@ void GameController::RunGame()
     do
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
-        
+
         // Use post-processor for water scene wave effect only
         if (OpenGL::ToolWindow::WaterSceneEnabled)
         {
@@ -237,8 +236,8 @@ void GameController::RunGame()
         // Detect scene changes and reset camera rotation
         bool currentWaterSceneEnabled = OpenGL::ToolWindow::WaterSceneEnabled;
         bool currentSpaceSceneEnabled = OpenGL::ToolWindow::SpaceSceneEnabled;
-        
-        if (currentWaterSceneEnabled != m_previousWaterSceneEnabled || 
+
+        if (currentWaterSceneEnabled != m_previousWaterSceneEnabled ||
             currentSpaceSceneEnabled != m_previousSpaceSceneEnabled)
         {
             // Scene has changed - reset camera rotation to prevent losing the object
@@ -275,7 +274,7 @@ void GameController::RunGame()
             m_spaceship.Render(m_camera.GetProjection() * m_camera.GetView());
 
             // Update and render instance-rendered asteroids
-            m_asteroids.UpdateInstanceRotations(0.016f);  // Assuming ~60fps
+            m_asteroids.UpdateInstanceRotations(0.016f); // Assuming ~60fps
             m_asteroids.SetCameraPosition(m_camera.GetPosition());
             m_asteroids.Render(m_camera.GetProjection() * m_camera.GetView());
         }
@@ -321,7 +320,7 @@ void GameController::RunGame()
             fps = 0;
             lastTime = currentTime;
         }
-        
+
         // Render FPS and other text BEFORE post-processor ends, so they get affected by wave effect
         f.RenderText(fpsS, 100, 100, 0.5f, {1.0f, 1.0f, 0.0f});
 
@@ -374,13 +373,14 @@ void GameController::RunGame()
 
             sprintf_s(posBuffer, "Fighter Position: X:%.2f Y:%.2f Z:%.2f", fighterPos.x, fighterPos.y, fighterPos.z);
             sprintf_s(rotBuffer, "Fighter Rotation: X:%.2f Y:%.2f Z:%.2f", fighterRot.x, fighterRot.y, fighterRot.z);
-            sprintf_s(scaleBuffer, "Fighter Scale   : X:%.2f Y:%.2f Z:%.2f", fighterScale.x, fighterScale.y, fighterScale.z);
+            sprintf_s(scaleBuffer, "Fighter Scale   : X:%.2f Y:%.2f Z:%.2f", fighterScale.x, fighterScale.y,
+                      fighterScale.z);
 
             f.RenderText(string(posBuffer), 100, 220, 0.5f, {1.0f, 1.0f, 0.0f});
             f.RenderText(string(rotBuffer), 100, 250, 0.5f, {1.0f, 1.0f, 0.0f});
             f.RenderText(string(scaleBuffer), 100, 280, 0.5f, {1.0f, 1.0f, 0.0f});
         }
-        
+
         // End post-processor only if it was started (for water scene)
         if (OpenGL::ToolWindow::WaterSceneEnabled)
         {

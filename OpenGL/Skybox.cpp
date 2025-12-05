@@ -23,7 +23,7 @@ bool Skybox::Create(Shader* _shader, string _file, vector<string> _faces)
 {
     m_shader = _shader;
 
-    objl::Loader Loader; // Initialize Loader
+    objl::Loader Loader;
     bool loaded = Loader.LoadFile(_file);
     if (!loaded)
     {
@@ -59,9 +59,8 @@ void Skybox::SetShaderVariables(glm::mat4 _pv)
 
 void Skybox::BindAttributes()
 {
-    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer); // Bind the vertex buffer
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
-    // attribute buffer : vertices
     GLint attrVertices = m_shader->GetAttrVertices();
     if (attrVertices != -1)
     {
