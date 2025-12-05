@@ -59,44 +59,102 @@ string Mesh::RemoveFolder(string _map)
     return _map;
 }
 
-void Mesh::CalculateTangents(vector<objl::Vertex> _vertices, objl::Vector3& _tanget, objl::Vector3& _bitanget)
+void Mesh::CalculateTangents(vector<objl::Vertex> _vertices, objl::Vector3& _tangent, objl::Vector3& _bitangent)
 {
     objl::Vector3 edge1 = _vertices[1].Position - _vertices[0].Position;
     objl::Vector3 edge2 = _vertices[2].Position - _vertices[0].Position;
     objl::Vector2 deltaUV1 = _vertices[1].TextureCoordinate - _vertices[0].TextureCoordinate;
     objl::Vector2 deltaUV2 = _vertices[2].TextureCoordinate - _vertices[0].TextureCoordinate;
 
-    float f = 1.0f / (deltaUV1.X * deltaUV2.Y - deltaUV2.X * deltaUV1.Y);
-
-    _tanget.X = f * (deltaUV2.Y * edge1.X - deltaUV1.Y * edge2.X);
-    _tanget.Y = f * (deltaUV2.Y * edge1.Y - deltaUV1.Y * edge2.Y);
-    _tanget.Z = f * (deltaUV2.Y * edge1.Z - deltaUV1.Y * edge2.Z);
-
-    _bitanget.X = f * (-deltaUV2.X * edge1.X + deltaUV1.X * edge2.X);
-    _bitanget.Y = f * (-deltaUV2.X * edge1.Y + deltaUV1.X * edge2.Y);
-    _bitanget.Z = f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z);
-
-    float tanLen = sqrt(_tanget.X * _tanget.X + _tanget.Y * _tanget.Y + _tanget.Z * _tanget.Z);
-    if (tanLen > 0.0001f)
+    float det = deltaUV1.X * deltaUV2.Y - deltaUV2.X * deltaUV1.Y;
+    if (fabs(det) < 0.00001f)
     {
-        _tanget.X /= tanLen;
-        _tanget.Y /= tanLen;
-        _tanget.Z /= tanLen;
+        objl::Vector3 normal = _vertices[0].Normal;
+        
+        objl::Vector3 up = (fabs(normal.Y) < 0.9f) ? objl::Vector3(0, 1, 0) : objl::Vector3(1, 0, 0);
+        
+        _tangent.X = normal.Y * up.Z - normal.Z * up.Y;
+        _tangent.Y = normal.Z * up.X - normal.X * up.Z;
+        _tangent.Z = normal.X * up.Y - normal.Y * up.X;
+        
+        float tanLen = sqrt(_tangent.X * _tangent.X + _tangent.Y * _tangent.Y + _tangent.Z * _tangent.Z);
+        if (tanLen > 0.00001f)
+        {
+            _tangent.X /= tanLen;
+            _tangent.Y /= tanLen;
+            _tangent.Z /= tanLen;
+        }
+        
+        _bitangent.X = normal.Y * _tangent.Z - normal.Z * _tangent.Y;
+        _bitangent.Y = normal.Z * _tangent.X - normal.X * _tangent.Z;
+        _bitangent.Z = normal.X * _tangent.Y - normal.Y * _tangent.X;
+        
+        return;
     }
 
-    float bitLen = sqrt(_bitanget.X * _bitanget.X + _bitanget.Y * _bitanget.Y + _bitanget.Z * _bitanget.Z);
-    if (bitLen > 0.0001f)
+    float f = 1.0f / det;
+
+    _tangent.X = f * (deltaUV2.Y * edge1.X - deltaUV1.Y * edge2.X);
+    _tangent.Y = f * (deltaUV2.Y * edge1.Y - deltaUV1.Y * edge2.Y);
+    _tangent.Z = f * (deltaUV2.Y * edge1.Z - deltaUV1.Y * edge2.Z);
+
+    _bitangent.X = f * (-deltaUV2.X * edge1.X + deltaUV1.X * edge2.X);
+    _bitangent.Y = f * (-deltaUV2.X * edge1.Y + deltaUV1.X * edge2.Y);
+    _bitangent.Z = f * (-deltaUV2.X * edge1.Z + deltaUV1.X * edge2.Z);
+
+    float tanLen = sqrt(_tangent.X * _tangent.X + _tangent.Y * _tangent.Y + _tangent.Z * _tangent.Z);
+    if (tanLen > 0.00001f)
     {
-        _bitanget.X /= bitLen;
-        _bitanget.Y /= bitLen;
-        _bitanget.Z /= bitLen;
+        _tangent.X /= tanLen;
+        _tangent.Y /= tanLen;
+        _tangent.Z /= tanLen;
+    }
+    else
+    {
+        _tangent.X = 1.0f;
+        _tangent.Y = 0.0f;
+        _tangent.Z = 0.0f;
+    }
+    
+    float bitLen = sqrt(_bitangent.X * _bitangent.X + _bitangent.Y * _bitangent.Y + _bitangent.Z * _bitangent.Z);
+    if (bitLen > 0.00001f)
+    {
+        _bitangent.X /= bitLen;
+        _bitangent.Y /= bitLen;
+        _bitangent.Z /= bitLen;
+    }
+    else
+    {
+        _bitangent.X = 0.0f;
+        _bitangent.Y = 1.0f;
+        _bitangent.Z = 0.0f;
     }
 }
 
 
 void Mesh::Cleanup()
 {
-    glDeleteBuffers(1, &m_indexBuffer);
+    if (m_vertexBuffer != 0)
+    {
+        glDeleteBuffers(1, &m_vertexBuffer);
+        m_vertexBuffer = 0;
+    }
+    
+    if (m_indexBuffer != 0)
+    {
+        glDeleteBuffers(1, &m_indexBuffer);
+        m_indexBuffer = 0;
+    }
+    
+    if (m_instanceBuffer != 0)
+    {
+        glDeleteBuffers(1, &m_instanceBuffer);
+        m_instanceBuffer = 0;
+    }
+    
+    m_textureDiffuse.Cleanup();
+    m_textureSpecular.Cleanup();
+    m_textureNormal.Cleanup();
     m_texture.Cleanup();
     m_texture2.Cleanup();
 }
@@ -177,25 +235,25 @@ void Mesh::LoadASEFile(string _file)
     if (mat->Maps[0]->Name == "DIFFUSE")
     {
         string fn = msclr::interop::marshal_as<std::string>(mat->Maps[0]->TextureFileName);
-        m_textureDiffuse.LoadTexture("/Assets/Textures/" + RemoveFolder(fn));
+        m_textureDiffuse.LoadTexture("Assets/Textures/" + RemoveFolder(fn));
     }
     m_textureSpecular = Texture();
     if (mat->Maps[1]->Name == "SPECULAR")
     {
         string fn = msclr::interop::marshal_as<std::string>(mat->Maps[1]->TextureFileName);
-        m_textureSpecular.LoadTexture("/Assets/Textures/" + RemoveFolder(fn));
+        m_textureSpecular.LoadTexture("Assets/Textures/" + RemoveFolder(fn));
     }
     m_textureNormal = Texture();
     if (mat->Maps[1]->Name == "BUMP")
     {
         string fn = msclr::interop::marshal_as<std::string>(mat->Maps[1]->TextureFileName);
-        m_textureNormal.LoadTexture("/Assets/Textures/" + RemoveFolder(fn));
+        m_textureNormal.LoadTexture("Assets/Textures/" + RemoveFolder(fn));
         m_enableNormalMap = true;
     }
     else if (mat->Maps[2]->Name == "BUMP")
     {
         string fn = msclr::interop::marshal_as<std::string>(mat->Maps[2]->TextureFileName);
-        m_textureNormal.LoadTexture("/Assets/Textures/" + RemoveFolder(fn));
+        m_textureNormal.LoadTexture("Assets/Textures/" + RemoveFolder(fn));
         m_enableNormalMap = true;
     }
 }
@@ -455,9 +513,13 @@ void Mesh::Render(glm::mat4 _pv)
     glDisableVertexAttribArray(m_shader->GetAttrNormals());
     glDisableVertexAttribArray(m_shader->GetAttrTexCoords());
 
-    if (m_enableNormalMap)
+    if (m_shader->GetAttrTangents() != -1)
     {
         glDisableVertexAttribArray(m_shader->GetAttrTangents());
+    }
+    
+    if (m_shader->GetAttrBitangents() != -1)
+    {
         glDisableVertexAttribArray(m_shader->GetAttrBitangents());
     }
 
@@ -495,12 +557,15 @@ void Mesh::BindAttributes()
     glVertexAttribPointer(m_shader->GetAttrTexCoords(), 2, GL_FLOAT, GL_FALSE, stride * sizeof(float),
                           (void*)(6 * sizeof(float)));
 
-    if (m_enableNormalMap)
+    if (m_shader->GetAttrTangents() != -1)
     {
         glEnableVertexAttribArray(m_shader->GetAttrTangents());
         glVertexAttribPointer(m_shader->GetAttrTangents(), 3, GL_FLOAT, GL_FALSE, stride * sizeof(float),
                               (void*)(8 * sizeof(float)));
+    }
 
+    if (m_shader->GetAttrBitangents() != -1)
+    {
         glEnableVertexAttribArray(m_shader->GetAttrBitangents());
         glVertexAttribPointer(m_shader->GetAttrBitangents(), 3, GL_FLOAT, GL_FALSE, stride * sizeof(float),
                               (void*)(11 * sizeof(float)));

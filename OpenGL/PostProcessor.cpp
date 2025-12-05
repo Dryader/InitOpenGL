@@ -32,11 +32,9 @@ void PostProcessor::Create(Shader* _postShader)
 
 void PostProcessor::CreateBuffers()
 {
-    // Framebuffer configuration
     glGenFramebuffers(1, &m_framebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, m_framebuffer);
 
-    // Create a color attachment texture
     glGenTextures(1, &m_textureColorbuffer);
     glBindTexture(GL_TEXTURE_2D, m_textureColorbuffer);
     Resolution r = WindowController::GetInstance().GetResolution();
@@ -45,15 +43,11 @@ void PostProcessor::CreateBuffers()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_textureColorbuffer, 0);
 
-    // Create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
     glGenRenderbuffers(1, &m_renderBufferObject);
     glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferObject);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, r.m_width, r.m_height);
-    // use a single renderbuffer object for both a depth AND stencil buffer.
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferObject);
-    // now actually attach it
 
-    // Now that we created the framebuffer and added all attachments we want to check if it is complete
     M_ASSERT(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "Framebuffer is not complete!");
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
@@ -61,9 +55,6 @@ void PostProcessor::CreateBuffers()
 void PostProcessor::CreateVertices()
 {
     float vertexData[] = {
-        // vertex attributes for a quad that fills
-        // the entire screen in Normalized Device Coordinates.
-        // positions   // texCoords
         -1.0f, 1.0f, 0.0f, 1.0f,
         -1.0f, -1.0f, 0.0f, 0.0f,
         1.0f, -1.0f, 1.0f, 0.0f,
@@ -80,25 +71,23 @@ void PostProcessor::CreateVertices()
 
 void PostProcessor::BindVertices()
 {
-    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer); // Bind the vertex buffer
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
-    // 1st attribute buffer : vertices
     glEnableVertexAttribArray(m_postShader->GetAttrVertices());
-    glVertexAttribPointer(m_postShader->GetAttrVertices(), // The attribute we want to configure
-                          2, // size (2 components)
-                          GL_FLOAT, // type
-                          GL_FALSE, // normalized?
-                          4 * sizeof(float), // stride floats per vertex definition
-                          (void*)0); // array buffer offset
+    glVertexAttribPointer(m_postShader->GetAttrVertices(),
+                          2,
+                          GL_FLOAT,
+                          GL_FALSE,
+                          4 * sizeof(float),
+                          (void*)0);
 
-    // 2nd attribute buffer : texCoords
     glEnableVertexAttribArray(m_postShader->GetAttrTexCoords());
-    glVertexAttribPointer(m_postShader->GetAttrTexCoords(), // The attribute we want to configure
-                          2, // size (2 components)
-                          GL_FLOAT, // type
-                          GL_FALSE, // normalized?
-                          4 * sizeof(float), // stride floats per vertex definition
-                          (void*)(2 * sizeof(float))); // array buffer offset
+    glVertexAttribPointer(m_postShader->GetAttrTexCoords(),
+                          2,
+                          GL_FLOAT,
+                          GL_FALSE,
+                          4 * sizeof(float),
+                          (void*)(2 * sizeof(float)));
 }
 
 void PostProcessor::Start()
@@ -111,12 +100,11 @@ void PostProcessor::Start()
 void PostProcessor::End()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glDisable(GL_DEPTH_TEST); // Disable depth test so screen-space quad isn't discarded due to depth test.
+    glDisable(GL_DEPTH_TEST);
 
-    glUseProgram(m_postShader->GetProgramID()); // Use our shader
+    glUseProgram(m_postShader->GetProgramID());
     m_postShader->SetTextureSampler("sceneTexture", GL_TEXTURE0, 0, m_textureColorbuffer);
     BindVertices();
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glDisableVertexAttribArray(m_postShader->GetAttrVertices());
     glDisableVertexAttribArray(m_postShader->GetAttrTexCoords());

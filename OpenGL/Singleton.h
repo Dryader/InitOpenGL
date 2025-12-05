@@ -25,4 +25,4 @@ public:
     Singleton& operator=(const Singleton&) = delete;
 };
 
-#endif // SINGLETON_H
+#endif

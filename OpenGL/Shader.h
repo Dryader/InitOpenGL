@@ -6,14 +6,12 @@
 class Shader
 {
 public:
-    // Constructors / Destructors
     Shader();
 
     virtual ~Shader()
     {
     }
 
-    // Accessors
     GLuint GetProgramID() { return m_programID; }
     GLuint GetAttrVertices() { return m_attrVertices; }
     GLuint GetAttrWVP() { return m_attrWVP; }
@@ -24,7 +22,6 @@ public:
     GLuint GetAttrInstanceMatrix() { return m_attrInstanceMatrix; }
     GLuint GetAttrTexCoords() { return m_attrTexCoords; }
 
-    // Methods
     void LoadShaders(const char* _vertexFilePath, const char* _fragmentFilePath);
     void Cleanup();
     void SetTextureSampler(const char* _name, GLuint _texUnit, int _texUnitID, int _value,
@@ -36,15 +33,13 @@ public:
     void SetBool(const char* _name, bool _value);
 
 private:
-    // Methods
     void CreateShaderProgram(const char* _vertexFilePath, const char* _fragmentFilePath);
     GLuint LoadShaderFile(const char* _filePath, GLenum _type);
     void LoadAttributes();
     void EvaluateShader(int _infoLength, GLuint _id);
 
-    // Members
-    GLuint m_programID; // ID of out shader program
-    GLuint m_attrVertices; // Handle for the attribute vertex buffer
+    GLuint m_programID;
+    GLuint m_attrVertices;
     GLint m_result = GL_FALSE;
     int m_infoLogLength;
     GLuint m_attrWVP;
@@ -56,4 +51,4 @@ private:
     GLuint m_attrInstanceMatrix;
 };
 
-#endif //SHADER_H
+#endif

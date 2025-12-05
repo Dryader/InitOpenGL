@@ -6,6 +6,10 @@ struct Resolution
     int m_width;
     int m_height;
 
+    Resolution() : m_width(0), m_height(0)
+    {
+    }
+
     Resolution(int _width, int _height)
     {
         m_width = _width;
@@ -13,4 +17,4 @@ struct Resolution
     }
 };
 
-#endif // RESOLUTION_H
+#endif

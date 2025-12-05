@@ -86,7 +86,7 @@ void Shader::EvaluateShader(int _infoLength, GLuint _id)
     {
         std::vector<char> errorMessage(_infoLength + 1);
         glGetShaderInfoLog(_id, _infoLength, nullptr, &errorMessage[0]);
-        M_ASSERT(0, ("%s\n", &errorMessage[0]));
+        M_ASSERT(0, &errorMessage[0]);
     }
 }
 
@@ -96,8 +96,7 @@ GLuint Shader::LoadShaderFile(const char* _filePath, GLenum _type)
 
     std::string shaderCode;
     std::ifstream shaderStream(_filePath, std::ios::in);
-    M_ASSERT(shaderStream.is_open(),
-             ("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", _filePath));
+    M_ASSERT(shaderStream.is_open(), "Failed to open shader file. Check working directory.");
     std::string Line = "";
     while (getline(shaderStream, Line))
     {
